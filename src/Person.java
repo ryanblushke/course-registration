@@ -1,13 +1,13 @@
 /**
  * Created by kevin on 2017-09-28.
- * NSID: kpb637
- * Student#: 11173877
+ * NSIDs: kpb637
+ * Student#s: 11173877
  */
 public class Person {
 
-    private String name;
-    private String phoneNumber;
-    private String address;
+    protected String name;
+    protected String phoneNumber;
+    protected String address;
 
     public Person(String name, String address, String phoneNumber){
         this.name = name;
@@ -96,5 +96,38 @@ public class Person {
         }
     }
 
+    /**
+     * creates a String representation
+     * @return a String representation of the person
+     */
+    public String toString() {
+        return "Person{ " + name + ", " + address + ", " + phoneNumber +  " }";
+    }
+
+
+    public static void main(String[] args) {
+        Person pleb = new Person("Andy Cheung", "8008 DilliLane Street West","3066308008");
+
+        System.out.println(pleb);
+
+        // Set and get name
+        System.out.println("Changing Name");
+        pleb.setName("Kevin");
+        System.out.println(pleb.getName());
+        System.out.println(pleb);
+
+        // Set and get address
+        System.out.println("Changing Address");
+        pleb.setAddress("Dingus Lane");
+        System.out.println(pleb.getAddress());
+        System.out.println(pleb);
+
+        // Set and get phoneNumber
+        System.out.println("Changing phone number");
+        pleb.setPhoneNumber("3066906969");
+        System.out.println(pleb.getPhoneNumber());
+        System.out.println(pleb);
+
+    }
 
 }
