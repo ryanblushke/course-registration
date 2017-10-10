@@ -55,7 +55,7 @@ public class Driver {
         BDSM_Driver.connectToDatabase();
         //BDSM_Driver.addUser("lml145","smallboi");
 
-        /*
+
         try {
             Statement myStat = BDSM_Driver.connection.createStatement();
             // Execute SQL query
@@ -67,6 +67,6 @@ public class Driver {
         } catch (Exception e){
             e.printStackTrace();
         }
-        */
+
     }
 }
