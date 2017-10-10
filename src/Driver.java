@@ -88,7 +88,7 @@ public class Driver {
                 if(returnedUser.equals(lookingForUser)){
                     userExists = true;
                 }
-
+            //Everything kevin does is shit
             }
         } catch (Exception e){
             e.printStackTrace();
