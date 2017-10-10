@@ -1,5 +1,17 @@
 /**
- * Created by Kevin on 10/9/2017.
+ * Name: Kevin Baker
+ * NSID: kpb637
+ * Student Number:
+ * Course:
+ * Project Name: classRegister
+ */
+
+/**
+ * Name: Ryan Blushke
+ * NSID: ryb861
+ * Student Number: 11177824
+ * Course: CMPT 370
+ * Project Name: classRegister
  */
 
 import java.sql.*;
@@ -7,25 +19,37 @@ import java.util.Date;
 
 public class Driver {
 
-    String url;
-    String username;
-    String password;
-    Connection connection;
+    private String url;
+    private String username;
+    private String password;
+    private Connection connection;
 
+    /**
+     * Default constructor method
+     * Assigns variables url, username, and password with our GitLab Repository credentials
+     */
     public Driver(){
         url = "jdbc:mysql://db.cs.usask.ca:3306/cmpt370_bigdsm";
         username = "cmpt370_bigdsm";
         password = "bnxOEOlO7i8Xlv4FWrJc";
     }
 
+    /**
+     * Creates a connection to the mySQL database
+     */
     public void connectToDatabase(){
         try{
-            connection = DriverManager.getConnection(url,username,password);
+            connection = DriverManager.getConnection(url, username, password);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    /**
+     * Add a new user to the database
+     * @param username the desired username of the new user
+     * @param password the desired password of the new user
+     */
     public void addUser(String username, String password){
 
         // Add User
@@ -49,6 +73,10 @@ public class Driver {
         }
     }
 
+    /**
+     * Test method for connecting to our database and Querying or Updating a table
+     * @param args not used
+     */
     public static void main(String[] args) {
 
         Driver BDSM_Driver = new Driver();
