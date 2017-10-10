@@ -73,6 +73,30 @@ public class Driver {
         }
     }
 
+    public boolean authenticateUser(String username, String password){
+
+        boolean userExists = false;
+        String lookingForUser = username + " " + password;
+
+        try {
+            Statement myStat = this.connection.createStatement();
+            // Execute SQL query
+            ResultSet myRes = myStat.executeQuery("select * from loginaccount");
+            // Process the result set
+            while(myRes.next()){
+                String returnedUser = myRes.getString("username") + " " + myRes.getString("password");
+                if(returnedUser.equals(lookingForUser)){
+                    userExists = true;
+                }
+
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return userExists;
+    }
+
     /**
      * Test method for connecting to our database and Querying or Updating a table
      * @param args not used
@@ -82,6 +106,10 @@ public class Driver {
         Driver BDSM_Driver = new Driver();
         BDSM_Driver.connectToDatabase();
         //BDSM_Driver.addUser("lml145","smallboi");
+        Boolean userExists = BDSM_Driver.authenticateUser("lml145","smallboi");
+        System.out.println(userExists);
+        userExists = BDSM_Driver.authenticateUser("kpb637","cats");
+        System.out.println(userExists);
 
 
         try {
