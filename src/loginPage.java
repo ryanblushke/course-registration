@@ -1,0 +1,117 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.GroupLayout;
+/*
+ * Created by JFormDesigner on Mon Oct 02 20:23:40 CST 2017
+ */
+
+
+
+/**
+ * @author Dexter Gordon-Dirks
+ */
+public class loginPage extends JFrame {
+    public loginPage() {
+        initComponents();
+    }
+
+    private void txtNSIDActionPerformed(ActionEvent e) {
+        if (! txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length == 0){
+            JOptionPane.showMessageDialog(this,"You didn't enter an initial  Password","Missing Input",0);
+        }
+        //TODO Proper verification of Logins
+        else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0){
+            new registrationTool().setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"You didn't enter an initial  NSID","Missing Input",0);
+        }
+    }
+
+
+    private void passFieldPasswordActionPerformed(ActionEvent e) {
+        if (! txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length == 0){
+            JOptionPane.showMessageDialog(this,"You didn't enter an initial  Password","Missing Input",0);
+        }
+        //TODO Proper verification of Logins
+        else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0){
+            new registrationTool().setVisible(true);
+            this.setVisible(false);
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"You didn't enter an initial  NSID","Missing Input",0);
+        }
+    }
+
+
+
+
+    private void initComponents() {
+        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+        lblNSID = new JLabel();
+        lblPass = new JLabel();
+        txtNSID = new JTextField();
+        passFieldPassword = new JPasswordField();
+
+        //======== this ========
+        Container contentPane = getContentPane();
+
+        //---- lblNSID ----
+        lblNSID.setText("Enter your NSID:");
+
+        //---- lblPass ----
+        lblPass.setText("Password:");
+
+        //---- txtNSID ----
+        txtNSID.addActionListener(e -> txtNSIDActionPerformed(e));
+
+        //---- passFieldPassword ----
+        passFieldPassword.addActionListener(e -> passFieldPasswordActionPerformed(e));
+
+        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(73, 73, 73)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+                    .addGap(43, 43, 43)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(82, Short.MAX_VALUE))
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(83, 83, 83)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(lblNSID)
+                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(lblPass)
+                        .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(38, Short.MAX_VALUE))
+        );
+        pack();
+        setLocationRelativeTo(getOwner());
+        // JFormDesigner - End of component initialization  //GEN-END:initComponents
+        this.setLocationRelativeTo(null);
+
+    }
+
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+    private JLabel lblNSID;
+    private JLabel lblPass;
+    private JTextField txtNSID;
+    private JPasswordField passFieldPassword;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
+}
