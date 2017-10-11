@@ -21,8 +21,7 @@ public class loginPage extends JFrame {
         }
         //TODO Proper verification of Logins
         else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0){
-            new registrationTool().setVisible(true);
-            this.setVisible(false);
+
         }
         else{
             JOptionPane.showMessageDialog(this,"You didn't enter an initial  NSID","Missing Input",0);
@@ -36,8 +35,16 @@ public class loginPage extends JFrame {
         }
         //TODO Proper verification of Logins
         else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0){
-            new registrationTool().setVisible(true);
-            this.setVisible(false);
+            Driver mySQL = new Driver();
+            mySQL.connectToDatabase();
+            if( mySQL.authenticateUser(txtNSID.getText(), String.valueOf(passFieldPassword.getPassword())) ){
+                new registrationTool().setVisible(true);
+                this.setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog(this,"Wrong username or password.","Invalid Credentials",0);
+            }
+            mySQL.closeConnection();
         }
         else{
             JOptionPane.showMessageDialog(this,"You didn't enter an initial  NSID","Missing Input",0);

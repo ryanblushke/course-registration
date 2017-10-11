@@ -47,6 +47,7 @@ public class welcomePage extends JFrame {
             txtWelcome.setEditable(false);
             txtWelcome.setEnabled(false);
             txtWelcome.setBackground(Color.white);
+            txtWelcome.setHorizontalAlignment(JTextField.CENTER);
             welcomePageContentPane.add(txtWelcome);
 
             //---- txtLogin ----
@@ -55,11 +56,13 @@ public class welcomePage extends JFrame {
             txtLogin.setEditable(false);
             txtLogin.setBackground(Color.white);
             txtLogin.setEnabled(false);
+            txtLogin.setHorizontalAlignment(JTextField.CENTER);
             welcomePageContentPane.add(txtLogin);
 
             //---- btnLogin ----
             btnLogin.setText("Login");
             btnLogin.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+            btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
             btnLogin.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -74,11 +77,13 @@ public class welcomePage extends JFrame {
             txtSignup.setEditable(false);
             txtSignup.setBackground(Color.white);
             txtSignup.setEnabled(false);
+            txtSignup.setHorizontalAlignment(JTextField.CENTER);
             welcomePageContentPane.add(txtSignup);
 
             //---- btnSignUp ----
             btnSignUp.setText("Sign Up");
             btnSignUp.setFont(new Font("Century Gothic", Font.PLAIN, 16));
+            btnSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);
             btnSignUp.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

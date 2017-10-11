@@ -13,7 +13,6 @@
  * Course: CMPT 370
  * Project Name: classRegister
  */
-
 import java.sql.*;
 import java.util.Date;
 
@@ -35,12 +34,26 @@ public class Driver {
     }
 
     /**
+     * Closes connection to mySQL
+     */
+    public void closeConnection(){
+        try{
+            connection.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
      * Creates a connection to the mySQL database
      */
     public void connectToDatabase(){
+
         try{
             connection = DriverManager.getConnection(url, username, password);
         } catch (Exception e){
+            System.out.println("UNABLE TO CONNECT TO DATABASE.");
             e.printStackTrace();
         }
     }
@@ -88,9 +101,6 @@ public class Driver {
                 if(returnedUser.equals(lookingForUser)){
                     userExists = true;
                 }
-            //Everything kevin does is shit
-                // Andy is a whore
-                //kevins a dumby
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -108,7 +118,7 @@ public class Driver {
         Driver BDSM_Driver = new Driver();
         BDSM_Driver.connectToDatabase();
         //BDSM_Driver.addUser("lml145","smallboi");
-        Boolean userExists = BDSM_Driver.authenticateUser("lml145","HUEDONG");
+        Boolean userExists = BDSM_Driver.authenticateUser("lml145","smallboi");
         System.out.println(userExists);
         userExists = BDSM_Driver.authenticateUser("kpb637","cats");
         System.out.println(userExists);
