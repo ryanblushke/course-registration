@@ -1,10 +1,7 @@
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.GroupLayout;
-import com.intellij.uiDesigner.core.*;
-import com.jgoodies.forms.factories.*;
-import com.jgoodies.forms.layout.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 /*
  * Created by JFormDesigner on Mon Oct 02 20:05:53 CST 2017
  */
