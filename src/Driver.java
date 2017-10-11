@@ -108,7 +108,7 @@ public class Driver {
         Driver BDSM_Driver = new Driver();
         BDSM_Driver.connectToDatabase();
         //BDSM_Driver.addUser("lml145","smallboi");
-        Boolean userExists = BDSM_Driver.authenticateUser("lml145","smallboi");
+        Boolean userExists = BDSM_Driver.authenticateUser("lml145","HUEDONG");
         System.out.println(userExists);
         userExists = BDSM_Driver.authenticateUser("kpb637","cats");
         System.out.println(userExists);
