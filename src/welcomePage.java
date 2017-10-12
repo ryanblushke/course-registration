@@ -19,11 +19,12 @@ public class welcomePage extends JFrame {
 
     private void btnSignUpMouseClicked(MouseEvent e) {
         new signUpWindow().setVisible(true);
-        this.setVisible(false);
+        welcomePage.setVisible(false);
     }
 
     private void btnLoginMouseClicked(MouseEvent e) {
         new loginPage().setVisible(true);
+        welcomePage.setVisible(false);
     }
 
     protected void initComponents() {
