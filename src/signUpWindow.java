@@ -23,8 +23,8 @@ public class signUpWindow extends JFrame {
         }
         //TODO Proper verification of Logins
         else if (!txtNSID.getText().isEmpty() && Arrays.equals(passFieldInitial.getPassword(), passFieldConfirm.getPassword())){
-            new registrationTool(txtNSID.getText(), passFieldConfirm.getPassword().toString()).setVisible(true);
-            this.setVisible(false);
+//            new registrationTool().setVisible(true);
+//            this.setVisible(false);
         }
         else if(!txtNSID.getText().isEmpty() && !Arrays.equals(passFieldInitial.getPassword(), passFieldConfirm.getPassword())){
             JOptionPane.showMessageDialog(this,"Passwords didn't match","Missing Input",0);
