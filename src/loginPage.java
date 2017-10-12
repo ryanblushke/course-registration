@@ -38,7 +38,7 @@ public class loginPage extends JFrame {
             Driver mySQL = new Driver();
             mySQL.connectToDatabase();
             if( mySQL.authenticateUser(txtNSID.getText(), String.valueOf(passFieldPassword.getPassword())) ){
-                new registrationTool().setVisible(true);
+                new registrationTool(txtNSID.getText(), String.valueOf(passFieldPassword.getPassword())).setVisible(true);
                 this.setVisible(false);
             }
             else{

@@ -12,7 +12,14 @@ import javax.swing.GroupLayout;
  * @author Dexter Gordon-Dirks
  */
 public class registrationTool extends JFrame {
-    public registrationTool() {
+
+    private String username;
+    private String password;
+
+    public registrationTool(String username, String password) {
+
+        this.username = username;
+        this.password = password;
         initComponents();
     }
 
