@@ -110,11 +110,13 @@ public class registrationToolWindow extends JFrame {
             {
 
                 //---- btnSearchClasses ----
-                btnSearchClasses.setText("Search For Classes");
+                btnSearchClasses.setText("Add Courses");
                 btnSearchClasses.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         btnSearchClassesMouseClicked(e);
+                        //TODO: Actually implement this functionality
+                        JOptionPane.showMessageDialog(tbdPaneRegistration,"You have been registered!","Registration",JOptionPane.INFORMATION_MESSAGE);
                     }
                 });
 
