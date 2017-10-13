@@ -109,6 +109,27 @@ public class Driver {
         return userExists;
     }
 
+    public boolean userExists(String username) {
+        String selectSQL = "SELECT * FROM loginaccount WHERE username = ?";
+
+        try {
+            PreparedStatement myStmt = this.connection.prepareStatement(selectSQL);
+            myStmt.setString(1, username);
+
+            // Execute SQL query
+             ResultSet myRS = myStmt.executeQuery();
+
+            // Process the result set
+            if ( myRS.next() ) {
+                return true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     /**
      * Test method for connecting to our database and Querying or Updating a table
      * @param args not used
@@ -117,24 +138,43 @@ public class Driver {
 
         Driver BDSM_Driver = new Driver();
         BDSM_Driver.connectToDatabase();
-        //BDSM_Driver.addUser("lml145","smallboi");
-        Boolean userExists = BDSM_Driver.authenticateUser("lml145","smallboi");
-        System.out.println(userExists);
-        userExists = BDSM_Driver.authenticateUser("kpb637","cats");
-        System.out.println(userExists);
-
-
-        try {
-            Statement myStat = BDSM_Driver.connection.createStatement();
-            // Execute SQL query
-            ResultSet myRes = myStat.executeQuery("select * from Classes");
-            // Process the result set
-            while(myRes.next()){
-                System.out.println(myRes.getString("ClassName") + ", " + myRes.getString("ClassCode"));
-            }
-        } catch (Exception e){
-            e.printStackTrace();
+//        //BDSM_Driver.addUser("lml145","smallboi");
+//        Boolean userExists = BDSM_Driver.authenticateUser("lml145","smallboi");
+//        System.out.println(userExists);
+//        userExists = BDSM_Driver.authenticateUser("kpb637","cats");
+//        System.out.println(userExists);
+        if (BDSM_Driver.userExists("lml145")) {
+            System.out.println("lml145");
         }
+
+        if (BDSM_Driver.userExists("asdf")) {
+            System.out.println("asdf");
+        }
+
+        if (BDSM_Driver.userExists("Chanchal")) {
+            System.out.println("Chanchal");
+        }
+
+        if (BDSM_Driver.userExists("scrub")) {
+            System.out.println("scrub");
+        }
+
+        if (BDSM_Driver.userExists("anc172")) {
+            System.out.println("anc172");
+        }
+
+
+//        try {
+//            Statement myStat = BDSM_Driver.connection.createStatement();
+//            // Execute SQL query
+//            ResultSet myRes = myStat.executeQuery("select * from Classes");
+//            // Process the result set
+//            while(myRes.next()){
+//                System.out.println(myRes.getString("ClassName") + ", " + myRes.getString("ClassCode"));
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
 
     }
 }

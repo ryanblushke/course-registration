@@ -19,7 +19,7 @@ public class welcomePage extends JFrame {
 
     private void btnSignUpMouseClicked(MouseEvent e) {
         new signUpWindow().setVisible(true);
-        welcomePage.setVisible(false);
+//        welcomePage.setVisible(false);
     }
 
     private void btnLoginMouseClicked(MouseEvent e) {
