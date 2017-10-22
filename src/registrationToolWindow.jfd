@@ -1,0 +1,93 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp tbdPaneRegistration::l:::x}"
+			"$verticalGroup": "par l {comp tbdPaneRegistration::l:::x}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tbdPaneRegistration"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+					name: "pnlWelcome"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblWelcome"
+						"text": "Welcome To The Course Registration Tool"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Welcome"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space ::231:x, comp btnSearchClasses:::p:150:p, space :p:215:p}, seq l {space :p:149:p, par l {comp chkBoxClass1::l:p::p, comp chkBoxClass5:::p::p, comp chkBoxClass4:::p::p, comp chkBoxClass3:::p::p, comp chkBoxClass2:::p::p}, space ::216:x, par l {comp chkBoxClass6:::p::p, comp chkBoxClass7:::p::p, comp chkBoxClass8:::p::p, comp chkBoxClass9:::p::p, comp chkBoxClass10:::p::p}, space :p:141:p}}"
+					"$verticalGroup": "par l {seq t {space :p:99:p, par b {comp chkBoxClass1::b:p::p, comp chkBoxClass6::b:p::p}, space :::p, par b {comp chkBoxClass2::b:p::p, comp chkBoxClass7::b:p::p}, space :::p, par b {comp chkBoxClass3::b:p::p, comp chkBoxClass8::b:p::p}, space :::p, par b {comp chkBoxClass4::b:p::p, comp chkBoxClass9::b:p::p}, space :::p, par b {comp chkBoxClass5::b:p::p, comp chkBoxClass10::b:p::p}, space ::120:x, comp btnSearchClasses:::p:50:p, space :p:141:p}}"
+				} ) {
+					name: "pnlAddClass"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "btnSearchClasses"
+						"text": "Search For Classes"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnSearchClassesMouseClicked", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass1"
+						"text": "MATH 123"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass2"
+						"text": "GE 101"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass3"
+						"text": "GE 111"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass4"
+						"text": "GE 124"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass5"
+						"text": "CHEM 114"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass6"
+						"text": "COMM 102"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass7"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass8"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass9"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "chkBoxClass10"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Add Class"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {space :0:596:x}"
+					"$verticalGroup": "par l {space :0:544:x}"
+				} ) {
+					name: "pnlDropClass"
+				}, new FormLayoutConstraints( null ) {
+					"title": "Drop Class"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {space :0:596:x}"
+					"$verticalGroup": "par l {space :0:544:x}"
+				} ) {
+					name: "pnlDegProg"
+				}, new FormLayoutConstraints( null ) {
+					"title": "Degree Progress"
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 600, 600 )
+		} )
+	}
+}
