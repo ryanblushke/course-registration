@@ -123,6 +123,7 @@ public class Driver {
             if ( myRS.next() ) {
                 return true;
             }
+
         } catch (Exception e){
             e.printStackTrace();
         }
