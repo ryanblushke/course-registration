@@ -13,8 +13,11 @@
  * Course: CMPT 370
  * Project Name: classRegister
  */
+
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Driver {
 
@@ -58,6 +61,83 @@ public class Driver {
         }
     }
 
+
+    /**
+     * Gets a specified course from the data base and returns the courses times in start-finish Room Day format
+     * in an array.
+     * @param course the class to search for.
+     * @return an array of Strings containing class time information.
+     */
+    public String[] getCourseTimes(String course){
+        // TODO: FIGURE OUT A WAY TO ADD LABS TO VIEW LIST
+        String getCourseTimesSQL = "SELECT * FROM Classes WHERE ClassName = ?";
+        List<String> courseTimeInfo = new ArrayList<>();
+        String cInfo = new String();
+
+        try {
+            PreparedStatement myStatForCourseInfo = this.connection.prepareStatement(getCourseTimesSQL);
+            myStatForCourseInfo.setString(1, course);
+            // Execute SQL query
+            ResultSet resultSetOfCourseInfo = myStatForCourseInfo.executeQuery();
+            // Process the result set
+            while(resultSetOfCourseInfo.next()){
+                cInfo = resultSetOfCourseInfo.getString("Start") + "-" +
+                        resultSetOfCourseInfo.getString("Finish") + " " +
+                        resultSetOfCourseInfo.getString("Room") + " " +
+                        resultSetOfCourseInfo.getString("Day");
+
+                courseTimeInfo.add( cInfo );
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return courseTimeInfo.toArray(new String[courseTimeInfo.size()]);
+
+    }
+
+    /**
+     * Gets an array of strings that contains all the classes need for degree requirements.
+     * @param nsid identification of student.
+     * @return array of strings containing course names for degree requirement.
+     */
+    public String[] getDegreeRequirements(String nsid){
+        String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
+        String getTakenClasses = "SELECT * FROM Completed WHERE NSID = " + nsid;
+
+        List<String> classNames = new ArrayList<>();
+
+        try {
+            Statement myStatForCourses = this.connection.createStatement();
+            Statement myStatForCoursesTaken = this.connection.createStatement();
+            // Execute SQL query
+            ResultSet resultSetOfCourses = myStatForCourses.executeQuery(getDegreeReqSQL);
+            ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery(getTakenClasses);
+            // Process the result set
+            while(resultSetOfCourses.next()){
+                classNames.add((resultSetOfCourses.getString("ClassName")));
+            }
+
+            // Get classes taken
+            while(resultSetOfClassesTaken.next()){
+                int index = 1;
+
+                while(resultSetOfClassesTaken.getNString(index) != null){
+
+                    // If class has been taken, remove from classes to take.
+                    if( classNames.contains(resultSetOfClassesTaken.getNString(index)) ){
+                        classNames.remove(resultSetOfClassesTaken.getNString(index));
+                    }
+                }
+
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return classNames.toArray(new String[classNames.size()]);
+    }
+
     /**
      * Add a new user to the database
      * @param username the desired username of the new user
@@ -86,6 +166,12 @@ public class Driver {
         }
     }
 
+    /**
+     * Authenticates a user into the system.
+     * @param username
+     * @param password
+     * @return true if user credentials are correct, false otherwise.
+     */
     public boolean authenticateUser(String username, String password){
 
         boolean userExists = false;
@@ -109,6 +195,11 @@ public class Driver {
         return userExists;
     }
 
+    /**
+     * Determines whether or not a specified username is in the system or not.
+     * @param username
+     * @return true if the username exists, false otherwise
+     */
     public boolean userExists(String username) {
         String selectSQL = "SELECT * FROM loginaccount WHERE username = ?";
 
