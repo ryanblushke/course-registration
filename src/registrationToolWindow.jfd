@@ -20,7 +20,7 @@ new FormModel {
 					"title": "Welcome"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:16:p, par l:::p {comp button3::::125:x, comp scrollPane1::::125:x}, space :::p, comp button1:::p::p, space :::p, comp scrollPane2:::p:176:p, space :::p, comp button2:::p:58:p, space :::p, par l:::p {comp register::::119:x, comp scrollPane3::::119:x}, space ::17:x}}"
+					"$horizontalGroup": "par l {seq {space :p:16:p, par l:::p {comp button3::::125:x, comp scrollPane1::::125:x}, space :::p, comp button1:::p::p, space :::p, comp scrollPane2:::p:176:p, space :::p, comp button2:::p:58:p, space :::p, par l:::p {comp register::::119:x, comp scrollPane3::::119:x}, space ::17:x}}"
 					"$verticalGroup": "par l {seq {par l {seq {space :p:41:p, comp button3:::p::p, space :::p, par l:::p {comp scrollPane1::t::179:x, comp scrollPane3::l::179:x, comp scrollPane2::t::179:x}}, seq {space :p:143:p, comp button1:::p:50:p}, seq {space :p:145:p, comp button2:::p:50:p}}, space :::p, comp register:::p::p, space ::139:x}}"
 				} ) {
 					name: "pnlAddClass"
@@ -36,12 +36,13 @@ new FormModel {
 						name: "scrollPane2"
 						add( new FormComponent( "javax.swing.JList" ) {
 							name: "viewList"
+							"selectionMode": 0
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane3"
 						add( new FormComponent( "javax.swing.JList" ) {
-							name: "list3"
+							name: "registerList"
 						} )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {

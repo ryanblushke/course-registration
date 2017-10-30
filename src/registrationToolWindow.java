@@ -41,7 +41,7 @@ public class registrationToolWindow extends JFrame {
         String[] classes;
         Driver BDSM = new Driver();
         BDSM.connectToDatabase();
-        classes = BDSM.getDegreeRequirements(nsid);
+        classes = BDSM.getClassList(nsid);
         classList.setListData(classes);
         BDSM.closeConnection();
     }
@@ -58,7 +58,7 @@ public class registrationToolWindow extends JFrame {
         scrollPane2 = new JScrollPane();
         viewList = new JList();
         scrollPane3 = new JScrollPane();
-        list3 = new JList();
+        registerList = new JList();
         button1 = new JButton();
         button2 = new JButton();
         button3 = new JButton();
@@ -109,12 +109,15 @@ public class registrationToolWindow extends JFrame {
 
                 //======== scrollPane2 ========
                 {
+
+                    //---- viewList ----
+                    viewList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                     scrollPane2.setViewportView(viewList);
                 }
 
                 //======== scrollPane3 ========
                 {
-                    scrollPane3.setViewportView(list3);
+                    scrollPane3.setViewportView(registerList);
                 }
 
                 //---- button1 ----
@@ -250,7 +253,7 @@ public class registrationToolWindow extends JFrame {
     private JScrollPane scrollPane2;
     private JList viewList;
     private JScrollPane scrollPane3;
-    private JList list3;
+    private JList registerList;
     private JButton button1;
     private JButton button2;
     private JButton button3;

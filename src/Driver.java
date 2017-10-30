@@ -97,11 +97,12 @@ public class Driver {
     }
 
     /**
-     * Gets an array of strings that contains all the classes need for degree requirements.
+     * Gets an array of strings that contains all the classes needed for degree requirements and is used to populate
+     * classes that a user can take.
      * @param nsid identification of student.
      * @return array of strings containing course names for degree requirement.
      */
-    public String[] getDegreeRequirements(String nsid){
+    public String[] getClassList(String nsid){
         String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
         String getTakenClasses = "SELECT * FROM Completed WHERE NSID = " + nsid;
 
