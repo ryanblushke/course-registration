@@ -16,6 +16,7 @@
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,8 @@ public class Driver {
     private String username;
     private String password;
     private Connection connection;
+    private static final int PREREQPOSITION = 11;
+    private static final int MAXNUMOFPREQ = 3;
 
     /**
      * Default constructor method
@@ -107,35 +110,79 @@ public class Driver {
         String getTakenClasses = "SELECT * FROM Completed WHERE NSID = " + nsid;
 
         List<String> classNames = new ArrayList<>();
+        List<String> classesTaken = new ArrayList<>();
 
         try {
             Statement myStatForCourses = this.connection.createStatement();
             Statement myStatForCoursesTaken = this.connection.createStatement();
             // Execute SQL query
-            ResultSet resultSetOfCourses = myStatForCourses.executeQuery(getDegreeReqSQL);
+            ResultSet resultSetOfDegreeRequirementCourses = myStatForCourses.executeQuery(getDegreeReqSQL);
             ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery(getTakenClasses);
             // Process the result set
-            while(resultSetOfCourses.next()){
-                classNames.add((resultSetOfCourses.getString("ClassName")));
-            }
-
+            
             // Get classes taken
             while(resultSetOfClassesTaken.next()){
                 int index = 1;
 
                 while(resultSetOfClassesTaken.getNString(index) != null){
+                    classesTaken.add(resultSetOfClassesTaken.getNString(index));
+                    index++;
+                }
+            }
 
-                    // If class has been taken, remove from classes to take.
-                    if( classNames.contains(resultSetOfClassesTaken.getNString(index)) ){
-                        classNames.remove(resultSetOfClassesTaken.getNString(index));
+            while(resultSetOfDegreeRequirementCourses.next()){
+
+                String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
+                PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
+                myStatCourseInfo.setString(1, resultSetOfDegreeRequirementCourses.getString("ClassName"));
+                ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
+
+                if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("ScienceElective")){
+
+                }
+                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("JuniorHumanities")){
+
+                }
+                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("SeniorHumanities")){
+
+                }
+                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("Complementary")){
+
+                }
+                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec")){
+
+                }
+                else{
+                    // CLASS HASN'T BEEN TAKEN
+                    if( !classesTaken.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
+                        // Check PREREQUISITES
+                        int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
+                        boolean haveAllPreReq = true;
+
+                        if( myResultCourseInfo.next()) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
+                            // WHILE THE CLASS HAS PREREQS, CONTINUE CHECKING IF YOU HAVE THEM
+                            while( (myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ) ) {
+                                // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
+                                if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
+                                    haveAllPreReq = false;
+                                }
+                                index++;
+                            }
+                        }
+
+                        if(haveAllPreReq){
+                            classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
+                        }
                     }
                 }
-
             }
+
+
         } catch (Exception e){
             e.printStackTrace();
         }
 
+        Collections.sort(classNames);
         return classNames.toArray(new String[classNames.size()]);
     }
 
