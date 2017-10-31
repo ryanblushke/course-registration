@@ -1,0 +1,32 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:73:p, par t {comp lblPass:::p:95:p, comp lblNSID:::p:95:p}, space :p:43:p, par t {comp txtNSID:::p:100:p, comp passFieldPassword:::p:100:p}, space ::82:x}}"
+			"$verticalGroup": "par l {seq l {space :p:83:p, par l {comp lblNSID:::p::p, comp txtNSID:::p::p}, space s:::p, par l {comp lblPass:::p::p, comp passFieldPassword:::p::p}, space ::38:x}}"
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "lblNSID"
+				"text": "Enter your NSID:"
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "lblPass"
+				"text": "Password:"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtNSID"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "txtNSIDActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "passFieldPassword"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "passFieldPasswordActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 395, 220 )
+		} )
+	}
+}
