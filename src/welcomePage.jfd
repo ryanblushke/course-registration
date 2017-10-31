@@ -1,0 +1,52 @@
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class javax.swing.BoxLayout ) {
+			"axis": 1
+		} ) {
+			name: "welcomePage"
+			"$locationPolicy": 1
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtWelcome"
+				"text": "Welcome To the Course Registration Tool"
+				"font": new java.awt.Font( "Century Gothic", 0, 24 )
+				"editable": false
+				"enabled": false
+				"background": sfield java.awt.Color white
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtLogin"
+				"text": "Already a Member? Login"
+				"font": new java.awt.Font( "Century Gothic", 0, 14 )
+				"editable": false
+				"background": sfield java.awt.Color white
+				"enabled": false
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnLogin"
+				"text": "Login"
+				"font": new java.awt.Font( "Century Gothic", 0, 16 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnLoginMouseClicked", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "txtSignup"
+				"text": "Sign Up Today!"
+				"font": new java.awt.Font( "Century Gothic", 0, 14 )
+				"editable": false
+				"background": sfield java.awt.Color white
+				"enabled": false
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnSignUp"
+				"text": "Sign Up"
+				"font": new java.awt.Font( "Century Gothic", 0, 16 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnSignUpMouseClicked", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 5, 5 )
+			"size": new java.awt.Dimension( 505, 445 )
+		} )
+	}
+}
