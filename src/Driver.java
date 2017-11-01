@@ -119,13 +119,20 @@ public class Driver {
         Course c = this.viewClassList.get(indexOfCourseInClassView);
 
         if( c.getTerm().equals("1") ){
-            if( T1_Schedule.addCourse(c) ){
-                courseAdded = true;
+
+            if( !T2_Schedule.contains(c) ){
+                if( T1_Schedule.addCourse(c) ){
+                    courseAdded = true;
+                }
             }
+
         }
         else if( c.getTerm().equals("2") ){
-            if( T2_Schedule.addCourse(c) ){
-                courseAdded = true;
+
+            if( T1_Schedule.contains(c) ) {
+                if (T2_Schedule.addCourse(c)) {
+                    courseAdded = true;
+                }
             }
         }
 

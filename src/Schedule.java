@@ -17,6 +17,15 @@ public class Schedule {
     }
 
     /**
+     * Determines if a course is in the schedule or not.
+     * @param c course.
+     * @return return true if c is in the list, false otherwise.
+     */
+    public boolean contains(Course c){
+        return classList.contains(c);
+    }
+
+    /**
      * Removes course from a given schedule.
      * @param c course to be removed
      * @return true if successful, false otherwise.
