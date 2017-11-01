@@ -20,6 +20,8 @@ public class Driver {
     private String password;
     private Connection connection;
     private LinkedList<Course> viewClassList;
+    private Schedule T1_Schedule;
+    private Schedule T2_Schedule;
 
     /**
      * Default constructor method
@@ -29,6 +31,8 @@ public class Driver {
         url = "jdbc:mysql://db.cs.usask.ca:3306/cmpt370_bigdsm";
         username = "cmpt370_bigdsm";
         password = "bnxOEOlO7i8Xlv4FWrJc";
+        T1_Schedule = new Schedule(); // HOLDS TERM 1 SCHEDULE
+        T2_Schedule = new Schedule(); // HOLDS TERM 2 SCHEDULE
     }
 
     /**
@@ -56,6 +60,77 @@ public class Driver {
         }
     }
 
+    /**
+     * Removes a course from the schedule.
+     * @param course course to remove.
+     */
+    public void removeFromSchedule(String course){
+
+        Iterator<Course> I = T1_Schedule.getCoursesInSchedule().iterator();
+        while( I.hasNext() ){
+            Course c = I.next();
+            if( c.toString().equals(course) ){
+                T1_Schedule.removeCourse(c);
+            }
+        }
+
+        I = T2_Schedule.getCoursesInSchedule().iterator();
+        while( I.hasNext() ){
+            Course c = I.next();
+            if( c.toString().equals(course) ){
+                T1_Schedule.removeCourse(c);
+            }
+        }
+
+        return;
+    }
+
+
+    /**
+     * Returns schedule as a string array for updating registerList data.
+     * @return dido.
+     */
+    public String[] getScheduleAsStringArray(){
+
+        List<String> termScheduleStringArray = new ArrayList<>();
+
+        Iterator<Course> I = T1_Schedule.getCoursesInSchedule().iterator();
+        while( I.hasNext() ){
+            termScheduleStringArray.add( I.next().toString() );
+        }
+
+        I = T2_Schedule.getCoursesInSchedule().iterator();
+        while( I.hasNext() ){
+            termScheduleStringArray.add( I.next().toString() );
+        }
+
+        return termScheduleStringArray.toArray(new String[termScheduleStringArray.size()]);
+    }
+
+    /**
+     * Adds a course to it's corresponding schedule. DOESN'T COMMIT THE SCHEDULE TO DATABASE UNTIL REGISTER
+     * BUTTON IS PRESSED.
+     * @param indexOfCourseInClassView index of where the course is at within viewClassList
+     * @return true if class adds successfully, false otherwise
+     */
+    public boolean addToSchedule(int indexOfCourseInClassView){
+
+        boolean courseAdded = false;
+        Course c = this.viewClassList.get(indexOfCourseInClassView);
+
+        if( c.getTerm().equals("1") ){
+            if( T1_Schedule.addCourse(c) ){
+                courseAdded = true;
+            }
+        }
+        else if( c.getTerm().equals("2") ){
+            if( T2_Schedule.addCourse(c) ){
+                courseAdded = true;
+            }
+        }
+
+        return courseAdded;
+    }
 
     /**
      * Gets a specified course from the data base and returns the courses times in start-finish Room Day format

@@ -20,8 +20,8 @@ new FormModel {
 					"title": "Welcome"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :p:16:p, par l:::p {comp button3::::125:x, comp scrollPane1::::125:x}, space :::p, comp button1:::p::p, space :::p, comp scrollPane2:::p:176:p, space :::p, comp button2:::p:58:p, space :::p, par l:::p {comp register::::119:x, comp scrollPane3::::119:x}, space ::17:x}}"
-					"$verticalGroup": "par l {seq {par l {seq {space :p:41:p, comp button3:::p::p, space :::p, par l:::p {comp scrollPane1::t::179:x, comp scrollPane3::l::179:x, comp scrollPane2::t::179:x}}, seq {space :p:143:p, comp button1:::p:50:p}, seq {space :p:145:p, comp button2:::p:50:p}}, space :::p, comp register:::p::p, space ::139:x}}"
+					"$horizontalGroup": "par l {seq l {space :p:16:p, par l:::p {comp button3::::125:x, comp scrollPane1::::125:x}, space :::p, comp button1:::p::p, space :::p, comp scrollPane2:::p:245:p, space :::p, par l:::p {comp Add_Button:::::x, comp Remove_Button:::::x}, space s:::p, par l:::p {comp register::::160:x, comp scrollPane3::::160:x}, space ::25:x}}"
+					"$verticalGroup": "par l {seq {par l {seq {space :p:41:p, comp button3:::p::p, space :::p, par l:::p {comp scrollPane1::t::179:x, comp scrollPane2::t::179:x, comp scrollPane3::l::179:x}}, seq {space :p:143:p, comp button1:::p:50:p}, seq l {space :p:105:p, comp Add_Button:::p:50:p, space u:::p, comp Remove_Button:::p:50:p}}, space :::p, comp register:::p::p, space ::139:x}}"
 				} ) {
 					name: "pnlAddClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -29,7 +29,6 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JList" ) {
 							name: "classList"
 							"selectionMode": 0
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "list1MouseClicked", true ) )
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -51,8 +50,9 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "viewButton_MouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button2"
+						name: "Add_Button"
 						"text": "Add"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "Add_Button_MouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button3"
@@ -63,11 +63,16 @@ new FormModel {
 						name: "register"
 						"text": "Register"
 					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "Remove_Button"
+						"text": "Remove"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "Remove_Button_MouseClicked", true ) )
+					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Add Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:590:x}"
+					"$horizontalGroup": "par l {space :0:735:x}"
 					"$verticalGroup": "par l {space :0:435:x}"
 				} ) {
 					name: "pnlDropClass"
@@ -75,7 +80,7 @@ new FormModel {
 					"title": "Drop Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:590:x}"
+					"$horizontalGroup": "par l {space :0:735:x}"
 					"$verticalGroup": "par l {space :0:435:x}"
 				} ) {
 					name: "pnlDegProg"
@@ -85,7 +90,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 600, 600 )
+			"size": new java.awt.Dimension( 745, 600 )
 		} )
 	}
 }

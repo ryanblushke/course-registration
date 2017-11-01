@@ -24,12 +24,8 @@ public class registrationToolWindow extends JFrame {
         initComponents();
     }
 
-    private void list1MouseClicked(MouseEvent e) {
-        // TODO add your code here
-    }
-
     private void viewButton_MouseClicked(MouseEvent e) {
-        // TODO add your code here
+
         String courseToView;
         String[] courseInfo;
         courseToView = (String) classList.getSelectedValue();
@@ -39,11 +35,31 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void refreshButton_MouseClicked(MouseEvent e) {
-        // TODO add your code here
-        String[] classes;
 
+        String[] classes;
         classes = BDSM.getClassList(nsid);
         classList.setListData(classes);
+
+    }
+
+    private void Add_Button_MouseClicked(MouseEvent e) {
+
+        int indexInList = viewList.getSelectedIndex();
+        if( BDSM.addToSchedule(indexInList) ){
+            String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
+            registerList.setListData( updatedRegisterList );
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Class wasn't added to schedule","Error: Add",0);
+        }
+    }
+
+    private void Remove_Button_MouseClicked(MouseEvent e) {
+
+        String course = (String) registerList.getSelectedValue();
+        BDSM.removeFromSchedule(course);
+        String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
+        registerList.setListData( updatedRegisterList );
 
     }
 
@@ -61,9 +77,10 @@ public class registrationToolWindow extends JFrame {
         scrollPane3 = new JScrollPane();
         registerList = new JList();
         button1 = new JButton();
-        button2 = new JButton();
+        Add_Button = new JButton();
         button3 = new JButton();
         register = new JButton();
+        Remove_Button = new JButton();
         pnlDropClass = new JPanel();
         pnlDegProg = new JPanel();
 
@@ -99,12 +116,6 @@ public class registrationToolWindow extends JFrame {
 
                     //---- classList ----
                     classList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    classList.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            list1MouseClicked(e);
-                        }
-                    });
                     scrollPane1.setViewportView(classList);
                 }
 
@@ -130,8 +141,14 @@ public class registrationToolWindow extends JFrame {
                     }
                 });
 
-                //---- button2 ----
-                button2.setText("Add");
+                //---- Add_Button ----
+                Add_Button.setText("Add");
+                Add_Button.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Add_Button_MouseClicked(e);
+                    }
+                });
 
                 //---- button3 ----
                 button3.setText("Refresh");
@@ -145,6 +162,15 @@ public class registrationToolWindow extends JFrame {
                 //---- register ----
                 register.setText("Register");
 
+                //---- Remove_Button ----
+                Remove_Button.setText("Remove");
+                Remove_Button.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Remove_Button_MouseClicked(e);
+                    }
+                });
+
                 GroupLayout pnlAddClassLayout = new GroupLayout(pnlAddClass);
                 pnlAddClass.setLayout(pnlAddClassLayout);
                 pnlAddClassLayout.setHorizontalGroup(
@@ -157,14 +183,16 @@ public class registrationToolWindow extends JFrame {
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(button1)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(button2, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 245, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(register, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                                .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
-                            .addContainerGap(17, Short.MAX_VALUE))
+                                .addComponent(Add_Button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Remove_Button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(register, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                            .addContainerGap(25, Short.MAX_VALUE))
                 );
                 pnlAddClassLayout.setVerticalGroup(
                     pnlAddClassLayout.createParallelGroup()
@@ -176,14 +204,16 @@ public class registrationToolWindow extends JFrame {
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addComponent(scrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                        .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                        .addComponent(scrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
+                                        .addComponent(scrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                        .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGap(143, 143, 143)
                                     .addComponent(button1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
-                                    .addGap(145, 145, 145)
-                                    .addComponent(button2, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(105, 105, 105)
+                                    .addComponent(Add_Button, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(Remove_Button, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(register)
                             .addContainerGap(139, Short.MAX_VALUE))
@@ -198,7 +228,7 @@ public class registrationToolWindow extends JFrame {
                 pnlDropClass.setLayout(pnlDropClassLayout);
                 pnlDropClassLayout.setHorizontalGroup(
                     pnlDropClassLayout.createParallelGroup()
-                        .addGap(0, 590, Short.MAX_VALUE)
+                        .addGap(0, 735, Short.MAX_VALUE)
                 );
                 pnlDropClassLayout.setVerticalGroup(
                     pnlDropClassLayout.createParallelGroup()
@@ -214,7 +244,7 @@ public class registrationToolWindow extends JFrame {
                 pnlDegProg.setLayout(pnlDegProgLayout);
                 pnlDegProgLayout.setHorizontalGroup(
                     pnlDegProgLayout.createParallelGroup()
-                        .addGap(0, 590, Short.MAX_VALUE)
+                        .addGap(0, 735, Short.MAX_VALUE)
                 );
                 pnlDegProgLayout.setVerticalGroup(
                     pnlDegProgLayout.createParallelGroup()
@@ -256,9 +286,10 @@ public class registrationToolWindow extends JFrame {
     private JScrollPane scrollPane3;
     private JList registerList;
     private JButton button1;
-    private JButton button2;
+    private JButton Add_Button;
     private JButton button3;
     private JButton register;
+    private JButton Remove_Button;
     private JPanel pnlDropClass;
     private JPanel pnlDegProg;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
