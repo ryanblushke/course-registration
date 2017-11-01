@@ -1,33 +1,25 @@
 /**
- * Name: Kevin Baker
+ * Name: Kevin Baker, Ryan Blushke
  * NSID: kpb637
  * Student Number:
  * Course:
  * Project Name: classRegister
  */
 
-/**
- * Name: Ryan Blushke
- * NSID: ryb861
- * Student Number: 11177824
- * Course: CMPT 370
- * Project Name: classRegister
- */
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
 
 public class Driver {
+
+    private static final int PREREQPOSITION = 11;
+    private static final int MAXNUMOFPREQ = 3;
 
     private String url;
     private String username;
     private String password;
     private Connection connection;
-    private static final int PREREQPOSITION = 11;
-    private static final int MAXNUMOFPREQ = 3;
+    private LinkedList<Course> viewClassList;
 
     /**
      * Default constructor method
@@ -75,7 +67,7 @@ public class Driver {
         // TODO: FIGURE OUT A WAY TO ADD LABS TO VIEW LIST
         String getCourseTimesSQL = "SELECT * FROM Classes WHERE ClassName = ?";
         List<String> courseTimeInfo = new ArrayList<>();
-        String cInfo = new String();
+        String cInfo;
 
         try {
             PreparedStatement myStatForCourseInfo = this.connection.prepareStatement(getCourseTimesSQL);
@@ -83,11 +75,16 @@ public class Driver {
             // Execute SQL query
             ResultSet resultSetOfCourseInfo = myStatForCourseInfo.executeQuery();
             // Process the result set
+            viewClassList = new LinkedList<>();
             while(resultSetOfCourseInfo.next()){
-                cInfo = resultSetOfCourseInfo.getString("Start") + "-" +
-                        resultSetOfCourseInfo.getString("Finish") + " " +
-                        resultSetOfCourseInfo.getString("Room") + " " +
-                        resultSetOfCourseInfo.getString("Day");
+                Course c = new Course();
+                c.setName(resultSetOfCourseInfo.getString("ClassName"));
+                c.setStartTime(resultSetOfCourseInfo.getInt("Start"));
+                c.setEndTime(resultSetOfCourseInfo.getInt("Finish"));
+                c.setTerm(resultSetOfCourseInfo.getString("Term"));
+                c.setDays(resultSetOfCourseInfo.getString("Day"));
+                cInfo = c.toString();
+                viewClassList.add(c);
 
                 courseTimeInfo.add( cInfo );
             }
@@ -107,25 +104,26 @@ public class Driver {
      */
     public String[] getClassList(String nsid){
         String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
-        String getTakenClasses = "SELECT * FROM Completed WHERE NSID = " + nsid;
+        String getTakenClasses = "SELECT * FROM Completed WHERE NSID = ?";
 
         List<String> classNames = new ArrayList<>();
         List<String> classesTaken = new ArrayList<>();
 
         try {
             Statement myStatForCourses = this.connection.createStatement();
-            Statement myStatForCoursesTaken = this.connection.createStatement();
+            PreparedStatement myStatForCoursesTaken = this.connection.prepareStatement(getTakenClasses);
+            myStatForCoursesTaken.setString(1, nsid);
             // Execute SQL query
             ResultSet resultSetOfDegreeRequirementCourses = myStatForCourses.executeQuery(getDegreeReqSQL);
-            ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery(getTakenClasses);
+            ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery();
             // Process the result set
             
             // Get classes taken
             while(resultSetOfClassesTaken.next()){
                 int index = 1;
 
-                while(resultSetOfClassesTaken.getNString(index) != null){
-                    classesTaken.add(resultSetOfClassesTaken.getNString(index));
+                while(resultSetOfClassesTaken.getString(index) != null){
+                    classesTaken.add(resultSetOfClassesTaken.getString(index));
                     index++;
                 }
             }
@@ -216,8 +214,8 @@ public class Driver {
 
     /**
      * Authenticates a user into the system.
-     * @param username
-     * @param password
+     * @param username self explanatory
+     * @param password self explanatory
      * @return true if user credentials are correct, false otherwise.
      */
     public boolean authenticateUser(String username, String password){
@@ -245,7 +243,7 @@ public class Driver {
 
     /**
      * Determines whether or not a specified username is in the system or not.
-     * @param username
+     * @param username self explanatory
      * @return true if the username exists, false otherwise
      */
     public boolean userExists(String username) {

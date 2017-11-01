@@ -14,8 +14,13 @@ import java.awt.event.MouseEvent;
 public class registrationToolWindow extends JFrame {
 
     private String nsid, password;
+    protected Driver BDSM;
 
     public registrationToolWindow(String nsid, String password) {
+        this.nsid = nsid;
+        this.password = password;
+        this.BDSM = new Driver();
+        BDSM.connectToDatabase();
         initComponents();
     }
 
@@ -29,21 +34,17 @@ public class registrationToolWindow extends JFrame {
         String[] courseInfo;
         courseToView = (String) classList.getSelectedValue();
 
-        Driver BDSM = new Driver();
-        BDSM.connectToDatabase();
         courseInfo = BDSM.getCourseTimes(courseToView);
         viewList.setListData(courseInfo);
-        BDSM.closeConnection();
     }
 
     private void refreshButton_MouseClicked(MouseEvent e) {
         // TODO add your code here
         String[] classes;
-        Driver BDSM = new Driver();
-        BDSM.connectToDatabase();
+
         classes = BDSM.getClassList(nsid);
         classList.setListData(classes);
-        BDSM.closeConnection();
+
     }
 
     private void initComponents() {

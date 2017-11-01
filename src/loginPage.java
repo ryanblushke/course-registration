@@ -56,7 +56,7 @@ public class loginPage extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+        // Generated using JFormDesigner Evaluation license - Kevin Baker
         lblNSID = new JLabel();
         lblPass = new JLabel();
         txtNSID = new JTextField();
@@ -114,7 +114,7 @@ public class loginPage extends JFrame {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+    // Generated using JFormDesigner Evaluation license - Kevin Baker
     private JLabel lblNSID;
     private JLabel lblPass;
     private JTextField txtNSID;

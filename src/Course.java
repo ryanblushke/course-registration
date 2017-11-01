@@ -7,8 +7,11 @@ import java.util.LinkedList;
  */
 public class Course {
 
-    protected String name; // ie Introduction to FPGAs
-    protected String abbreviation; // ie CME 341
+    protected String name; // ie CME 341
+    protected int startTime;
+    protected int endTime;
+    protected String days;
+    protected String term;
     protected Professor prof;
     protected Integer sizeLimit;
     protected Integer numStudentsEnrolled;
@@ -20,15 +23,13 @@ public class Course {
     /**
      * Fully Loaded Constructor
      * @param name
-     * @param abbreviation
      * @param prof
      * @param sizeLimit
      * @param numStudentsEnrolled
      */
-    public Course(String name, String abbreviation, Professor prof, Integer sizeLimit, Integer numStudentsEnrolled) {
+    public Course(String name, Professor prof, Integer sizeLimit, Integer numStudentsEnrolled) {
         this.numStudentsEnrolled = 0;
         this.name = name;
-        this.abbreviation = abbreviation;
         this.prof = prof;
         this.sizeLimit = sizeLimit;
         this.numStudentsEnrolled = numStudentsEnrolled;
@@ -48,6 +49,40 @@ public class Course {
         coreq = new LinkedList<>();
     }
 
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getDays() {
+        return days;
+    }
+
+    public void setDays(String days) {
+        this.days = days;
+    }
+
     /**
      * get course name
      * @return course name
@@ -64,21 +99,6 @@ public class Course {
         this.name = name;
     }
 
-    /**
-     * get abbreviation
-     * @return abbreviation
-     */
-    public String getAbbreviation() {
-        return abbreviation;
-    }
-
-    /**
-     * set abbreviation
-     * @param abbreviation new abbreviation
-     */
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
-    }
 
     /**
      * get professor teaching the course
@@ -223,6 +243,15 @@ public class Course {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Term " + this.term + " | " +
+                Integer.toString(this.startTime) + "-" + Integer.toString(this.endTime) + " | " +
+                this.days + " | " +
+                this.name;
+
+    }
+
     public static void main(String[] args) {
 
         Student pleb = new Student("Andy Cheung",
@@ -237,7 +266,6 @@ public class Course {
         // Creating testCourse
         Course testCourse = new Course();
         testCourse.setName("Introduction to Algebraic Equations");
-        testCourse.setAbbreviation("MATH 101");
         testCourse.setProf(mike);
         testCourse.setSizeLimit(5);
 
