@@ -12,7 +12,12 @@ public class Course {
     protected int endTime;
     protected String days;
     protected String term;
-    protected Professor prof;
+    protected int classID;
+    protected int ClassCU;
+    protected String room;
+    protected String prof;
+
+
     protected Integer sizeLimit;
     protected Integer numStudentsEnrolled;
     protected LinkedList<Student> enrolledStudents;
@@ -27,7 +32,7 @@ public class Course {
      * @param sizeLimit
      * @param numStudentsEnrolled
      */
-    public Course(String name, Professor prof, Integer sizeLimit, Integer numStudentsEnrolled) {
+    public Course(String name, String prof, Integer sizeLimit, Integer numStudentsEnrolled) {
         this.numStudentsEnrolled = 0;
         this.name = name;
         this.prof = prof;
@@ -49,6 +54,29 @@ public class Course {
         coreq = new LinkedList<>();
     }
 
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public int getClassCU() {
+        return ClassCU;
+    }
+
+    public void setClassCU(int classCU) {
+        ClassCU = classCU;
+    }
+
+    public int getClassID() {
+        return classID;
+    }
+
+    public void setClassID(int classID) {
+        this.classID = classID;
+    }
 
     public String getTerm() {
         return term;
@@ -57,7 +85,6 @@ public class Course {
     public void setTerm(String term) {
         this.term = term;
     }
-
 
     public int getStartTime() {
         return startTime;
@@ -104,7 +131,7 @@ public class Course {
      * get professor teaching the course
      * @return professor
      */
-    public Professor getProf() {
+    public String getProf() {
         return prof;
     }
 
@@ -112,7 +139,7 @@ public class Course {
      * set the professor teaching the course
      * @param prof professor
      */
-    public void setProf(Professor prof) {
+    public void setProf(String prof) {
         this.prof = prof;
     }
 
@@ -248,6 +275,7 @@ public class Course {
         return "Term " + this.term + " | " +
                 Integer.toString(this.startTime) + "-" + Integer.toString(this.endTime) + " | " +
                 this.days + " | " +
+                this.room + " | " +
                 this.name;
 
     }
@@ -261,12 +289,12 @@ public class Course {
                 "11122234",
                 "Computer Engineering");
 
-        Professor mike = new Professor("Mike Hawk", "123 Fake Street", "3066309999", "mbk123", "Mathmatics", "THORV 331");
+        //String mike = new Professor("Mike Hawk", "123 Fake Street", "3066309999", "mbk123", "Mathmatics", "THORV 331");
 
         // Creating testCourse
         Course testCourse = new Course();
         testCourse.setName("Introduction to Algebraic Equations");
-        testCourse.setProf(mike);
+        testCourse.setProf("mike");
         testCourse.setSizeLimit(5);
 
 

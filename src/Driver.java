@@ -62,7 +62,7 @@ public class Driver {
 
     /**
      * Removes a course from the schedule.
-     * @param course course to remove.
+     * @param course course to remove in toString form.
      */
     public void removeFromSchedule(String course){
 
@@ -108,8 +108,8 @@ public class Driver {
     }
 
     /**
-     * Adds a course to it's corresponding schedule. DOESN'T COMMIT THE SCHEDULE TO DATABASE UNTIL REGISTER
-     * BUTTON IS PRESSED.
+     * Adds a course based on where it's at in the viewLIST to it's corresponding schedule.
+     * DOESN'T COMMIT THE SCHEDULE TO DATABASE UNTIL REGISTER BUTTON IS PRESSED.
      * @param indexOfCourseInClassView index of where the course is at within viewClassList
      * @return true if class adds successfully, false otherwise
      */
@@ -134,11 +134,12 @@ public class Driver {
 
     /**
      * Gets a specified course from the data base and returns the courses times in start-finish Room Day format
-     * in an array.
+     * in an array. ALSO POPULATES A COURSE CLASS WITH ALL THE CLASSES SPECIFIED INFORMATION AND ADDS IT TO
+     * viewClassList
      * @param course the class to search for.
      * @return an array of Strings containing class time information.
      */
-    public String[] getCourseTimes(String course){
+    public String[] getCourseInformation(String course){
         // TODO: FIGURE OUT A WAY TO ADD LABS TO VIEW LIST
         String getCourseTimesSQL = "SELECT * FROM Classes WHERE ClassName = ?";
         List<String> courseTimeInfo = new ArrayList<>();
@@ -158,6 +159,10 @@ public class Driver {
                 c.setEndTime(resultSetOfCourseInfo.getInt("Finish"));
                 c.setTerm(resultSetOfCourseInfo.getString("Term"));
                 c.setDays(resultSetOfCourseInfo.getString("Day"));
+                c.setClassID(resultSetOfCourseInfo.getInt("ClassID"));
+                c.setClassCU(resultSetOfCourseInfo.getInt("ClassCU"));
+                c.setRoom(resultSetOfCourseInfo.getString("Room"));
+                c.setProf(resultSetOfCourseInfo.getString("ClassProf"));
                 cInfo = c.toString();
                 viewClassList.add(c);
 
@@ -228,12 +233,14 @@ public class Driver {
                 else{
                     // CLASS HASN'T BEEN TAKEN
                     if( !classesTaken.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
-                        // Check PREREQUISITES
+
                         int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
                         boolean haveAllPreReq = true;
+                        boolean dontNeedCreditUnits = true;
 
                         if( myResultCourseInfo.next()) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
-                            // WHILE THE CLASS HAS PREREQS, CONTINUE CHECKING IF YOU HAVE THEM
+
+                            // Check PREREQUISITES BEGINS --------------------------------------------------------------
                             while( (myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ) ) {
                                 // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
                                 if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
@@ -241,9 +248,28 @@ public class Driver {
                                 }
                                 index++;
                             }
+                            // Check PREREQUISITES ENDS ----------------------------------------------------------------
+
+                            // Check for 24 CreditUnits Needed BEGIN ---------------------------------------------------
+                            String getStudentInfoSQL = "SELECT * FROM Users WHERE NSID = ?";
+                            PreparedStatement myStatStudentInfo = this.connection.prepareStatement(getStudentInfoSQL);
+                            myStatStudentInfo.setString(1, nsid);
+                            ResultSet myResultStudentInfo = myStatStudentInfo.executeQuery();
+
+                            if(myResultStudentInfo.next()){
+                                if( myResultCourseInfo.getString("CreditReq") != null ){
+                                    if( myResultCourseInfo.getInt("CreditReq") > myResultStudentInfo.getInt("CreditUnits") ){
+                                        dontNeedCreditUnits = false;
+                                    }
+                                }
+                            }
+                            // Check for 24 CreditUnits Needed END -----------------------------------------------------
                         }
 
-                        if(haveAllPreReq){
+
+
+
+                        if(haveAllPreReq && dontNeedCreditUnits){
                             classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
                         }
                     }
@@ -271,17 +297,54 @@ public class Driver {
         Timestamp tStamp = new Timestamp(date.getTime());
         System.out.println(tStamp);
 
-        String addUserSQL = "insert into loginaccount " +
+        String addUserLoginAccountSQL = "insert into loginaccount " +
                 "(username, password, TS) " +
                 "values (?,?,?)";
 
+        String addUserCompletedSQL = "INSERT into Completed (NSID) values(?)";
+        String addUserFailedSQL = "INSERT into Failed (NSID) values(?)";
+        String addUserTakingT1SQL = "INSERT into Taking_T1 (NSID) values(?)";
+        String addUserTakingT2SQL = "INSERT into Taking_T2 (NSID) values(?)";
+        String addUserUsersSQL = "INSERT into Users (NSID) values(?)";
+
         try {
-            PreparedStatement addUserStat = this.connection.prepareStatement(addUserSQL);
+            // LoginAccount table
+            PreparedStatement addUserStat = this.connection.prepareStatement(addUserLoginAccountSQL);
             addUserStat.setString(1, username);
             addUserStat.setString(2, password);
             addUserStat.setTimestamp(3, tStamp);
-
             addUserStat.executeUpdate();
+
+            // Completed Table
+            addUserStat.close();
+            addUserStat = this.connection.prepareStatement(addUserCompletedSQL);
+            addUserStat.setString(1, username);
+            addUserStat.executeUpdate();
+
+            // Failed Table
+            addUserStat.close();
+            addUserStat = this.connection.prepareStatement(addUserFailedSQL);
+            addUserStat.setString(1, username);
+            addUserStat.executeUpdate();
+
+            // Taking_T1 Table
+            addUserStat.close();
+            addUserStat = this.connection.prepareStatement(addUserTakingT1SQL);
+            addUserStat.setString(1, username);
+            addUserStat.executeUpdate();
+
+            // Taking_T2 Table
+            addUserStat.close();
+            addUserStat = this.connection.prepareStatement(addUserTakingT2SQL);
+            addUserStat.setString(1, username);
+            addUserStat.executeUpdate();
+
+            // Users Table
+            addUserStat.close();
+            addUserStat = this.connection.prepareStatement(addUserUsersSQL);
+            addUserStat.setString(1, username);
+            addUserStat.executeUpdate();
+
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 
 /**
- * @author Dexter Gordon-Dirks
+ * @author Dexter Gordon-Dirks, Kevin Baker
  */
 public class registrationToolWindow extends JFrame {
 
@@ -30,7 +30,7 @@ public class registrationToolWindow extends JFrame {
         String[] courseInfo;
         courseToView = (String) classList.getSelectedValue();
 
-        courseInfo = BDSM.getCourseTimes(courseToView);
+        courseInfo = BDSM.getCourseInformation(courseToView);
         viewList.setListData(courseInfo);
     }
 
@@ -60,6 +60,11 @@ public class registrationToolWindow extends JFrame {
         BDSM.removeFromSchedule(course);
         String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
         registerList.setListData( updatedRegisterList );
+
+    }
+
+    private void register_MouseClicked(MouseEvent e) {
+        // TODO add your code here
 
     }
 
@@ -133,7 +138,7 @@ public class registrationToolWindow extends JFrame {
                 }
 
                 //---- button1 ----
-                button1.setText("View");
+                button1.setText("View ->");
                 button1.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -142,7 +147,7 @@ public class registrationToolWindow extends JFrame {
                 });
 
                 //---- Add_Button ----
-                Add_Button.setText("Add");
+                Add_Button.setText("Add ->");
                 Add_Button.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
@@ -161,6 +166,12 @@ public class registrationToolWindow extends JFrame {
 
                 //---- register ----
                 register.setText("Register");
+                register.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        register_MouseClicked(e);
+                    }
+                });
 
                 //---- Remove_Button ----
                 Remove_Button.setText("Remove");
@@ -176,23 +187,25 @@ public class registrationToolWindow extends JFrame {
                 pnlAddClassLayout.setHorizontalGroup(
                     pnlAddClassLayout.createParallelGroup()
                         .addGroup(pnlAddClassLayout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(button3, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                            .addContainerGap(12, Short.MAX_VALUE)
+                            .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(button3, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(button1)
+                            .addComponent(button1, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 245, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPane2, GroupLayout.PREFERRED_SIZE, 282, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Add_Button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Remove_Button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(register, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                            .addContainerGap(25, Short.MAX_VALUE))
+                            .addGroup(pnlAddClassLayout.createParallelGroup()
+                                .addComponent(Remove_Button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Add_Button, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(scrollPane3, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(13, Short.MAX_VALUE))
+                        .addGroup(GroupLayout.Alignment.TRAILING, pnlAddClassLayout.createSequentialGroup()
+                            .addContainerGap(658, Short.MAX_VALUE)
+                            .addComponent(register, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+                            .addGap(53, 53, 53))
                 );
                 pnlAddClassLayout.setVerticalGroup(
                     pnlAddClassLayout.createParallelGroup()
@@ -203,20 +216,20 @@ public class registrationToolWindow extends JFrame {
                                     .addComponent(button3)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(scrollPane1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                         .addComponent(scrollPane2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                        .addComponent(scrollPane1, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                         .addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
-                                    .addGap(143, 143, 143)
-                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGap(105, 105, 105)
-                                    .addComponent(Add_Button, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(Remove_Button, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(Add_Button, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(43, 43, 43)
+                                    .addComponent(Remove_Button, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlAddClassLayout.createSequentialGroup()
+                                    .addGap(143, 143, 143)
+                                    .addComponent(button1, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(register)
-                            .addContainerGap(139, Short.MAX_VALUE))
+                            .addContainerGap(39, Short.MAX_VALUE))
                 );
             }
             tbdPaneRegistration.addTab("Add Class", pnlAddClass);
@@ -228,11 +241,11 @@ public class registrationToolWindow extends JFrame {
                 pnlDropClass.setLayout(pnlDropClassLayout);
                 pnlDropClassLayout.setHorizontalGroup(
                     pnlDropClassLayout.createParallelGroup()
-                        .addGap(0, 735, Short.MAX_VALUE)
+                        .addGap(0, 871, Short.MAX_VALUE)
                 );
                 pnlDropClassLayout.setVerticalGroup(
                     pnlDropClassLayout.createParallelGroup()
-                        .addGap(0, 435, Short.MAX_VALUE)
+                        .addGap(0, 335, Short.MAX_VALUE)
                 );
             }
             tbdPaneRegistration.addTab("Drop Class", pnlDropClass);
@@ -244,11 +257,11 @@ public class registrationToolWindow extends JFrame {
                 pnlDegProg.setLayout(pnlDegProgLayout);
                 pnlDegProgLayout.setHorizontalGroup(
                     pnlDegProgLayout.createParallelGroup()
-                        .addGap(0, 735, Short.MAX_VALUE)
+                        .addGap(0, 871, Short.MAX_VALUE)
                 );
                 pnlDegProgLayout.setVerticalGroup(
                     pnlDegProgLayout.createParallelGroup()
-                        .addGap(0, 435, Short.MAX_VALUE)
+                        .addGap(0, 335, Short.MAX_VALUE)
                 );
             }
             tbdPaneRegistration.addTab("Degree Progress", pnlDegProg);
@@ -258,15 +271,13 @@ public class registrationToolWindow extends JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addComponent(tbdPaneRegistration)
-                    .addContainerGap())
+                .addComponent(tbdPaneRegistration)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addComponent(tbdPaneRegistration, GroupLayout.PREFERRED_SIZE, 461, GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 107, Short.MAX_VALUE))
+                    .addComponent(tbdPaneRegistration, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 207, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());

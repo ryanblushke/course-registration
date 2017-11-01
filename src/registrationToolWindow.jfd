@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {comp tbdPaneRegistration:::::x, space :::p}}"
-			"$verticalGroup": "par l {seq l {comp tbdPaneRegistration:::p:461:p, space :0:107:x}}"
+			"$horizontalGroup": "par l {comp tbdPaneRegistration::l:::x}"
+			"$verticalGroup": "par l {seq l {comp tbdPaneRegistration:::p:361:p, space :0:207:x}}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
@@ -20,8 +20,8 @@ new FormModel {
 					"title": "Welcome"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:16:p, par l:::p {comp button3::::125:x, comp scrollPane1::::125:x}, space :::p, comp button1:::p::p, space :::p, comp scrollPane2:::p:245:p, space :::p, par l:::p {comp Add_Button:::::x, comp Remove_Button:::::x}, space s:::p, par l:::p {comp register::::160:x, comp scrollPane3::::160:x}, space ::25:x}}"
-					"$verticalGroup": "par l {seq {par l {seq {space :p:41:p, comp button3:::p::p, space :::p, par l:::p {comp scrollPane1::t::179:x, comp scrollPane2::t::179:x, comp scrollPane3::l::179:x}}, seq {space :p:143:p, comp button1:::p:50:p}, seq l {space :p:105:p, comp Add_Button:::p:50:p, space u:::p, comp Remove_Button:::p:50:p}}, space :::p, comp register:::p::p, space ::139:x}}"
+					"$horizontalGroup": "par l {seq {space ::12:x, par t:::p {comp button3::::130:x, comp scrollPane1::::130:x}, space :::p, comp button1:::p:94:p, space :::p, comp scrollPane2:::p:282:p, space :::p, par l {comp Remove_Button:::::x, comp Add_Button:::p:85:p}, space :::p, comp scrollPane3:::p:231:p, space ::13:x}, seq t {space ::658:x, comp register:::p:160:p, space :p:53:p}}"
+					"$verticalGroup": "par l {seq {par l {seq {space :p:41:p, comp button3:::p::p, space :::p, par l:::p {comp scrollPane2::t::179:x, comp scrollPane1::l::179:x, comp scrollPane3::l::179:x}}, seq l {space :p:105:p, comp Add_Button:::p:41:p, space :p:43:p, comp Remove_Button:::p:40:p}, seq {space :p:143:p, comp button1:::p:41:p}}, space :::p, comp register:::p::p, space ::39:x}}"
 				} ) {
 					name: "pnlAddClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -46,12 +46,12 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button1"
-						"text": "View"
+						"text": "View ->"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "viewButton_MouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "Add_Button"
-						"text": "Add"
+						"text": "Add ->"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "Add_Button_MouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
@@ -62,6 +62,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "register"
 						"text": "Register"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "register_MouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "Remove_Button"
@@ -72,16 +73,16 @@ new FormModel {
 					"title": "Add Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:735:x}"
-					"$verticalGroup": "par l {space :0:435:x}"
+					"$horizontalGroup": "par l {space :0:871:x}"
+					"$verticalGroup": "par l {space :0:335:x}"
 				} ) {
 					name: "pnlDropClass"
 				}, new FormLayoutConstraints( null ) {
 					"title": "Drop Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:735:x}"
-					"$verticalGroup": "par l {space :0:435:x}"
+					"$horizontalGroup": "par l {space :0:871:x}"
+					"$verticalGroup": "par l {space :0:335:x}"
 				} ) {
 					name: "pnlDegProg"
 				}, new FormLayoutConstraints( null ) {
@@ -90,7 +91,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 745, 600 )
+			"size": new java.awt.Dimension( 875, 600 )
 		} )
 	}
 }

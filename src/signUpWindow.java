@@ -63,7 +63,7 @@ public class signUpWindow extends JFrame {
         registrationDriver.connectToDatabase();
         if (!registrationDriver.userExists(txtNSID.getText())) {
             registrationDriver.addUser(txtNSID.getText(), String.valueOf(passFieldConfirm.getPassword()));
-            JOptionPane.showMessageDialog(this, "User Registered Successfully", "Great Success!", 0);
+            JOptionPane.showMessageDialog(this, "User Registered Successfully", "Great Success!", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(this, "User Already Exists", "Terrible Failure!", 0);
