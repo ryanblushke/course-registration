@@ -208,37 +208,110 @@ public class Driver {
                 }
             }
 
+            // LOOPS THROUGH ALL DEGREE REQUIREMENT COURSES
             while(resultSetOfDegreeRequirementCourses.next()){
 
-                String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
-                PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
-                myStatCourseInfo.setString(1, resultSetOfDegreeRequirementCourses.getString("ClassName"));
-                ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
+                if( resultSetOfDegreeRequirementCourses.getString("ClassName").equals("ScienceElective") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("JuniorHumanities") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("SeniorHumanities") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("Complementary") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec")){
 
-                if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("ScienceElective")){
+                    String getSpecialCourseListSQL;
+                    Statement myStatSpecialCourseList;
+                    ResultSet myResultSpecialCourseList;
 
-                }
-                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("JuniorHumanities")){
+                    if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("ScienceElective")) {
+                        getSpecialCourseListSQL = "SELECT ClassName FROM ScienceElective";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("JuniorHumanities")) {
+                        getSpecialCourseListSQL = "SELECT ClassName FROM JuniorHumanities";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("SeniorHumanities")) {
+                        getSpecialCourseListSQL = "SELECT ClassName FROM SeniorHumanities";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("Complementary")) {
+                        getSpecialCourseListSQL = "SELECT ClassName FROM Complementary";
+                    }
+                    else {
+                        getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec";
+                    }
 
-                }
-                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("SeniorHumanities")){
+                    myStatSpecialCourseList = this.connection.createStatement();
+                    myResultSpecialCourseList = myStatSpecialCourseList.executeQuery(getSpecialCourseListSQL);
 
-                }
-                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("Complementary")){
+                    while( myResultSpecialCourseList.next() ){
 
-                }
-                else if(resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec")){
+                        String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
+                        PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
+                        myStatCourseInfo.setString(1, myResultSpecialCourseList.getString("ClassName"));
+                        ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
+
+                        // CLASS HASN'T BEEN TAKEN
+                        if( !classesTaken.contains(myResultSpecialCourseList.getString("ClassName")) ){
+
+                            int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
+                            boolean haveAllPreReq = true;
+                            boolean dontNeedCreditUnits = true;
+                            boolean classExistsInClasses = true;
+
+                            if( myResultCourseInfo.next() ) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
+
+                                // Check PREREQUISITES BEGINS --------------------------------------------------------------
+                                while( (myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ) ) {
+                                    // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
+                                    if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
+                                        haveAllPreReq = false;
+                                    }
+                                    index++;
+                                }
+                                // Check PREREQUISITES ENDS ----------------------------------------------------------------
+
+                                // Check for 24 CreditUnits Needed BEGIN ---------------------------------------------------
+                                String getStudentInfoSQL = "SELECT * FROM Users WHERE NSID = ?";
+                                PreparedStatement myStatStudentInfo = this.connection.prepareStatement(getStudentInfoSQL);
+                                myStatStudentInfo.setString(1, nsid);
+                                ResultSet myResultStudentInfo = myStatStudentInfo.executeQuery();
+
+                                if(myResultStudentInfo.next()){
+                                    if( myResultCourseInfo.getString("CreditReq") != null ){
+                                        if( myResultCourseInfo.getInt("CreditReq") > myResultStudentInfo.getInt("CreditUnits") ){
+                                            dontNeedCreditUnits = false;
+                                        }
+                                    }
+                                }
+                                // Check for 24 CreditUnits Needed END -----------------------------------------------------
+                            } else {
+                                classExistsInClasses = false;
+                            }
+
+
+                            if( haveAllPreReq && dontNeedCreditUnits && classExistsInClasses ){
+                                if( !classNames.contains(myResultSpecialCourseList.getString("ClassName")) ){
+                                    classNames.add(myResultSpecialCourseList.getString("ClassName"));
+                                }
+                            }
+                        }
+
+                    }
 
                 }
                 else{
+
+                    String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
+                    PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
+                    myStatCourseInfo.setString(1, resultSetOfDegreeRequirementCourses.getString("ClassName"));
+                    ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
+
                     // CLASS HASN'T BEEN TAKEN
                     if( !classesTaken.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
 
                         int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
                         boolean haveAllPreReq = true;
                         boolean dontNeedCreditUnits = true;
+                        boolean classExistsInClasses = true;
 
-                        if( myResultCourseInfo.next()) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
+                        if( myResultCourseInfo.next() ) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
 
                             // Check PREREQUISITES BEGINS --------------------------------------------------------------
                             while( (myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ) ) {
@@ -264,13 +337,15 @@ public class Driver {
                                 }
                             }
                             // Check for 24 CreditUnits Needed END -----------------------------------------------------
+                        } else {
+                            classExistsInClasses = false;
                         }
 
 
-
-
-                        if(haveAllPreReq && dontNeedCreditUnits){
-                            classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
+                        if(haveAllPreReq && dontNeedCreditUnits && classExistsInClasses){
+                            if( !classNames.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
+                                classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
+                            }
                         }
                     }
                 }
