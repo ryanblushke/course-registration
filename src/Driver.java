@@ -78,7 +78,7 @@ public class Driver {
         while( I.hasNext() ){
             Course c = I.next();
             if( c.toString().equals(course) ){
-                T1_Schedule.removeCourse(c);
+                T2_Schedule.removeCourse(c);
             }
         }
 
