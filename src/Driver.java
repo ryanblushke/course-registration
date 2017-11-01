@@ -120,7 +120,7 @@ public class Driver {
 
         if( c.getTerm().equals("1") ){
 
-            if( !T2_Schedule.contains(c) ){
+            if( !T2_Schedule.contains(c.getName()) ){
                 if( T1_Schedule.addCourse(c) ){
                     courseAdded = true;
                 }
@@ -129,7 +129,7 @@ public class Driver {
         }
         else if( c.getTerm().equals("2") ){
 
-            if( T1_Schedule.contains(c) ) {
+            if( !T1_Schedule.contains(c.getName()) ) {
                 if (T2_Schedule.addCourse(c)) {
                     courseAdded = true;
                 }
