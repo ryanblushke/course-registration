@@ -1,11 +1,11 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :p:73:p, par t {comp lblPass:::p:95:p, comp lblNSID:::p:95:p}, space :p:43:p, par t {comp txtNSID:::p:100:p, comp passFieldPassword:::p:100:p}, space ::82:x}}"
-			"$verticalGroup": "par l {seq l {space :p:83:p, par l {comp lblNSID:::p::p, comp txtNSID:::p::p}, space s:::p, par l {comp lblPass:::p::p, comp passFieldPassword:::p::p}, space ::38:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:73:p, par l {seq {comp lblPass:::p:95:p, space :p:43:p}, seq t {comp lblNSID:::p:111:p, space :p:27:p}}, par t {comp txtNSID:::p:100:p, comp passFieldPassword:::p:100:p}, space ::82:x}}"
+			"$verticalGroup": "par l {seq l {space :p:83:p, par l {comp txtNSID:::p::p, comp lblNSID:::p::p}, space s:::p, par l {comp lblPass:::p::p, comp passFieldPassword:::p::p}, space ::43:x}}"
 		} ) {
 			name: "this"
 			add( new FormComponent( "javax.swing.JLabel" ) {
@@ -30,4 +30,3 @@ new FormModel {
 		} )
 	}
 }
-

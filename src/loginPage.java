@@ -56,7 +56,7 @@ public class loginPage extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Kevin Baker
+        // Generated using JFormDesigner Evaluation license - Lane Larochelle
         lblNSID = new JLabel();
         lblPass = new JLabel();
         txtNSID = new JTextField();
@@ -83,10 +83,13 @@ public class loginPage extends JFrame {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(73, 73, 73)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
-                    .addGap(43, 43, 43)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+                            .addGap(43, 43, 43))
+                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+                            .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+                            .addGap(27, 27, 27)))
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
                         .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
@@ -97,13 +100,13 @@ public class loginPage extends JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGap(83, 83, 83)
                     .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(lblNSID)
-                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblNSID))
                     .addGap(18, 18, 18)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addComponent(lblPass)
                         .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(38, Short.MAX_VALUE))
+                    .addContainerGap(43, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -114,7 +117,7 @@ public class loginPage extends JFrame {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Kevin Baker
+    // Generated using JFormDesigner Evaluation license - Lane Larochelle
     private JLabel lblNSID;
     private JLabel lblPass;
     private JTextField txtNSID;
