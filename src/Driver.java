@@ -425,6 +425,39 @@ public class Driver {
         }
     }
 
+    public void addClassToDB(String[] classes, String nsid, String term){
+
+        int i = 0;
+        int j = 0;
+        String t = "T1";
+        String alterNSIDclassesSQL = "ALTER TABLE Taking_T1 ALTER NSID set t classes[j]";
+        String checkT1ClassesEmpty = "SELECT NSID FROM Taking_t1 WHERE t IS NULL OR t = ''";
+        String addT1ClassesSQL = "INSERT INTO  Taking_T1(t) values (classes[j])";
+        String updateT1ClassesSQL = "UPDATE Taking_T1 SET t = classes[j] where NSID = nsid ";
+
+        try{
+            PreparedStatement checkT1Empty = this.connection.prepareStatement(checkT1ClassesEmpty);
+            PreparedStatement addT1classes = this.connection.prepareStatement(addT1ClassesSQL);
+            PreparedStatement alterclasses = this.connection.prepareStatement(alterNSIDclassesSQL);
+            PreparedStatement updateT1classes = this.connection.prepareStatement(updateT1ClassesSQL);
+            if (term == ""){
+                for(j = 0; j >= classes.length; j++){
+                while(checkT1Empty.execute() == false){
+                    i++;
+                    t = "T" + i;
+                }
+                    updateT1classes.executeUpdate();
+                }
+            }
+            else if (term == ""){
+
+            }
+        }catch(Exception e){
+
+        }
+
+    }
+
     /**
      * Authenticates a user into the system.
      * @param username self explanatory
