@@ -17,6 +17,23 @@ public class Schedule {
     }
 
     /**
+     * Determines if a course is in the schedule or not based on the class name
+     * @param name string of course name. IE, GE 101
+     * @return return true if c is in the list, false otherwise.
+     */
+    public boolean contains(String name){
+        boolean isInList = false;
+
+        Iterator<Course> I = classList.iterator();
+        while( I.hasNext() ){
+            if( I.next().getName().equals(name) ){
+                isInList = true;
+            }
+        }
+        return isInList;
+    }
+
+    /**
      * Removes course from a given schedule.
      * @param c course to be removed
      * @return true if successful, false otherwise.
