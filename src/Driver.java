@@ -14,6 +14,7 @@ public class Driver {
 
     private static final int PREREQPOSITION = 11;
     private static final int MAXNUMOFPREQ = 3;
+    private static final int MAXCLASSESYOUCANTAKE = 17;
 
     private String url;
     private String username;
@@ -111,32 +112,32 @@ public class Driver {
      * Adds a course based on where it's at in the viewLIST to it's corresponding schedule.
      * DOESN'T COMMIT THE SCHEDULE TO DATABASE UNTIL REGISTER BUTTON IS PRESSED.
      * @param indexOfCourseInClassView index of where the course is at within viewClassList
-     * @return true if class adds successfully, false otherwise
+     * @return null if class adds successfully, error message otherwise
      */
-    public boolean addToSchedule(int indexOfCourseInClassView){
+    public String addToSchedule(int indexOfCourseInClassView){
 
-        boolean courseAdded = false;
+        String error = null;
         Course c = this.viewClassList.get(indexOfCourseInClassView);
 
         if( c.getTerm().equals("1") ){
 
             if( !T2_Schedule.contains(c.getName()) ){
-                if( T1_Schedule.addCourse(c) ){
-                    courseAdded = true;
-                }
+                error = T1_Schedule.addCourse(c);
+            } else {
+                error = "Already trying to register for this class in a different term.";
             }
 
         }
         else if( c.getTerm().equals("2") ){
 
             if( !T1_Schedule.contains(c.getName()) ) {
-                if (T2_Schedule.addCourse(c)) {
-                    courseAdded = true;
-                }
+                error = T2_Schedule.addCourse(c);
+            } else {
+                error = "Already trying to register for this class in a different term.";
             }
         }
 
-        return courseAdded;
+        return error;
     }
 
     /**
@@ -170,6 +171,15 @@ public class Driver {
                 c.setClassCU(resultSetOfCourseInfo.getInt("ClassCU"));
                 c.setRoom(resultSetOfCourseInfo.getString("Room"));
                 c.setProf(resultSetOfCourseInfo.getString("ClassProf"));
+                if( resultSetOfCourseInfo.getString("ClassCoreq1") != null){
+                    c.addCoereq( resultSetOfCourseInfo.getString("ClassCoreq1") );
+                }
+                if( resultSetOfCourseInfo.getString("ClassCoreq2") != null){
+                    c.addCoereq( resultSetOfCourseInfo.getString("ClassCoreq2") );
+                }
+                if( resultSetOfCourseInfo.getString("ClassCoreq3") != null){
+                    c.addCoereq( resultSetOfCourseInfo.getString("ClassCoreq3") );
+                }
                 cInfo = c.toString();
                 viewClassList.add(c);
 
@@ -189,7 +199,7 @@ public class Driver {
      * @param nsid identification of student.
      * @return array of strings containing course names for degree requirement.
      */
-    public String[] getClassList(String nsid){
+    public String[] populateCourseList(String nsid){
         String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
         String getTakenClasses = "SELECT * FROM Completed WHERE NSID = ?";
 
@@ -249,54 +259,9 @@ public class Driver {
 
                     while( myResultSpecialCourseList.next() ){
 
-                        String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
-                        PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
-                        myStatCourseInfo.setString(1, myResultSpecialCourseList.getString("ClassName"));
-                        ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
-
-                        // CLASS HASN'T BEEN TAKEN
-                        if( !classesTaken.contains(myResultSpecialCourseList.getString("ClassName")) ){
-
-                            int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
-                            boolean haveAllPreReq = true;
-                            boolean dontNeedCreditUnits = true;
-                            boolean classExistsInClasses = true;
-
-                            if( myResultCourseInfo.next() ) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
-
-                                // Check PREREQUISITES BEGINS --------------------------------------------------------------
-                                while( (myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ) ) {
-                                    // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
-                                    if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
-                                        haveAllPreReq = false;
-                                    }
-                                    index++;
-                                }
-                                // Check PREREQUISITES ENDS ----------------------------------------------------------------
-
-                                // Check for 24 CreditUnits Needed BEGIN ---------------------------------------------------
-                                String getStudentInfoSQL = "SELECT * FROM Users WHERE NSID = ?";
-                                PreparedStatement myStatStudentInfo = this.connection.prepareStatement(getStudentInfoSQL);
-                                myStatStudentInfo.setString(1, nsid);
-                                ResultSet myResultStudentInfo = myStatStudentInfo.executeQuery();
-
-                                if(myResultStudentInfo.next()){
-                                    if( myResultCourseInfo.getString("CreditReq") != null ){
-                                        if( myResultCourseInfo.getInt("CreditReq") > myResultStudentInfo.getInt("CreditUnits") ){
-                                            dontNeedCreditUnits = false;
-                                        }
-                                    }
-                                }
-                                // Check for 24 CreditUnits Needed END -----------------------------------------------------
-                            } else {
-                                classExistsInClasses = false;
-                            }
-
-
-                            if( haveAllPreReq && dontNeedCreditUnits && classExistsInClasses ){
-                                if( !classNames.contains(myResultSpecialCourseList.getString("ClassName")) ){
-                                    classNames.add(myResultSpecialCourseList.getString("ClassName"));
-                                }
+                        if( courseShouldBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, nsid) ){
+                            if( !classNames.contains(myResultSpecialCourseList.getString("ClassName")) ){
+                                classNames.add(myResultSpecialCourseList.getString("ClassName"));
                             }
                         }
 
@@ -305,66 +270,161 @@ public class Driver {
                 }
                 else{
 
-                    String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
-                    PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
-                    myStatCourseInfo.setString(1, resultSetOfDegreeRequirementCourses.getString("ClassName"));
-                    ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
-
-                    // CLASS HASN'T BEEN TAKEN
-                    if( !classesTaken.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
-
-                        int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
-                        boolean haveAllPreReq = true;
-                        boolean dontNeedCreditUnits = true;
-                        boolean classExistsInClasses = true;
-
-                        if( myResultCourseInfo.next() ) { // MAKES SURE THE CLASS INFO WAS BROUGHT IN FROM MYSQL
-
-                            // Check PREREQUISITES BEGINS --------------------------------------------------------------
-                            while( (myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ) ) {
-                                // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
-                                if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
-                                    haveAllPreReq = false;
-                                }
-                                index++;
-                            }
-                            // Check PREREQUISITES ENDS ----------------------------------------------------------------
-
-                            // Check for 24 CreditUnits Needed BEGIN ---------------------------------------------------
-                            String getStudentInfoSQL = "SELECT * FROM Users WHERE NSID = ?";
-                            PreparedStatement myStatStudentInfo = this.connection.prepareStatement(getStudentInfoSQL);
-                            myStatStudentInfo.setString(1, nsid);
-                            ResultSet myResultStudentInfo = myStatStudentInfo.executeQuery();
-
-                            if(myResultStudentInfo.next()){
-                                if( myResultCourseInfo.getString("CreditReq") != null ){
-                                    if( myResultCourseInfo.getInt("CreditReq") > myResultStudentInfo.getInt("CreditUnits") ){
-                                        dontNeedCreditUnits = false;
-                                    }
-                                }
-                            }
-                            // Check for 24 CreditUnits Needed END -----------------------------------------------------
-                        } else {
-                            classExistsInClasses = false;
-                        }
-
-
-                        if(haveAllPreReq && dontNeedCreditUnits && classExistsInClasses){
-                            if( !classNames.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
-                                classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
-                            }
+                    if( courseShouldBeAddedToListings(resultSetOfDegreeRequirementCourses, classesTaken, classNames, nsid) ){
+                        if( !classNames.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
+                            classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
                         }
                     }
                 }
             }
-
-
         } catch (Exception e){
             e.printStackTrace();
         }
 
         Collections.sort(classNames);
         return classNames.toArray(new String[classNames.size()]);
+    }
+
+    /**
+     * Checks to see if a given course from DEGREE REQUIREMENTS needs to be displayed.
+     * @param resultSetOfCourseToSeeIfItShouldBeAdded A result from the database that contains the name of a class that
+     *                                                may need to be be displayed.
+     * @param classesTaken A list of classes that the given nsid has already taken.
+     * @param classNames A list of classes in string format that will be displayed in the classList JList.
+     * @param nsid the nsid of the person logged in.
+     * @return true if the class needs to be added to classNames, false otherwise
+     */
+    private boolean courseShouldBeAddedToListings(ResultSet resultSetOfCourseToSeeIfItShouldBeAdded, List<String> classesTaken,
+                                                  List<String> classNames, String nsid){
+
+        boolean shouldClassBeAdded = false;
+
+        try{
+            String getCourseInfoSQL = "SELECT * FROM Classes WHERE ClassName = ?";
+            PreparedStatement myStatCourseInfo = this.connection.prepareStatement(getCourseInfoSQL);
+            myStatCourseInfo.setString(1, resultSetOfCourseToSeeIfItShouldBeAdded.getString("ClassName"));
+            ResultSet myResultCourseInfo = myStatCourseInfo.executeQuery();
+
+            // CLASS HASN'T BEEN TAKEN
+            if( !classesTaken.contains(resultSetOfCourseToSeeIfItShouldBeAdded.getString("ClassName")) ) {
+
+                int index = PREREQPOSITION; // INDEX OF PREREQUISITES FIELD IN TABLE
+                boolean haveAllPreReq = true;
+                boolean dontNeedCreditUnits = true;
+                boolean classExistsInClasses = true;
+                boolean areNotAlreadyRegisteredInClass = true;
+
+                if (myResultCourseInfo.next()) { // Makes myResultCourseInfo point at the first index of the result iterator.
+
+                    // Check PREREQUISITES BEGINS --------------------------------------------------------------
+                    while ((myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ)) {
+                        // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
+                        if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
+                            haveAllPreReq = false;
+                        }
+                        index++;
+                    }
+                    // Check PREREQUISITES ENDS ----------------------------------------------------------------
+
+                    // Check for 24 CreditUnits Needed BEGIN ---------------------------------------------------
+                    String getStudentInfoSQL = "SELECT * FROM Users WHERE NSID = ?";
+                    PreparedStatement myStatStudentInfo = this.connection.prepareStatement(getStudentInfoSQL);
+                    myStatStudentInfo.setString(1, nsid);
+                    ResultSet myResultStudentInfo = myStatStudentInfo.executeQuery();
+
+                    if (myResultStudentInfo.next()) {
+                        if (myResultCourseInfo.getString("CreditReq") != null) {
+                            if (myResultCourseInfo.getInt("CreditReq") > myResultStudentInfo.getInt("CreditUnits")) {
+                                dontNeedCreditUnits = false;
+                            }
+                        }
+                    }
+                    // Check for 24 CreditUnits Needed END -----------------------------------------------------
+
+                    // Checks to see if the person is currently registered in the class BEGIN ------------------
+                    String getStudentsT1CoursesSQL = "SELECT * FROM Taking_T1 WHERE NSID = ?";
+                    String getStudentsT2CoursesSQL = "SELECT * FROM Taking_T2 WHERE NSID = ?";
+                    PreparedStatement myStatT1Info = this.connection.prepareStatement(getStudentsT1CoursesSQL);
+                    PreparedStatement myStatT2Info = this.connection.prepareStatement(getStudentsT2CoursesSQL);
+                    myStatT1Info.setString(1, nsid);
+                    myStatT2Info.setString(1, nsid);
+                    ResultSet myResultT1Info = myStatT1Info.executeQuery();
+                    ResultSet myResultT2Info = myStatT2Info.executeQuery();
+
+                    // CHECK TERM 1
+                    while( myResultT1Info.next() ){
+
+                        int i = 2;
+
+                        while( i < (MAXCLASSESYOUCANTAKE + 1) ) {
+
+                            if( myResultT1Info.getString(i) != null ) {
+
+                                int classID = myResultT1Info.getInt(i);
+                                String getClassNameFromClassIdSQL = "SELECT * FROM Classes WHERE ClassID = ?";
+                                PreparedStatement myStatClassNameFromID = this.connection.prepareStatement(getClassNameFromClassIdSQL);
+                                myStatClassNameFromID.setInt(1, classID);
+                                ResultSet myResultClassNameFromID = myStatClassNameFromID.executeQuery();
+
+                                if( myResultClassNameFromID.next() ){
+                                    // IF YOU ALREADY ENROLLED IN THE CLASSES, DON'T DISPLAY IT
+                                    if( myResultClassNameFromID.getString("ClassName").equals(myResultCourseInfo.getString("ClassName")) ){
+                                        areNotAlreadyRegisteredInClass = false;
+                                        break;
+                                    }
+
+                                }
+                            }
+                            i++;
+
+                        }
+                    }
+
+                    // CHECK Term 2
+                    while( myResultT2Info.next() ){
+
+                        int i = 2;
+
+                        while( i < (MAXCLASSESYOUCANTAKE + 1) ) {
+
+                            if( myResultT2Info.getString(i) != null ) {
+
+                                int classID = myResultT2Info.getInt(i);
+                                String getClassNameFromClassIdSQL = "SELECT * FROM Classes WHERE ClassID = ?";
+                                PreparedStatement myStatClassNameFromID = this.connection.prepareStatement(getClassNameFromClassIdSQL);
+                                myStatClassNameFromID.setInt(1, classID);
+                                ResultSet myResultClassNameFromID = myStatClassNameFromID.executeQuery();
+
+                                if( myResultClassNameFromID.next() ){
+                                    // IF YOU ALREADY ENROLLED IN THE CLASSES, DON'T DISPLAY IT
+                                    if( myResultClassNameFromID.getString("ClassName").equals(myResultCourseInfo.getString("ClassName")) ){
+                                        areNotAlreadyRegisteredInClass = false;
+                                        break;
+                                    }
+
+                                }
+                            }
+                            i++;
+
+                        }
+
+                    }
+                    // Checks to see if the person is currently registered in the class END --------------------
+
+                } else {
+                    classExistsInClasses = false;
+                }
+
+
+                if (haveAllPreReq && dontNeedCreditUnits && classExistsInClasses && areNotAlreadyRegisteredInClass) {
+                    shouldClassBeAdded = true;
+                }
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return shouldClassBeAdded;
     }
 
     /**
@@ -432,38 +492,165 @@ public class Driver {
         }
     }
 
-    public void addClassToDB(String[] classes, String nsid, String term){
 
-        int i = 0;
-        int j = 0;
-        String t = "T1";
-        String alterNSIDclassesSQL = "ALTER TABLE Taking_T1 ALTER NSID set t classes[j]";
-        String checkT1ClassesEmpty = "SELECT NSID FROM Taking_t1 WHERE t IS NULL OR t = ''";
-        String addT1ClassesSQL = "INSERT INTO  Taking_T1(t) values (classes[j])";
-        String updateT1ClassesSQL = "UPDATE Taking_T1 SET t = classes[j] where NSID = nsid ";
+    /**
+     * Checks to make sure before you register that you have all the corequisites that you need for a course.
+     * @return returns null on no conflicts, otherwise returns error message.
+     */
+    public String checkSchedulesForCoreqProblems(){
+        String error = null;
 
-        try{
-            PreparedStatement checkT1Empty = this.connection.prepareStatement(checkT1ClassesEmpty);
-            PreparedStatement addT1classes = this.connection.prepareStatement(addT1ClassesSQL);
-            PreparedStatement alterclasses = this.connection.prepareStatement(alterNSIDclassesSQL);
-            PreparedStatement updateT1classes = this.connection.prepareStatement(updateT1ClassesSQL);
-            if (term == ""){
-                for(j = 0; j >= classes.length; j++){
-                while(checkT1Empty.execute() == false){
-                    i++;
-                    t = "T" + i;
-                }
-                    updateT1classes.executeUpdate();
+        for( Course c : T1_Schedule.getCoursesInSchedule() ){
+            if( c.hasCoreqs() ){
+                for( String coreq : c.getCoreqs() ){
+
+                    boolean foundCoreq = false;
+                    for( Course courseCheck : T1_Schedule.getCoursesInSchedule() ){
+                        if( courseCheck.getName().equals(coreq) ){
+                            foundCoreq = true;
+                        }
+                    }
+
+                    for( Course courseCheck : T2_Schedule.getCoursesInSchedule() ){
+                        if( courseCheck.getName().equals(coreq) ){
+                            foundCoreq = true;
+                        }
+                    }
+
+                    if( !foundCoreq ){
+                        error = error + "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
+                    }
+
                 }
             }
-            else if (term == ""){
-
-            }
-        }catch(Exception e){
-
         }
 
+        for( Course c : T2_Schedule.getCoursesInSchedule() ){
+            if( c.hasCoreqs() ){
+                for( String coreq : c.getCoreqs() ){
+
+                    boolean foundCoreq = false;
+                    for( Course courseCheck : T2_Schedule.getCoursesInSchedule() ){
+                        if( courseCheck.getName().equals(coreq) ){
+                            foundCoreq = true;
+                        }
+                    }
+
+                    for( Course courseCheck : T1_Schedule.getCoursesInSchedule() ){
+                        if( courseCheck.getName().equals(coreq) ){
+                            foundCoreq = true;
+                        }
+                    }
+
+                    if( !foundCoreq ){
+                        error = error + "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
+                    }
+
+                }
+            }
+        }
+
+        return error;
     }
+
+
+    /**
+     *
+     * @return
+     */
+    public String addRegisterListToDatabase(){
+
+        String error = null;
+
+        // TODO: error checking for corequisites.
+
+        // TODO: add schedules to database.
+
+        return error;
+    }
+
+
+    /**
+     * Adds a course to the currently logged in username to the database.
+     * @param c is the course to be added.
+     * @return returns null on complete, else return error message.
+     */
+    public String addCourseToDB(Course c){
+
+        String error = null;
+
+        try {
+            int courseID = c.getClassID();
+            String term = "T" + c.getTerm();
+
+            String addCourseToDataBaseSQL = "SELECT * FROM Taking_" + term + " WHERE NSID = ?";
+            PreparedStatement addCourseToDBStatement = this.connection.prepareStatement(addCourseToDataBaseSQL,
+                                                                                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                                                                        ResultSet.CONCUR_UPDATABLE);
+            addCourseToDBStatement.setString(1, username);
+            ResultSet addCourseToDBResult = addCourseToDBStatement.executeQuery();
+
+            if( addCourseToDBResult.next() ){
+
+                int i = 2;
+                while( i < (MAXCLASSESYOUCANTAKE + 1) ){
+                    if( addCourseToDBResult.getString(i) == null ){
+                        addCourseToDBResult.updateInt(i, courseID);
+                        addCourseToDBResult.updateRow();
+                        updateCreditsEnrolled(c);
+                        error = null;
+                        break;
+                    } else {
+                        error = "Max courses exceeded.";
+                    }
+                    i++;
+                }
+            } else {
+                error = "Couldn't find user in Taking_T? Table.";
+            }
+            addCourseToDBStatement.close();
+            addCourseToDBResult.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return error;
+    }
+
+
+    /**
+     * updates RegisteredCU_T? in Users table for given term that c is in.
+     * @param c is course to add credit units from.
+     * @return true on success, false otherwise.
+     */
+    public boolean updateCreditsEnrolled(Course c){
+
+        boolean successStatus = true;
+
+        try {
+            String addUpdateRegisteredCreditUnitsSQL = "SELECT * FROM Users WHERE NSID = ?";
+            PreparedStatement updateCUStatement = this.connection.prepareStatement(addUpdateRegisteredCreditUnitsSQL,
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            updateCUStatement.setString(1, username);
+
+            ResultSet updateCUResults = updateCUStatement.executeQuery();
+
+            if( updateCUResults.next() ){
+                updateCUResults.updateInt("RegisteredCU_T" + c.getTerm(), (updateCUResults.getInt("RegisteredCU_T" + c.getTerm()) + c.getClassCU() ) );
+                updateCUResults.updateRow();
+            } else {
+                successStatus = false;
+            }
+            updateCUStatement.close();
+            updateCUResults.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return successStatus;
+    }
+
 
     /**
      * Authenticates a user into the system.
@@ -555,17 +742,22 @@ public class Driver {
         }
 
 
-//        try {
-//            Statement myStat = BDSM_Driver.connection.createStatement();
-//            // Execute SQL query
-//            ResultSet myRes = myStat.executeQuery("select * from Classes");
-//            // Process the result set
-//            while(myRes.next()){
-//                System.out.println(myRes.getString("ClassName") + ", " + myRes.getString("ClassCode"));
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
+        /*
+        try {
+            Statement myStat = BDSM_Driver.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            // Execute SQL query
+            ResultSet myRes = myStat.executeQuery("SELECT * from Taking_T1 WHERE NSID = 'kpb637'");
+            // Process the result set
+            while(myRes.next()){
+                myRes.updateInt(3,157);
+                myRes.updateRow();
+                System.out.println(myRes.getString("NSID"));
+                myRes.close();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        */
 
     }
 }

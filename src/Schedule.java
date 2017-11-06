@@ -48,16 +48,15 @@ public class Schedule {
      * @param c course to add to schedule
      * @return true if course was added, false if there are schedule conflicts
      */
-    public boolean addCourse(Course c){
+    public String addCourse(Course c){
 
-        boolean courseAdded = false;
+        String returnMessage = null;
 
-        if( this.checkForScheduleConflict(c) == false ){
+        if( (returnMessage = this.checkForScheduleConflict(c)) == null ){
             this.classList.add(c);
-            courseAdded = true;
         }
 
-        return courseAdded;
+        return returnMessage;
 
     }
 
@@ -66,12 +65,12 @@ public class Schedule {
      * @param c course to check with classList
      * @return true if there is a conflict, false if there isn't
      */
-    public boolean checkForScheduleConflict(Course c){
+    public String checkForScheduleConflict(Course c){
 
-        boolean scheduleConflict = false;
+        String scheduleConflict = null;
 
         if( classList.contains(c) ) { // IF IT DOESN'T CONTAIN CLASS ALREADY.
-            scheduleConflict = true;
+            scheduleConflict = "Already trying to registered for this class.";
         }
 
         Iterator<Course> I = classList.iterator();
@@ -82,7 +81,7 @@ public class Schedule {
 
             // IF TRYING TO ADD THE SAME CLASS BUT AT DIFFERENT TIMES
             if( classFromList.getName().equals(c.getName()) ){
-                scheduleConflict = true;
+                scheduleConflict = "Already trying to registered for this class.";
             }
 
             // THis elaborate shit is for finding what days each class is on and comparing there times if they are
@@ -97,24 +96,25 @@ public class Schedule {
                 moreDays = c.getDays();
                 lessDays = classFromList.getDays();
             }
-            //------------------------------------------------------------------------------------
+
 
             if( moreDays.contains(lessDays) ){
 
                 // Scheduled at the same time
                 if( classFromList.getStartTime() == c.getStartTime() ) {
-                    scheduleConflict = true;
+                    scheduleConflict = "Class already scheduled at that time.";
                 }
                 // Scheduled during other class
                 else if( (classFromList.getStartTime() < c.getStartTime()) && (classFromList.getEndTime() > c.getEndTime()) ){
-                    scheduleConflict = true;
+                    scheduleConflict = "Class overlaps with the time of another.";
                 }
                 // Scheduled right when a class ends
                 else if( classFromList.getEndTime() == c.getStartTime() ){
-                    scheduleConflict = true;
+                    scheduleConflict = "Class overlaps with the time of another.";
                 }
                 else{}
             }
+            //------------------------------------------------------------------------------------
 
         }
 

@@ -16,13 +16,13 @@ public class Course {
     protected int ClassCU;
     protected String room;
     protected String prof;
+    protected LinkedList<String> coreq;
 
 
     protected Integer sizeLimit;
     protected Integer numStudentsEnrolled;
     protected LinkedList<Student> enrolledStudents;
     protected LinkedList<Course> prereq;
-    protected LinkedList<Course> coreq;
     //private TimeSchedule scheduledTime;
 
     /**
@@ -208,10 +208,18 @@ public class Course {
     }
 
     /**
+     * Tells you a course has a coreq or not.
+     * @return true if course has coreqs, false otherwise.
+     */
+    public boolean hasCoreqs(){
+        return !this.coreq.isEmpty();
+    }
+
+    /**
      * get a list of corequisites for the course
      * @return list of corequisites
      */
-    public LinkedList<Course> getCoreq() {
+    public LinkedList<String> getCoreqs() {
         return coreq;
     }
 
@@ -220,7 +228,7 @@ public class Course {
      * @param coreqCourse class to add to corequisites
      * @return true if successful, false otherwise
      */
-    public boolean addCoereq(Course coreqCourse){
+    public boolean addCoereq(String coreqCourse){
         return coreq.add(coreqCourse);
     }
 
@@ -272,11 +280,10 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Term " + this.term + " | " +
+        return  this.name + " | " + "Term " + this.term + " | " +
                 Integer.toString(this.startTime) + "-" + Integer.toString(this.endTime) + " | " +
                 this.days + " | " +
-                this.room + " | " +
-                this.name;
+                this.room;
 
     }
 
