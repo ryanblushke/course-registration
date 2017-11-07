@@ -127,6 +127,7 @@ public class Driver {
                 T2_Schedule.addCourse( c );
             }
         }
+        return;
     }
 
     /**
@@ -733,6 +734,8 @@ public class Driver {
                 error = addCourseToDB(c, nsid);
             }
         }
+
+        getSchedulesFromDB(nsid);
 
         return error;
     }
