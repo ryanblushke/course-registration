@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {comp tbdPaneRegistration::l:::x}"
-			"$verticalGroup": "par l {seq l {comp tbdPaneRegistration:::p:361:p, space :0:207:x}}"
+			"$verticalGroup": "par l {comp tbdPaneRegistration::l::568:x}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {

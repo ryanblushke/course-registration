@@ -22,7 +22,9 @@ public class Driver {
     private Connection connection;
     private LinkedList<Course> viewClassList;
     private Schedule T1_Schedule;
+    private Schedule T1_Schedule_DB;
     private Schedule T2_Schedule;
+    private Schedule T2_Schedule_DB;
 
     /**
      * Default constructor method
@@ -32,8 +34,10 @@ public class Driver {
         url = "jdbc:mysql://db.cs.usask.ca:3306/cmpt370_bigdsm";
         username = "cmpt370_bigdsm";
         password = "bnxOEOlO7i8Xlv4FWrJc";
-        T1_Schedule = new Schedule(); // HOLDS TERM 1 SCHEDULE
-        T2_Schedule = new Schedule(); // HOLDS TERM 2 SCHEDULE
+        T1_Schedule = new Schedule(); // HOLDS TERM 1 SCHEDULE and Schedule from database
+        T2_Schedule = new Schedule(); // HOLDS TERM 2 SCHEDULE and Schedule from database
+        T1_Schedule_DB = new Schedule(); // HOLDS TERM 1 SCHEDULE JUST FROM DATABASE
+        T2_Schedule_DB = new Schedule(); // HOLDS TERM 2 SCHEDULE JUST FROM DATABASE
     }
 
     /**
@@ -59,6 +63,103 @@ public class Driver {
             System.out.println("UNABLE TO CONNECT TO DATABASE.");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Called on login. Updates T1_Schedule and T2_Schedule from database.
+     * @param nsid current user loggin in.
+     */
+    public void getSchedulesFromDB(String nsid){
+
+        List<String> T1 = new ArrayList<>();
+        List<String> T2 = new ArrayList<>();
+
+        try{
+            String getT1ScheduleSQL = "SELECT * FROM Taking_T1 WHERE NSID = ?";
+            String getT2ScheduleSQL = "SELECT * FROM Taking_T2 WHERE NSID = ?";
+            PreparedStatement myStatForT1Schedule = this.connection.prepareStatement(getT1ScheduleSQL);
+            PreparedStatement myStatForT2Schedule = this.connection.prepareStatement(getT2ScheduleSQL);
+            myStatForT1Schedule.setString(1, nsid);
+            myStatForT2Schedule.setString(1, nsid);
+            ResultSet T1ScheduleResults = myStatForT1Schedule.executeQuery();
+            ResultSet T2ScheduleResults = myStatForT2Schedule.executeQuery();
+
+            if( T1ScheduleResults.next() ){
+                int i = 2;
+                while( i < (MAXCLASSESYOUCANTAKE + 1) ){
+                    if( T1ScheduleResults.getString(i) != null ){
+                        T1.add( T1ScheduleResults.getString(i) );
+                    }
+                    i++;
+                }
+            }
+
+            if( T2ScheduleResults.next() ){
+                int i = 2;
+                while( i < (MAXCLASSESYOUCANTAKE + 1) ){
+                    if( T2ScheduleResults.getString(i) != null ){
+                        T2.add( T2ScheduleResults.getString(i) );
+                    }
+                    i++;
+                }
+            }
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+
+        // ADDS COURSES TO THERE CORRESPONDING SCHEDULES
+        for( String ID : T1 ){
+            T1_Schedule_DB.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
+            T1_Schedule.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
+        }
+        for( String ID : T2 ){
+            T2_Schedule_DB.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
+            T2_Schedule.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
+        }
+    }
+
+    /**
+     * Gets a course from the database from its CourseID number.
+     * @param ID unique id of course.
+     * @return course with given ID, null if course doesn't exist.
+     */
+    public Course getCourseGivenIDNumber(int ID){
+
+        Course c = null;
+
+        try{
+            String getCourseFromIDSQL = "SELECT * FROM Classes WHERE ClassID = ?";
+            PreparedStatement getCourseFromIDStatement = this.connection.prepareStatement(getCourseFromIDSQL);
+            getCourseFromIDStatement.setInt(1, ID);
+            ResultSet courseWithIDResult = getCourseFromIDStatement.executeQuery();
+
+            if( courseWithIDResult.next() ){
+                c = new Course();
+                c.setName(courseWithIDResult.getString("ClassName"));
+                c.setStartTime(courseWithIDResult.getInt("Start"));
+                c.setEndTime(courseWithIDResult.getInt("Finish"));
+                c.setTerm(courseWithIDResult.getString("Term"));
+                c.setDays(courseWithIDResult.getString("Day"));
+                c.setClassID(courseWithIDResult.getInt("ClassID"));
+                c.setClassCU(courseWithIDResult.getInt("ClassCU"));
+                c.setRoom(courseWithIDResult.getString("Room"));
+                c.setProf(courseWithIDResult.getString("ClassProf"));
+                if( courseWithIDResult.getString("ClassCoreq1") != null){
+                    c.addCoereq( courseWithIDResult.getString("ClassCoreq1") );
+                }
+                if( courseWithIDResult.getString("ClassCoreq2") != null){
+                    c.addCoereq( courseWithIDResult.getString("ClassCoreq2") );
+                }
+                if( courseWithIDResult.getString("ClassCoreq3") != null){
+                    c.addCoereq( courseWithIDResult.getString("ClassCoreq3") );
+                }
+
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return c;
     }
 
     /**
@@ -89,7 +190,8 @@ public class Driver {
 
     /**
      * Returns schedule as a string array for updating registerList data.
-     * @return dido.
+     * DOES SOME MAGIC: removes classes already registered for in DB from list.
+     * @return schedule as a string array for updating registerList data.
      */
     public String[] getScheduleAsStringArray(){
 
@@ -100,9 +202,17 @@ public class Driver {
             termScheduleStringArray.add( I.next().toString() );
         }
 
+        for( Course c : T1_Schedule_DB.getCoursesInSchedule() ){
+            termScheduleStringArray.remove(c.toString());
+        }
+
         I = T2_Schedule.getCoursesInSchedule().iterator();
         while( I.hasNext() ){
             termScheduleStringArray.add( I.next().toString() );
+        }
+
+        for( Course c : T2_Schedule_DB.getCoursesInSchedule() ){
+            termScheduleStringArray.remove(c.toString());
         }
 
         return termScheduleStringArray.toArray(new String[termScheduleStringArray.size()]);
@@ -148,7 +258,7 @@ public class Driver {
      * @return an array of Strings containing class time information.
      */
     public String[] getCourseInformation(String course){
-        // TODO: FIGURE OUT A WAY TO ADD LABS TO VIEW LIST
+
         String getCourseTimesSQL = "SELECT * FROM Classes WHERE ClassName = ?";
         List<String> courseTimeInfo = new ArrayList<>();
         String cInfo;
@@ -205,6 +315,7 @@ public class Driver {
 
         List<String> classNames = new ArrayList<>();
         List<String> classesTaken = new ArrayList<>();
+        List<String> coReqsThatNeedToBeDisplayed = new ArrayList<>();
 
         try {
             Statement myStatForCourses = this.connection.createStatement();
@@ -259,7 +370,7 @@ public class Driver {
 
                     while( myResultSpecialCourseList.next() ){
 
-                        if( courseShouldBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, nsid) ){
+                        if( courseShouldBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid) ){
                             if( !classNames.contains(myResultSpecialCourseList.getString("ClassName")) ){
                                 classNames.add(myResultSpecialCourseList.getString("ClassName"));
                             }
@@ -270,13 +381,22 @@ public class Driver {
                 }
                 else{
 
-                    if( courseShouldBeAddedToListings(resultSetOfDegreeRequirementCourses, classesTaken, classNames, nsid) ){
+                    if( courseShouldBeAddedToListings(resultSetOfDegreeRequirementCourses, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid) ){
                         if( !classNames.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
                             classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
                         }
                     }
                 }
             }
+
+            // Add COREQs to list of classes to display
+            for( String c : coReqsThatNeedToBeDisplayed ){
+                if( !classNames.contains(c) ){
+                    classNames.add(c);
+                }
+            }
+
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -295,7 +415,7 @@ public class Driver {
      * @return true if the class needs to be added to classNames, false otherwise
      */
     private boolean courseShouldBeAddedToListings(ResultSet resultSetOfCourseToSeeIfItShouldBeAdded, List<String> classesTaken,
-                                                  List<String> classNames, String nsid){
+                                                  List<String> classNames, List<String> coReqsThatNeedToBeDisplayed, String nsid){
 
         boolean shouldClassBeAdded = false;
 
@@ -418,6 +538,18 @@ public class Driver {
 
                 if (haveAllPreReq && dontNeedCreditUnits && classExistsInClasses && areNotAlreadyRegisteredInClass) {
                     shouldClassBeAdded = true;
+                    // Add Coreqs of course to be displayed to a list that will be used to add them to the course listings
+                    // Add coreqs to list BEGIN ------------------------------------------------------------------------
+                    if( myResultCourseInfo.getString("ClassCoreq1") != null ){
+                        coReqsThatNeedToBeDisplayed.add( myResultCourseInfo.getString("ClassCoreq1") );
+                    }
+                    if( myResultCourseInfo.getString("ClassCoreq2") != null ){
+                        coReqsThatNeedToBeDisplayed.add( myResultCourseInfo.getString("ClassCoreq2") );
+                    }
+                    if( myResultCourseInfo.getString("ClassCoreq3") != null ){
+                        coReqsThatNeedToBeDisplayed.add( myResultCourseInfo.getString("ClassCoreq3") );
+                    }
+                    // Add coreqs to list END --------------------------------------------------------------------------
                 }
             }
         } catch(Exception e){
@@ -518,7 +650,8 @@ public class Driver {
                     }
 
                     if( !foundCoreq ){
-                        error = error + "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
+                        if( error == null ) error = "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
+                        else error = error + "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
                     }
 
                 }
@@ -543,7 +676,8 @@ public class Driver {
                     }
 
                     if( !foundCoreq ){
-                        error = error + "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
+                        if( error == null ) error = "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
+                        else error = error + "Error: " + c.getName() + " needs " + coreq + " as a corequisite.\n";
                     }
 
                 }
@@ -555,16 +689,39 @@ public class Driver {
 
 
     /**
-     *
-     * @return
+     * Adds T1_schedule and T2_Schedule to database (Taking_T1 and Taking_T2) if there is no co requisite conflicts.
+     * @param nsid current person logged in.
+     * @return null on success, otherwise returns error message.
      */
-    public String addRegisterListToDatabase(){
+    public String addRegisterListToDatabase(String nsid){
 
         String error = null;
+        Schedule Temp1 = new Schedule();
+        Schedule Temp2 = new Schedule();
 
-        // TODO: error checking for corequisites.
+        // Gets list of courses not already registered in.
+        for( Course c : T1_Schedule.getCoursesInSchedule() ){
+            if( !T1_Schedule_DB.contains(c.getName()) ){
+                Temp1.addCourse(c);
+            }
+        }
 
-        // TODO: add schedules to database.
+        // Gets list of courses not already registered in.
+        for( Course c: T2_Schedule.getCoursesInSchedule() ){
+            if( !T2_Schedule_DB.contains(c.getName()) ){
+                Temp2.addCourse(c);
+            }
+        }
+
+        if( (error = checkSchedulesForCoreqProblems()) == null){
+
+            for( Course c : Temp1.getCoursesInSchedule() ){
+                error = addCourseToDB(c, nsid);
+            }
+            for( Course c : Temp2.getCoursesInSchedule() ){
+                error = addCourseToDB(c, nsid);
+            }
+        }
 
         return error;
     }
@@ -573,9 +730,10 @@ public class Driver {
     /**
      * Adds a course to the currently logged in username to the database.
      * @param c is the course to be added.
+     * @param nsid current person logged in.
      * @return returns null on complete, else return error message.
      */
-    public String addCourseToDB(Course c){
+    public String addCourseToDB(Course c, String nsid){
 
         String error = null;
 
@@ -587,7 +745,7 @@ public class Driver {
             PreparedStatement addCourseToDBStatement = this.connection.prepareStatement(addCourseToDataBaseSQL,
                                                                                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                                                                                         ResultSet.CONCUR_UPDATABLE);
-            addCourseToDBStatement.setString(1, username);
+            addCourseToDBStatement.setString(1, nsid);
             ResultSet addCourseToDBResult = addCourseToDBStatement.executeQuery();
 
             if( addCourseToDBResult.next() ){
@@ -597,7 +755,7 @@ public class Driver {
                     if( addCourseToDBResult.getString(i) == null ){
                         addCourseToDBResult.updateInt(i, courseID);
                         addCourseToDBResult.updateRow();
-                        updateCreditsEnrolled(c);
+                        updateCreditsEnrolled(c, nsid);
                         error = null;
                         break;
                     } else {
@@ -623,7 +781,7 @@ public class Driver {
      * @param c is course to add credit units from.
      * @return true on success, false otherwise.
      */
-    public boolean updateCreditsEnrolled(Course c){
+    public boolean updateCreditsEnrolled(Course c, String nsid){
 
         boolean successStatus = true;
 
@@ -632,7 +790,7 @@ public class Driver {
             PreparedStatement updateCUStatement = this.connection.prepareStatement(addUpdateRegisteredCreditUnitsSQL,
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-            updateCUStatement.setString(1, username);
+            updateCUStatement.setString(1, nsid);
 
             ResultSet updateCUResults = updateCUStatement.executeQuery();
 

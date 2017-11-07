@@ -102,15 +102,15 @@ public class Schedule {
 
                 // Scheduled at the same time
                 if( classFromList.getStartTime() == c.getStartTime() ) {
-                    scheduleConflict = "Class already scheduled at that time.";
+                    scheduleConflict = "Error: " + classFromList.getName() + " already scheduled at that time.";
                 }
                 // Scheduled during other class
                 else if( (classFromList.getStartTime() < c.getStartTime()) && (classFromList.getEndTime() > c.getEndTime()) ){
-                    scheduleConflict = "Class overlaps with the time of another.";
+                    scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();
                 }
                 // Scheduled right when a class ends
                 else if( classFromList.getEndTime() == c.getStartTime() ){
-                    scheduleConflict = "Class overlaps with the time of another.";
+                    scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();
                 }
                 else{}
             }

@@ -21,6 +21,7 @@ public class registrationToolWindow extends JFrame {
         this.password = password;
         this.BDSM = new Driver();
         BDSM.connectToDatabase();
+        BDSM.getSchedulesFromDB(nsid);
         initComponents();
     }
 
@@ -36,12 +37,13 @@ public class registrationToolWindow extends JFrame {
 
         int indexInList = viewList.getSelectedIndex();
         String error;
-        if( (error = BDSM.addToSchedule(indexInList)) == null ){
-            String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
-            registerList.setListData( updatedRegisterList );
-        }
-        else{
-            JOptionPane.showMessageDialog(this,error,"Error: Add",0);
+        if( !viewList.isSelectionEmpty() ) {
+            if ((error = BDSM.addToSchedule(indexInList)) == null) {
+                String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
+                registerList.setListData(updatedRegisterList);
+            } else {
+                JOptionPane.showMessageDialog(this, error, "Error: Add", 0);
+            }
         }
     }
 
@@ -55,7 +57,12 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void register_MouseClicked(MouseEvent e) {
-        // TODO add your code here
+        String error;
+        if( (error = BDSM.addRegisterListToDatabase(nsid)) == null ){
+            registerList.setListData( new String[0] );
+        } else {
+            JOptionPane.showMessageDialog(this, error,"Error: Registering",0);
+        }
 
     }
 
@@ -266,9 +273,7 @@ public class registrationToolWindow extends JFrame {
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addComponent(tbdPaneRegistration, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 207, Short.MAX_VALUE))
+                .addComponent(tbdPaneRegistration, GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
         );
         pack();
         setLocationRelativeTo(getOwner());
