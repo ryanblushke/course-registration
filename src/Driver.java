@@ -67,7 +67,8 @@ public class Driver {
 
     /**
      * Called on login. Updates T1_Schedule and T2_Schedule from database.
-     * @param nsid current user loggin in.
+     * Call this function whenever a change to Taking_T1 or Taking_T2 changes.
+     * @param nsid current user logged in.
      */
     public void getSchedulesFromDB(String nsid){
 
@@ -107,14 +108,24 @@ public class Driver {
             e.printStackTrace();
         }
 
+        T1_Schedule_DB = new Schedule();
+        T2_Schedule_DB = new Schedule();
         // ADDS COURSES TO THERE CORRESPONDING SCHEDULES
         for( String ID : T1 ){
-            T1_Schedule_DB.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
-            T1_Schedule.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
+            Course c = getCourseGivenIDNumber(Integer.valueOf(ID));
+            T1_Schedule_DB.addCourse( c );
+
+            if( !T1_Schedule.contains( c.getName() ) ) {
+                T1_Schedule.addCourse( c );
+            }
         }
         for( String ID : T2 ){
-            T2_Schedule_DB.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
-            T2_Schedule.addCourse( getCourseGivenIDNumber(Integer.valueOf(ID)) );
+            Course c = getCourseGivenIDNumber(Integer.valueOf(ID));
+            T2_Schedule_DB.addCourse( c );
+
+            if( !T2_Schedule.contains( c.getName()) ) {
+                T2_Schedule.addCourse( c );
+            }
         }
     }
 
