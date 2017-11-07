@@ -1,11 +1,11 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {comp tbdPaneRegistration::l:::x}"
-			"$verticalGroup": "par l {comp tbdPaneRegistration::l::568:x}"
+			"$verticalGroup": "par l {comp tbdPaneRegistration::l:::x}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
@@ -20,65 +20,65 @@ new FormModel {
 					"title": "Welcome"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :::p, par l:::p {comp button3:::::x, comp scrollPane1:::p:169:p}, space s:::p, comp scrollPane2:::p:331:p, space :::p, par l {comp Remove_Button:::::x, comp Add_Button:::p:85:p}, space :::p, par l:::p {comp register::::231:x, comp scrollPane3::::231:x}, space :p:16:p}}"
-					"$verticalGroup": "par l {seq l {space :::p, par l {par l:l::p {comp scrollPane3::l:::x, comp scrollPane1::l:::x, comp scrollPane2::t:p:179:p}, seq l {space :p:35:p, comp Add_Button:::p:41:p, space :p:43:p, comp Remove_Button:::p:40:p}}, space :::p, par l {comp button3:::p::p, comp register:::p::p}, space ::119:x}}"
+					"$horizontalGroup": "par l {seq l {space :::p, par l:::p {comp btnRefreshAdd:::::x, comp scrlPaneInitialAdd:::p:169:p}, space s:::p, comp scrlPaneViewAdd:::p:331:p, space :::p, par l {comp btnInitialRemove::::88:x, comp btnInitialAdd:::p:85:p}, space :::p, par l {comp btnRegister:::p:231:p, comp scrlPaneConfirmAdd:::p:231:p}, space :p:16:p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {par l:l::p {comp scrlPaneInitialAdd::l:::x, comp scrlPaneViewAdd::t:p:179:p, comp scrlPaneConfirmAdd::t:::x}, seq l {space :p:35:p, comp btnInitialAdd:::p:41:p, space :p:43:p, comp btnInitialRemove:::p:40:p}}, space :::p, par l {comp btnRefreshAdd:::p::p, comp btnRegister:::p::p}, space ::331:x}}"
 				} ) {
 					name: "pnlAddClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPane1"
+						name: "scrlPaneInitialAdd"
 						add( new FormComponent( "javax.swing.JList" ) {
-							name: "classList"
+							name: "listInitialAdd"
 							"selectionMode": 0
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "classList_MouseClicked", true ) )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "listInitialAddMouseClicked", true ) )
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPane2"
+						name: "scrlPaneViewAdd"
 						add( new FormComponent( "javax.swing.JList" ) {
-							name: "viewList"
+							name: "listViewAdd"
 							"selectionMode": 0
 						} )
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPane3"
+						name: "scrlPaneConfirmAdd"
 						add( new FormComponent( "javax.swing.JList" ) {
-							name: "registerList"
+							name: "listRegisterAdd"
 						} )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "Add_Button"
+						name: "btnInitialAdd"
 						"text": "Add ->"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "Add_Button_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnInitialAddMouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button3"
+						name: "btnRefreshAdd"
 						"text": "Refresh"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "refreshButton_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnRefreshAddMouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "register"
+						name: "btnRegister"
 						"text": "Register"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "register_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnRegisterMouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "Remove_Button"
+						name: "btnInitialRemove"
 						"text": "Remove"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "Remove_Button_MouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnInitialRemoveMouseClicked", true ) )
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Add Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:868:x}"
-					"$verticalGroup": "par l {space :0:333:x}"
+					"$horizontalGroup": "par l {space :0:871:x}"
+					"$verticalGroup": "par l {space :0:544:x}"
 				} ) {
 					name: "pnlDropClass"
 				}, new FormLayoutConstraints( null ) {
 					"title": "Drop Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {space :0:868:x}"
-					"$verticalGroup": "par l {space :0:333:x}"
+					"$horizontalGroup": "par l {space :0:871:x}"
+					"$verticalGroup": "par l {space :0:544:x}"
 				} ) {
 					name: "pnlDegProg"
 				}, new FormLayoutConstraints( null ) {
