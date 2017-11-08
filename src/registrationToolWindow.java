@@ -68,7 +68,7 @@ public class registrationToolWindow extends JFrame {
         if( !listInitialAdd.isSelectionEmpty() ) {
             courseToView = (String) listInitialAdd.getSelectedValue();
             courseInfo = BDSM.getCourseInformation(courseToView);
-            listInitialAdd.setListData(courseInfo);
+            listViewAdd.setListData(courseInfo);
         }
     }
 
