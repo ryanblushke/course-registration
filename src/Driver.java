@@ -66,8 +66,8 @@ public class Driver {
     }
 
     /**
-     * Called on login. Updates T1_Schedule and T2_Schedule from database.
-     * Call this function whenever a change to Taking_T1 or Taking_T2 changes.
+     * Called on login, Updates T1_Schedule and T2_Schedule from database,
+     * call this function whenever a change to Taking_T1 or Taking_T2 changes.
      * @param nsid current user logged in.
      */
     public void getSchedulesFromDB(String nsid){
@@ -263,8 +263,8 @@ public class Driver {
     }
 
     /**
-     * Gets a specified course from the data base and returns the courses times in start-finish Room Day format
-     * in an array. ALSO POPULATES A COURSE CLASS WITH ALL THE CLASSES SPECIFIED INFORMATION AND ADDS IT TO
+     * Gets a specified course from the database and returns the course in start-finish Room Day format
+     * within an array. ALSO POPULATES A COURSE CLASS WITH ALL THE CLASSES SPECIFIED INFORMATION AND ADDS IT TO
      * viewClassList
      * @param course the class to search for.
      * @return an array of Strings containing class time information.
@@ -336,9 +336,8 @@ public class Driver {
             // Execute SQL query
             ResultSet resultSetOfDegreeRequirementCourses = myStatForCourses.executeQuery(getDegreeReqSQL);
             ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery();
-            // Process the result set
             
-            // Get classes taken
+            // Get classes taken BEGIN ---------------------------------------------------------------------------------
             while(resultSetOfClassesTaken.next()){
                 int index = 1;
 
@@ -347,6 +346,16 @@ public class Driver {
                     index++;
                 }
             }
+            // Get classes taken END -----------------------------------------------------------------------------------
+
+            // Get User List of Special Classes Taken BEGIN ------------------------------------------------------------
+            String getUsersSpecialClassesTakenSQL = "SELECT * FROM Users WHERE NSID = ?";
+            PreparedStatement myStatForSpecialClassesTaken = this.connection.prepareStatement(getUsersSpecialClassesTakenSQL);
+            myStatForSpecialClassesTaken.setString(1, nsid);
+            ResultSet specialClassesTakenResultSet = myStatForSpecialClassesTaken.executeQuery();
+            specialClassesTakenResultSet.next();
+            String stream = specialClassesTakenResultSet.getString("Stream");
+            // Get User List of Special Classes Taken END --------------------------------------------------------------
 
             // LOOPS THROUGH ALL DEGREE REQUIREMENT COURSES
             while(resultSetOfDegreeRequirementCourses.next()){
@@ -355,49 +364,80 @@ public class Driver {
                     resultSetOfDegreeRequirementCourses.getString("ClassName").equals("JuniorHumanities") ||
                     resultSetOfDegreeRequirementCourses.getString("ClassName").equals("SeniorHumanities") ||
                     resultSetOfDegreeRequirementCourses.getString("ClassName").equals("Complementary") ||
-                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec")){
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec1") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec2") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec3") ||
+                    resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec4")){
 
-                    String getSpecialCourseListSQL;
+                    String getSpecialCourseListSQL = null;
                     Statement myStatSpecialCourseList;
                     ResultSet myResultSpecialCourseList;
 
+                    boolean specialClassTaken = false;
                     if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("ScienceElective")) {
-                        getSpecialCourseListSQL = "SELECT ClassName FROM ScienceElective";
+                        if( specialClassesTakenResultSet.getBoolean("ScienceElective") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM ScienceElective";
                     }
                     else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("JuniorHumanities")) {
-                        getSpecialCourseListSQL = "SELECT ClassName FROM JuniorHumanities";
+                        if( specialClassesTakenResultSet.getBoolean("JuniorHumanities") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM JuniorHumanities";
                     }
                     else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("SeniorHumanities")) {
-                        getSpecialCourseListSQL = "SELECT ClassName FROM SeniorHumanities";
+                        if( specialClassesTakenResultSet.getBoolean("SeniorHumanities") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM SeniorHumanities";
                     }
                     else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("Complementary")) {
-                        getSpecialCourseListSQL = "SELECT ClassName FROM Complementary";
+                        if( specialClassesTakenResultSet.getBoolean("Complementary") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM Complementary";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec")) {
+                        if( specialClassesTakenResultSet.getBoolean("StreamElec") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec WHERE Stream = '" + stream + "'";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec1")) {
+                        if( specialClassesTakenResultSet.getBoolean("StreamElec1") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec1 WHERE Stream = '" + stream + "'";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec2")) {
+                        if( specialClassesTakenResultSet.getBoolean("StreamElec2") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec2 WHERE Stream = '" + stream + "'";
+                    }
+                    else if (resultSetOfDegreeRequirementCourses.getString("ClassName").equals("StreamElec3")) {
+                        if( specialClassesTakenResultSet.getBoolean("StreamElec3") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec3 WHERE Stream = '" + stream + "'";
                     }
                     else {
-                        getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec";
+                        if( specialClassesTakenResultSet.getBoolean("StreamElec4") ) specialClassTaken = true;
+                        else getSpecialCourseListSQL = "SELECT ClassName FROM StreamElec4 WHERE Stream = '" + stream + "'";
                     }
 
-                    myStatSpecialCourseList = this.connection.createStatement();
-                    myResultSpecialCourseList = myStatSpecialCourseList.executeQuery(getSpecialCourseListSQL);
+                    // If the special type hasn't been taken BEGIN -----------------------------------------------------
+                    if( !specialClassTaken ) {
+                        myStatSpecialCourseList = this.connection.createStatement();
+                        myResultSpecialCourseList = myStatSpecialCourseList.executeQuery(getSpecialCourseListSQL);
 
-                    while( myResultSpecialCourseList.next() ){
+                        while (myResultSpecialCourseList.next()) {
 
-                        if( courseShouldBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid) ){
-                            if( !classNames.contains(myResultSpecialCourseList.getString("ClassName")) ){
-                                classNames.add(myResultSpecialCourseList.getString("ClassName"));
+                            if (courseShouldBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid)) {
+                                if (!classNames.contains(myResultSpecialCourseList.getString("ClassName"))) {
+                                    classNames.add(myResultSpecialCourseList.getString("ClassName"));
+                                }
                             }
-                        }
 
+                        }
                     }
+                    // If the special type hasn't been taken END -------------------------------------------------------
 
                 }
                 else{
-
+                    // Check if regular class from degree requirements needs to be displayed BEGIN ---------------------
                     if( courseShouldBeAddedToListings(resultSetOfDegreeRequirementCourses, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid) ){
                         if( !classNames.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
                             classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
                         }
                     }
+                    // Check if regular class from degree requirements needs to be displayed END -----------------------
                 }
             }
 
@@ -742,7 +782,7 @@ public class Driver {
 
 
     /**
-     * Adds a course to the currently logged in username to the database.
+     * Adds a course to the database for the currently logged in user
      * @param c is the course to be added.
      * @param nsid current person logged in.
      * @return returns null on complete, else return error message.

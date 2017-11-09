@@ -56,6 +56,7 @@ public class registrationToolWindow extends JFrame {
         String error;
         if( (error = BDSM.addRegisterListToDatabase(nsid)) == null ){
             listRegisterAdd.setListData( new String[0] );
+            JOptionPane.showMessageDialog(this, "Registration Successful.","Registration Tool",JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, error,"Error: Registering",0);
         }
