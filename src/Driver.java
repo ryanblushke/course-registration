@@ -493,6 +493,8 @@ public class Driver {
                         // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
                         if (!classesTaken.contains(myResultCourseInfo.getString(index))) {
                             haveAllPreReq = false;
+                            // IF YOU ARE REGISTERS IN THE PREREQ IN FIRST TERM, THEM ASSUME YOU HAVE THE PREREQ.
+                            if( T1_Schedule_DB.contains( myResultCourseInfo.getString(index)) ) haveAllPreReq = true;
                         }
                         index++;
                     }
