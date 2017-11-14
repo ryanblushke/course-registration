@@ -1,3 +1,5 @@
+
+
 /**
  * Name: Kevin Baker, Ryan Blushke
  * NSID: kpb637
@@ -15,15 +17,16 @@ public class Driver {
     private static final int PREREQPOSITION = 11;
     private static final int MAXNUMOFPREQ = 3;
     private static final int MAXCLASSESYOUCANTAKE = 17;
+    private static final int MAXCOMPLETEDCOURSES = 50 + 2; // + 2 for index correction in database
 
     private String url;
     private String username;
     private String password;
     private Connection connection;
     private LinkedList<Course> viewClassList;
-    private Schedule T1_Schedule;
+    public Schedule T1_Schedule;
     private Schedule T1_Schedule_DB;
-    private Schedule T2_Schedule;
+    public Schedule T2_Schedule;
     private Schedule T2_Schedule_DB;
 
     /**
@@ -70,7 +73,7 @@ public class Driver {
      * call this function whenever a change to Taking_T1 or Taking_T2 changes.
      * @param nsid current user logged in.
      */
-    public void getSchedulesFromDB(String nsid){
+    public void updateSchedulesFromDB(String nsid){
 
         List<String> T1 = new ArrayList<>();
         List<String> T2 = new ArrayList<>();
@@ -419,7 +422,7 @@ public class Driver {
 
                         while (myResultSpecialCourseList.next()) {
 
-                            if (courseShouldBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid)) {
+                            if (shouldCourseBeAddedToListings(myResultSpecialCourseList, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid)) {
                                 if (!classNames.contains(myResultSpecialCourseList.getString("ClassName"))) {
                                     classNames.add(myResultSpecialCourseList.getString("ClassName"));
                                 }
@@ -432,7 +435,7 @@ public class Driver {
                 }
                 else{
                     // Check if regular class from degree requirements needs to be displayed BEGIN ---------------------
-                    if( courseShouldBeAddedToListings(resultSetOfDegreeRequirementCourses, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid) ){
+                    if( shouldCourseBeAddedToListings(resultSetOfDegreeRequirementCourses, classesTaken, classNames, coReqsThatNeedToBeDisplayed, nsid) ){
                         if( !classNames.contains(resultSetOfDegreeRequirementCourses.getString("ClassName")) ){
                             classNames.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
                         }
@@ -441,9 +444,9 @@ public class Driver {
                 }
             }
 
-            // Add COREQs to list of classes to display
+            // Add COREQs to list of classes to display IF THEY HAVEN'T BEEN TAKEN ALREADY
             for( String c : coReqsThatNeedToBeDisplayed ){
-                if( !classNames.contains(c) ){
+                if( (!classNames.contains(c)) && (!classesTaken.contains(c)) ){
                     classNames.add(c);
                 }
             }
@@ -466,7 +469,7 @@ public class Driver {
      * @param nsid the nsid of the person logged in.
      * @return true if the class needs to be added to classNames, false otherwise
      */
-    private boolean courseShouldBeAddedToListings(ResultSet resultSetOfCourseToSeeIfItShouldBeAdded, List<String> classesTaken,
+    private boolean shouldCourseBeAddedToListings(ResultSet resultSetOfCourseToSeeIfItShouldBeAdded, List<String> classesTaken,
                                                   List<String> classNames, List<String> coReqsThatNeedToBeDisplayed, String nsid){
 
         boolean shouldClassBeAdded = false;
@@ -488,6 +491,8 @@ public class Driver {
 
                 if (myResultCourseInfo.next()) { // Makes myResultCourseInfo point at the first index of the result iterator.
 
+                    String debug = myResultCourseInfo.getString("ClassName");
+
                     // Check PREREQUISITES BEGINS --------------------------------------------------------------
                     while ((myResultCourseInfo.getString(index) != null) && (index < PREREQPOSITION + MAXNUMOFPREQ)) {
                         // IF YOU DON'T HAVE THE PREREQ, SET HAVE PREREQ TO FALSE
@@ -495,7 +500,9 @@ public class Driver {
                             haveAllPreReq = false;
                             // IF YOU ARE REGISTERS IN THE PREREQ IN FIRST TERM, THEM ASSUME YOU HAVE THE PREREQ.
                             if( T1_Schedule_DB.contains( myResultCourseInfo.getString(index)) ) haveAllPreReq = true;
+                            else { break; } // Don't have the prereqs, so keep haveAllPreReq at false.
                         }
+
                         index++;
                     }
                     // Check PREREQUISITES ENDS ----------------------------------------------------------------
@@ -777,7 +784,7 @@ public class Driver {
             }
         }
 
-        getSchedulesFromDB(nsid);
+        updateSchedulesFromDB(nsid);
 
         return error;
     }
@@ -811,7 +818,7 @@ public class Driver {
                     if( addCourseToDBResult.getString(i) == null ){
                         addCourseToDBResult.updateInt(i, courseID);
                         addCourseToDBResult.updateRow();
-                        updateCreditsEnrolled(c, nsid);
+                        addClassUpdateUsersInfo(c, nsid);
                         error = null;
                         break;
                     } else {
@@ -833,11 +840,12 @@ public class Driver {
 
 
     /**
-     * updates RegisteredCU_T? in Users table for given term that c is in.
+     * updates RegisteredCU_T(X) in Users table for given term that c is in.
+     * updates number of courses a user is registered in for a given term.
      * @param c is course to add credit units from.
      * @return true on success, false otherwise.
      */
-    public boolean updateCreditsEnrolled(Course c, String nsid){
+    public boolean addClassUpdateUsersInfo(Course c, String nsid){
 
         boolean successStatus = true;
 
@@ -852,6 +860,9 @@ public class Driver {
 
             if( updateCUResults.next() ){
                 updateCUResults.updateInt("RegisteredCU_T" + c.getTerm(), (updateCUResults.getInt("RegisteredCU_T" + c.getTerm()) + c.getClassCU() ) );
+                // TODO: if( !c.getName().contains(" L ")) {
+                updateCUResults.updateInt("EnrolledClass", updateCUResults.getInt("EnrolledClass") + 1);
+                // TODO: }
                 updateCUResults.updateRow();
             } else {
                 successStatus = false;
@@ -865,6 +876,83 @@ public class Driver {
         return successStatus;
     }
 
+
+    /**
+     * Returns a string array that is used to populate incomplete section of degree progress.
+     * @param nsid the current user logged in.
+     * @return a string array of course names that haven't been completed.
+     */
+    public String[] populateIncomplete(String nsid){
+        List<String> incomplete = new ArrayList<>();
+        List<String> completed = new ArrayList<>();
+
+        try {
+            String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
+            String getTakenClasses = "SELECT * FROM Completed WHERE NSID = ?";
+
+            Statement myStatForCoursesNeeded = this.connection.createStatement();
+            ResultSet resultSetOfDegreeRequirementCourses = myStatForCoursesNeeded.executeQuery(getDegreeReqSQL);
+
+            PreparedStatement myStatForCoursesTaken = this.connection.prepareStatement(getTakenClasses);
+            myStatForCoursesTaken.setString(1, nsid);
+            ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery();
+
+            while( resultSetOfDegreeRequirementCourses.next() ){
+                incomplete.add( resultSetOfDegreeRequirementCourses.getString("ClassName") );
+            }
+
+            if( resultSetOfClassesTaken.next() ) {
+                int index = 2;
+                while ((index < MAXCOMPLETEDCOURSES) && (resultSetOfClassesTaken.getString(index) != null) ){
+                    completed.add(resultSetOfClassesTaken.getString(index));
+                    index++;
+                }
+            }
+
+            // Remove completed classes from incomplete.
+            for( String name : completed ){
+                if( incomplete.contains(name) ) incomplete.remove(name);
+            }
+
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+
+        Collections.sort(incomplete);
+
+        return incomplete.toArray(new String[incomplete.size()]);
+    }
+
+
+    /**
+     * Returns a string array that i sused to populate the complete section of degree progress.
+     * @param nsid the current user logged in.
+     * @return a string array of course names that have been completed.
+     */
+    public String[] populateComplete(String nsid){
+        List<String> completed = new ArrayList<>();
+
+        try {
+            String getTakenClasses = "SELECT * FROM Completed WHERE NSID = ?";
+            PreparedStatement myStatForCoursesTaken = this.connection.prepareStatement(getTakenClasses);
+            myStatForCoursesTaken.setString(1, nsid);
+            ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery();
+
+            if( resultSetOfClassesTaken.next() ) {
+                int index = 2;
+                while ((index < MAXCOMPLETEDCOURSES) && (resultSetOfClassesTaken.getString(index) != null) ){
+                    completed.add(resultSetOfClassesTaken.getString(index));
+                    index++;
+                }
+            }
+
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+
+        Collections.sort(completed);
+        return completed.toArray( new String[completed.size()] );
+    }
 
     /**
      * Authenticates a user into the system.
