@@ -213,11 +213,12 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void btnRefreshDegProgMouseClicked(MouseEvent e) {
-        // TODO add your code here
         String[] incomplete = BDSM.populateIncomplete(nsid);
         String[] complete = BDSM.populateComplete(nsid);
         listDegProgIncomplete.setListData(incomplete);
         listDegProgComplete.setListData(complete);
+        degreeProgressBar.setValue((int) BDSM.updateProgressBar(nsid));
+        degreeProgressBar.setStringPainted(true);
     }
 
 
@@ -242,6 +243,8 @@ public class registrationToolWindow extends JFrame {
         tableTermOneSchedule = new JTable();
         scrollPaneForTermTwoSchedule = new JScrollPane();
         tableTermTwoSchedule = new JTable();
+        label2 = new JLabel();
+        label3 = new JLabel();
         pnlDropClass = new JPanel();
         scrlInitialDrop = new JScrollPane();
         listInitialDrop = new JList();
@@ -261,6 +264,7 @@ public class registrationToolWindow extends JFrame {
         btnRefreshDegProg = new JButton();
         label_incomplete = new JLabel();
         label1 = new JLabel();
+        degreeProgressBar = new JProgressBar();
 
         //======== this ========
         setTitle("Course Registation Tool");
@@ -363,6 +367,12 @@ public class registrationToolWindow extends JFrame {
                     scrollPaneForTermTwoSchedule.setViewportView(tableTermTwoSchedule);
                 }
 
+                //---- label2 ----
+                label2.setText("Term 1 Schedule");
+
+                //---- label3 ----
+                label3.setText("Term 2 Schedule");
+
                 GroupLayout pnlAddClassLayout = new GroupLayout(pnlAddClass);
                 pnlAddClass.setLayout(pnlAddClassLayout);
                 pnlAddClassLayout.setHorizontalGroup(
@@ -371,9 +381,15 @@ public class registrationToolWindow extends JFrame {
                             .addContainerGap()
                             .addGroup(pnlAddClassLayout.createParallelGroup()
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
-                                    .addComponent(scrollPaneForTermOneSchedule, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlAddClassLayout.createParallelGroup()
+                                        .addComponent(scrollPaneForTermOneSchedule, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(label2))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(scrollPaneForTermTwoSchedule, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                                    .addGroup(pnlAddClassLayout.createParallelGroup()
+                                        .addComponent(scrollPaneForTermTwoSchedule, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                                        .addGroup(pnlAddClassLayout.createSequentialGroup()
+                                            .addComponent(label3)
+                                            .addGap(0, 0, Short.MAX_VALUE))))
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addComponent(btnRefreshAdd, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -382,11 +398,9 @@ public class registrationToolWindow extends JFrame {
                                     .addComponent(scrlPaneViewAdd, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(pnlAddClassLayout.createParallelGroup()
-                                        .addComponent(btnInitialRemove, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(pnlAddClassLayout.createSequentialGroup()
-                                            .addComponent(btnInitialAdd, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE)))
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnInitialAdd, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnInitialRemove, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(pnlAddClassLayout.createParallelGroup()
                                         .addComponent(btnRegister, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(scrlPaneConfirmAdd, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))))
@@ -404,15 +418,20 @@ public class registrationToolWindow extends JFrame {
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGap(32, 32, 32)
                                     .addComponent(btnInitialAdd, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(46, 46, 46)
+                                    .addGap(45, 45, 45)
                                     .addComponent(btnInitialRemove, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(pnlAddClassLayout.createParallelGroup()
                                 .addComponent(btnRefreshAdd)
                                 .addComponent(btnRegister))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                             .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                .addComponent(scrollPaneForTermOneSchedule, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlAddClassLayout.createSequentialGroup()
+                                    .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(label2)
+                                        .addComponent(label3))
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(scrollPaneForTermOneSchedule, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
                                 .addComponent(scrollPaneForTermTwoSchedule, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
                             .addContainerGap())
                 );
@@ -565,13 +584,18 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlDegProgLayout.createParallelGroup()
                                 .addComponent(scrlDegProgIncomplete, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label_incomplete, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                            .addComponent(btnRefreshDegProg, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                            .addGroup(pnlDegProgLayout.createParallelGroup()
+                                .addGroup(GroupLayout.Alignment.TRAILING, pnlDegProgLayout.createSequentialGroup()
+                                    .addComponent(btnRefreshDegProg, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18))
+                                .addGroup(GroupLayout.Alignment.TRAILING, pnlDegProgLayout.createSequentialGroup()
+                                    .addComponent(degreeProgressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(40, 40, 40)))
                             .addGroup(pnlDegProgLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                 .addComponent(label1, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                                 .addComponent(scrlDegProgComplete, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
-                            .addContainerGap(177, Short.MAX_VALUE))
+                            .addContainerGap(174, Short.MAX_VALUE))
                 );
                 pnlDegProgLayout.setVerticalGroup(
                     pnlDegProgLayout.createParallelGroup()
@@ -582,9 +606,11 @@ public class registrationToolWindow extends JFrame {
                                 .addComponent(scrlDegProgComplete, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                                 .addComponent(btnRefreshDegProg, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(pnlDegProgLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                .addComponent(label_incomplete)
-                                .addComponent(label1))
+                            .addGroup(pnlDegProgLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addGroup(pnlDegProgLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                    .addComponent(label_incomplete)
+                                    .addComponent(label1))
+                                .addComponent(degreeProgressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                             .addGap(55, 55, 55))
                 );
             }
@@ -629,6 +655,8 @@ public class registrationToolWindow extends JFrame {
     private JTable tableTermOneSchedule;
     private JScrollPane scrollPaneForTermTwoSchedule;
     private JTable tableTermTwoSchedule;
+    private JLabel label2;
+    private JLabel label3;
     private JPanel pnlDropClass;
     private JScrollPane scrlInitialDrop;
     private JList listInitialDrop;
@@ -648,5 +676,6 @@ public class registrationToolWindow extends JFrame {
     private JButton btnRefreshDegProg;
     private JLabel label_incomplete;
     private JLabel label1;
+    private JProgressBar degreeProgressBar;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

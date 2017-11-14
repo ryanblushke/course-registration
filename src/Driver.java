@@ -954,6 +954,34 @@ public class Driver {
         return completed.toArray( new String[completed.size()] );
     }
 
+
+    /**
+     * returns the total degree progress of a student in float% format.
+     * @param nsid the current user logged in.
+     * @return a float that gives the percentage of degree progress for the student logged in.
+     */
+    public float updateProgressBar(String nsid){
+
+        float totalClasses = 0;
+
+        try {
+            String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
+
+            Statement myStatForCoursesNeeded = this.connection.createStatement();
+            ResultSet resultSetOfDegreeRequirementCourses = myStatForCoursesNeeded.executeQuery(getDegreeReqSQL);
+
+            while( resultSetOfDegreeRequirementCourses.next() ){
+                totalClasses++;
+            }
+        } catch ( Exception e ){
+            e.printStackTrace();
+        }
+
+        String[] complete = populateComplete(nsid);
+
+        return (complete.length / totalClasses ) * 100;
+    }
+
     /**
      * Authenticates a user into the system.
      * @param username self explanatory
