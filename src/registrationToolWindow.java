@@ -233,7 +233,7 @@ public class registrationToolWindow extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Kevin Baker
+        // Generated using JFormDesigner Evaluation license - Lane Larochelle
         tbdPaneRegistration = new JTabbedPane();
         pnlWelcome = new JPanel();
         lblWelcome = new JLabel();
@@ -260,7 +260,7 @@ public class registrationToolWindow extends JFrame {
         scrlViewDrop = new JScrollPane();
         listViewAdd2 = new JList();
         btnRefreshDrop = new JButton();
-        btnInitialAddDrop = new JButton();
+        btnInitialDrop = new JButton();
         btnInitialRemove2 = new JButton();
         scrollPane1 = new JScrollPane();
         listRegisterDrop = new JList();
@@ -433,7 +433,7 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlAddClassLayout.createParallelGroup()
                                 .addComponent(btnRefreshAdd)
                                 .addComponent(btnRegister))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -481,9 +481,9 @@ public class registrationToolWindow extends JFrame {
                     }
                 });
 
-                //---- btnInitialAddDrop ----
-                btnInitialAddDrop.setText("Add ->");
-                btnInitialAddDrop.addMouseListener(new MouseAdapter() {
+                //---- btnInitialDrop ----
+                btnInitialDrop.setText(" Drop ->");
+                btnInitialDrop.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         btnInitialAddDropMouseClicked(e);
@@ -519,16 +519,16 @@ public class registrationToolWindow extends JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(scrlViewDrop, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(pnlDropClassLayout.createParallelGroup()
-                                        .addComponent(btnInitialAddDrop, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnInitialRemove2, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlDropClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnInitialDrop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnInitialRemove2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(pnlDropClassLayout.createSequentialGroup()
                                     .addComponent(btnRefreshDrop, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnConfirmDrop, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)))
-                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addContainerGap(8, Short.MAX_VALUE))
                 );
                 pnlDropClassLayout.setVerticalGroup(
                     pnlDropClassLayout.createParallelGroup()
@@ -542,14 +542,14 @@ public class registrationToolWindow extends JFrame {
                                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(pnlDropClassLayout.createSequentialGroup()
                                     .addGap(38, 38, 38)
-                                    .addComponent(btnInitialAddDrop, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnInitialDrop, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
                                     .addGap(46, 46, 46)
                                     .addComponent(btnInitialRemove2, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(pnlDropClassLayout.createParallelGroup()
                                 .addComponent(btnRefreshDrop)
                                 .addComponent(btnConfirmDrop))
-                            .addContainerGap(326, Short.MAX_VALUE))
+                            .addContainerGap(314, Short.MAX_VALUE))
                 );
             }
             tbdPaneRegistration.addTab("Drop Class", pnlDropClass);
@@ -609,7 +609,7 @@ public class registrationToolWindow extends JFrame {
                 pnlDegProgLayout.setVerticalGroup(
                     pnlDegProgLayout.createParallelGroup()
                         .addGroup(GroupLayout.Alignment.TRAILING, pnlDegProgLayout.createSequentialGroup()
-                            .addContainerGap(15, Short.MAX_VALUE)
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlDegProgLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(scrlDegProgIncomplete, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                                 .addComponent(scrlDegProgComplete, GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
@@ -645,7 +645,7 @@ public class registrationToolWindow extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Kevin Baker
+    // Generated using JFormDesigner Evaluation license - Lane Larochelle
     private JTabbedPane tbdPaneRegistration;
     private JPanel pnlWelcome;
     private JLabel lblWelcome;
@@ -672,7 +672,7 @@ public class registrationToolWindow extends JFrame {
     private JScrollPane scrlViewDrop;
     private JList listViewAdd2;
     private JButton btnRefreshDrop;
-    private JButton btnInitialAddDrop;
+    private JButton btnInitialDrop;
     private JButton btnInitialRemove2;
     private JScrollPane scrollPane1;
     private JList listRegisterDrop;

@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -22,7 +22,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l {comp scrollPaneForTermOneSchedule:::p:420:p, comp label2::l:p::p}, space u:::p, par l {comp scrollPaneForTermTwoSchedule::::0:x, seq {comp label3:::p::p, space :0:0:x}}}, seq {par l:::p {comp btnRefreshAdd:::::x, comp scrlPaneInitialAdd:::p:169:p}, space s:::p, comp scrlPaneViewAdd:::p:331:p, space :::p, par l {comp btnInitialAdd:::p:85:p, comp btnInitialRemove:::::x}, space u:::x, par l {comp btnRegister:::p:231:p, comp scrlPaneConfirmAdd:::p:231:p}}}, space :p:10:p}}"
-					"$verticalGroup": "par l {seq {space :::p, par l {par l:l::p {comp scrlPaneInitialAdd::l:::x, comp scrlPaneViewAdd::t:p:179:p, comp scrlPaneConfirmAdd::t:::x}, seq l {space :p:32:p, comp btnInitialAdd:::p:41:p, space :p:45:p, comp btnInitialRemove:::p:40:p}}, space :::p, par l {comp btnRefreshAdd:::p::p, comp btnRegister:::p::p}, space ::20:x, par t {seq {par b {comp label2::b:p::p, comp label3::b:p::p}, space :::p, comp scrollPaneForTermOneSchedule:::p:280:p}, comp scrollPaneForTermTwoSchedule:::p:280:p}, space :::p}}"
+					"$verticalGroup": "par l {seq {space :::p, par l {par l:l::p {comp scrlPaneInitialAdd::l:::x, comp scrlPaneViewAdd::t:p:179:p, comp scrlPaneConfirmAdd::t:::x}, seq l {space :p:32:p, comp btnInitialAdd:::p:41:p, space :p:45:p, comp btnInitialRemove:::p:40:p}}, space :::p, par l {comp btnRefreshAdd:::p::p, comp btnRegister:::p::p}, space :::x, par t {seq {par b {comp label2::b:p::p, comp label3::b:p::p}, space :::p, comp scrollPaneForTermOneSchedule:::p:280:p}, comp scrollPaneForTermTwoSchedule:::p:280:p}, space :::p}}"
 				} ) {
 					name: "pnlAddClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -90,8 +90,8 @@ new FormModel {
 					"title": "Add Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :::p, par l:::p {seq {comp scrlInitialDrop:::p:169:p, space s:::p, comp scrlViewDrop:::p:331:p, space :::p, par l {comp btnInitialAddDrop:::p:85:p, comp btnInitialRemove2:::p:85:p}, space u:::p, comp scrollPane1:::p:231:p}, seq {comp btnRefreshDrop:::p:169:p, space :::x, comp btnConfirmDrop:::p:231:p}}, space :::x}}"
-					"$verticalGroup": "par l {seq l {par l {seq {space :::p, par l {comp scrlInitialDrop:::p:179:p, comp scrlViewDrop:::p:179:p, comp scrollPane1::l:p:179:p}}, seq l {space :p:38:p, comp btnInitialAddDrop:::p:41:p, space :p:46:p, comp btnInitialRemove2:::p:40:p}}, space :::p, par l {comp btnRefreshDrop:::p::p, comp btnConfirmDrop:::p::p}, space ::326:x}}"
+					"$horizontalGroup": "par l {seq {space :::p, par l:::p {seq {comp scrlInitialDrop:::p:169:p, space s:::p, comp scrlViewDrop:::p:331:p, space :::p, par l:::p {comp btnInitialDrop:::::x, comp btnInitialRemove2:::::x}, space u:::p, comp scrollPane1:::p:231:p}, seq {comp btnRefreshDrop:::p:169:p, space :::x, comp btnConfirmDrop:::p:231:p}}, space ::8:x}}"
+					"$verticalGroup": "par l {seq l {par l {seq {space :::p, par l {comp scrlInitialDrop:::p:179:p, comp scrlViewDrop:::p:179:p, comp scrollPane1::l:p:179:p}}, seq l {space :p:38:p, comp btnInitialDrop:::p:41:p, space :p:46:p, comp btnInitialRemove2:::p:40:p}}, space :::p, par l {comp btnRefreshDrop:::p::p, comp btnConfirmDrop:::p::p}, space ::314:x}}"
 				} ) {
 					name: "pnlDropClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -115,8 +115,8 @@ new FormModel {
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnRefreshDropMouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "btnInitialAddDrop"
-						"text": "Add ->"
+						name: "btnInitialDrop"
+						"text": " Drop ->"
 						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnInitialAddDropMouseClicked", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
@@ -139,7 +139,7 @@ new FormModel {
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {seq l {space :p:131:p, par l {comp scrlDegProgIncomplete:::p:168:p, comp label_incomplete:::::x}, space ::21:x, par l {seq t {comp btnRefreshDegProg:::p:188:p, space s:::p}, seq t {comp degreeProgressBar:::p::p, space :p:40:p}}, par l:::p {comp label1::::168:x, comp scrlDegProgComplete::::168:x}, space ::174:x}}"
-					"$verticalGroup": "par l {seq t {space ::15:x, par t:::p {comp scrlDegProgIncomplete::::450:x, comp scrlDegProgComplete::::450:x, comp btnRefreshDegProg::t:p:40:p}, space :::p, par t {par b {comp label_incomplete::b:p::p, comp label1::b:p::p}, comp degreeProgressBar:::p::p}, space :p:55:p}}"
+					"$verticalGroup": "par l {seq t {space :::x, par t:::p {comp scrlDegProgIncomplete::::450:x, comp scrlDegProgComplete::::450:x, comp btnRefreshDegProg::t:p:40:p}, space :::p, par t {par b {comp label_incomplete::b:p::p, comp label1::b:p::p}, comp degreeProgressBar:::p::p}, space :p:55:p}}"
 				} ) {
 					name: "pnlDegProg"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
