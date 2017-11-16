@@ -461,6 +461,62 @@ public class Driver {
     }
 
     /**
+     * Gets an array of strings that contains all the classes currently enrolled in and is used to populate
+     * classes that a user can drop.
+     * @param nsid identification of student.
+     * @return array of strings containing course names currently enrolled in.
+     */
+    public String[] getDroppableCourses(String nsid) {
+
+        String getTakingT1 = "SELECT * FROM Taking_T1 WHERE NSID = ?";
+        String getTakingT2 = "SELECT * FROM Taking_T2 WHERE NSID = ?";
+
+        List<String> classesTakingT1 = new ArrayList<>();
+        List<String> classesTakingT2 = new ArrayList<>();
+        List<String> classesTakingTotal;
+
+        try {
+            PreparedStatement statForTakingT1 = this.connection.prepareStatement(getTakingT1);
+            statForTakingT1.setString(1, nsid);
+            PreparedStatement statForTakingT2 = this.connection.prepareStatement(getTakingT2);
+            statForTakingT2.setString(1, nsid);
+
+            // Execute SQL query
+            ResultSet resultSetOfTakingT1 = statForTakingT1.executeQuery();
+            ResultSet resultSetOfTakingT2 = statForTakingT2.executeQuery();
+
+            // Get classes taking BEGIN
+            while(resultSetOfTakingT1.next()){
+                int index = 2;
+
+                while (resultSetOfTakingT1.getString(index) != null) {
+                    classesTakingT1.add(this.getCourseGivenIDNumber(Integer.valueOf(resultSetOfTakingT1.getString
+                            (index))).getName());
+                    index++;
+                }
+            }
+
+            while(resultSetOfTakingT2.next()){
+                int index = 2;
+
+                while (resultSetOfTakingT2.getString(index) != null) {
+                    classesTakingT2.add(this.getCourseGivenIDNumber(Integer.valueOf(resultSetOfTakingT2.getString
+                            (index))).getName());
+                    index++;
+                }
+            }
+            // Get classes taking END
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        classesTakingTotal = classesTakingT1;
+        classesTakingTotal.addAll(classesTakingT2);
+        Collections.sort(classesTakingTotal);
+        return classesTakingTotal.toArray(new String[classesTakingTotal.size()]);
+    }
+
+    /**
      * Checks to see if a given course from DEGREE REQUIREMENTS needs to be displayed.
      * @param resultSetOfCourseToSeeIfItShouldBeAdded A result from the database that contains the name of a class that
      *                                                may need to be be displayed.
