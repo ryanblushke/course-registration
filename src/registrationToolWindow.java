@@ -202,9 +202,7 @@ public class registrationToolWindow extends JFrame {
 
     private void btnRefreshDropMouseClicked(MouseEvent e) {
         // TODO add your code here
-        String[] classes;
-        classes = BDSM.getDroppableCourses(nsid);
-        listInitialDrop.setListData(classes);
+        listInitialDrop.setListData(BDSM.getDroppableCourses(nsid).toArray());
     }
 
     private void btnInitialAddDropMouseClicked(MouseEvent e) {
@@ -213,14 +211,14 @@ public class registrationToolWindow extends JFrame {
 
     private void listInitialDropMouseClicked(MouseEvent e) {
         // TODO add your code here
-        String courseToView;
-        String[] courseInfo;
-
-        if( !listInitialDrop.isSelectionEmpty() ) {
-            courseToView = (String) listInitialDrop.getSelectedValue();
-            courseInfo = BDSM.getCourseInformation(courseToView);
-            listViewAdd2.setListData(courseInfo);
-        }
+//        String courseToView;
+//        String[] courseInfo;
+//
+//        if( !listInitialDrop.isSelectionEmpty() ) {
+//            courseToView = (String) listInitialDrop.getSelectedValue();
+//            courseInfo = BDSM.getCourseInformation(courseToView);
+//            listViewAdd2.setListData(courseInfo);
+//        }
     }
 
     private void btnRefreshDegProgMouseClicked(MouseEvent e) {

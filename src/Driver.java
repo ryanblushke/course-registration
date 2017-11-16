@@ -464,16 +464,16 @@ public class Driver {
      * Gets an array of strings that contains all the classes currently enrolled in and is used to populate
      * classes that a user can drop.
      * @param nsid identification of student.
-     * @return array of strings containing course names currently enrolled in.
+     * @return array of Courses the student is currently enrolled in.
      */
-    public String[] getDroppableCourses(String nsid) {
+    public ArrayList<Course> getDroppableCourses(String nsid) {
 
         String getTakingT1 = "SELECT * FROM Taking_T1 WHERE NSID = ?";
         String getTakingT2 = "SELECT * FROM Taking_T2 WHERE NSID = ?";
 
-        List<String> classesTakingT1 = new ArrayList<>();
-        List<String> classesTakingT2 = new ArrayList<>();
-        List<String> classesTakingTotal;
+        List<Course> classesTakingT1 = new ArrayList<>();
+        List<Course> classesTakingT2 = new ArrayList<>();
+        List<Course> classesTakingTotal;
 
         try {
             PreparedStatement statForTakingT1 = this.connection.prepareStatement(getTakingT1);
@@ -491,7 +491,7 @@ public class Driver {
 
                 while (resultSetOfTakingT1.getString(index) != null) {
                     classesTakingT1.add(this.getCourseGivenIDNumber(Integer.valueOf(resultSetOfTakingT1.getString
-                            (index))).getName());
+                            (index))));
                     index++;
                 }
             }
@@ -501,7 +501,7 @@ public class Driver {
 
                 while (resultSetOfTakingT2.getString(index) != null) {
                     classesTakingT2.add(this.getCourseGivenIDNumber(Integer.valueOf(resultSetOfTakingT2.getString
-                            (index))).getName());
+                            (index))));
                     index++;
                 }
             }
@@ -512,8 +512,8 @@ public class Driver {
 
         classesTakingTotal = classesTakingT1;
         classesTakingTotal.addAll(classesTakingT2);
-        Collections.sort(classesTakingTotal);
-        return classesTakingTotal.toArray(new String[classesTakingTotal.size()]);
+//        Collections.sort(classesTakingTotal);
+        return (ArrayList<Course>) classesTakingTotal;
     }
 
     /**

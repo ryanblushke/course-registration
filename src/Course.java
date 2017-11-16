@@ -283,7 +283,7 @@ public class Course {
         return  this.name + " | " + "Term " + this.term + " | " +
                 Integer.toString(this.startTime) + "-" + Integer.toString(this.endTime) + " | " +
                 this.days + " | " +
-                this.room;
+                this.room + " | " + this.prof;
 
     }
 
