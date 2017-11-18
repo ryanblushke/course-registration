@@ -190,14 +190,14 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void listInitialAddMouseClicked(MouseEvent e) {
-        String courseToView;
-        String[] courseInfo;
+            String courseToView;
+            String[] courseInfo;
 
-        if( !listInitialAdd.isSelectionEmpty() ) {
-            courseToView = (String) listInitialAdd.getSelectedValue();
-            courseInfo = BDSM.getCourseInformation(courseToView);
-            listViewAdd.setListData(courseInfo);
-        }
+            if( !listInitialAdd.isSelectionEmpty() ) {
+                courseToView = (String) listInitialAdd.getSelectedValue();
+                courseInfo = BDSM.getCourseInformation(courseToView);
+                listViewAdd.setListData(courseInfo);
+            }
     }
 
     private void btnRefreshDropMouseClicked(MouseEvent e) {
@@ -206,7 +206,14 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void btnInitialAddDropMouseClicked(MouseEvent e) {
-        // TODO add your code here
+        String courseToDrop;
+        String[] courseInfo;
+
+        if( !listInitialDrop.isSelectionEmpty() ) {
+            courseToDrop = (String) listInitialDrop.getSelectedValue();
+            courseInfo = BDSM.getCourseInformation(courseToDrop);
+        }
+
     }
 
     private void listInitialDropMouseClicked(MouseEvent e) {
@@ -219,6 +226,9 @@ public class registrationToolWindow extends JFrame {
 //            courseInfo = BDSM.getCourseInformation(courseToView);
 //            listViewAdd2.setListData(courseInfo);
 //        }
+    }
+    private void btnConfirmDropClicked(MouseEvent e){
+
     }
 
     private void btnRefreshDegProgMouseClicked(MouseEvent e) {
@@ -316,7 +326,6 @@ public class registrationToolWindow extends JFrame {
                     });
                     scrlPaneInitialAdd.setViewportView(listInitialAdd);
                 }
-
                 //======== scrlPaneViewAdd ========
                 {
 
@@ -502,10 +511,17 @@ public class registrationToolWindow extends JFrame {
                 //======== scrollPane1 ========
                 {
                     scrollPane1.setViewportView(listRegisterDrop);
+
                 }
 
                 //---- btnConfirmDrop ----
                 btnConfirmDrop.setText("Confirm Drop Class");
+                btnConfirmDrop.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        btnConfirmDropClicked(e);
+                    }
+                });
 
                 GroupLayout pnlDropClassLayout = new GroupLayout(pnlDropClass);
                 pnlDropClass.setLayout(pnlDropClassLayout);

@@ -1146,4 +1146,277 @@ public class Driver {
         */
 
     }
+
+    //this code is absolutely brutal but it works
+
+    /**
+     *
+     * @param nsid pass a valid NSID already registered in the system
+     * @param ClassID the CLASSID will be removed from their list of takin classes for t1
+     * @return VOID nothing happens if it isn't in there taking courses
+     */
+    public void removeClass_t1(String nsid, int ClassID){
+        System.out.println("fuck this bitch I'm out");
+        try {
+            String classReplacement1 = "UPDATE Taking_T1 SET T1 =NULL WHERE (NSID = ? AND T1= ?)" ;
+            String classReplacement2 = "UPDATE Taking_T1 SET T2 =NULL WHERE (NSID = ? AND T2= ?)" ;
+            String classReplacement3 = "UPDATE Taking_T1 SET T3 =NULL WHERE (NSID = ? AND T3= ?)" ;
+            String classReplacement4 = "UPDATE Taking_T1 SET T4 =NULL WHERE (NSID = ? AND T4= ?)" ;
+            String classReplacement5 = "UPDATE Taking_T1 SET T5 =NULL WHERE (NSID = ? AND T5= ?)" ;
+            String classReplacement6 = "UPDATE Taking_T1 SET T6 =NULL WHERE (NSID = ? AND T6= ?)" ;
+            String classReplacement7 = "UPDATE Taking_T1 SET T7 =NULL WHERE (NSID = ? AND T7= ?)" ;
+            String classReplacement8 = "UPDATE Taking_T1 SET T8 =NULL WHERE (NSID = ? AND T8= ?)" ;
+            String classReplacement9 = "UPDATE Taking_T1 SET T9 =NULL WHERE (NSID = ? AND T9= ?)" ;
+            String classReplacement10 = "UPDATE Taking_T1 SET T10 =NULL WHERE (NSID = ? AND T10= ?)" ;
+            String classReplacement11 = "UPDATE Taking_T1 SET T11 =NULL WHERE (NSID = ? AND T11= ?)" ;
+            String classReplacement12 = "UPDATE Taking_T1 SET T12 =NULL WHERE (NSID = ? AND T12= ?)" ;
+            String classReplacement13 = "UPDATE Taking_T1 SET T13 =NULL WHERE (NSID = ? AND T13= ?)" ;
+            String classReplacement14 = "UPDATE Taking_T1 SET T14 =NULL WHERE (NSID = ? AND T14= ?)" ;
+            String classReplacement15 = "UPDATE Taking_T1 SET T15 =NULL WHERE (NSID = ? AND T15= ?)" ;
+            String classReplacement16 = "UPDATE Taking_T1 SET T16 =NULL WHERE (NSID = ? AND T16= ?)" ;
+            String classReplacement17 = "UPDATE Taking_T1 SET T17 =NULL WHERE (NSID = ? AND T17= ?)" ;
+
+            PreparedStatement testReplace = this.connection.prepareStatement(classReplacement1);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement2);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement3);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement4);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement5);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement6);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement7);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement8);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement9);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement10);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement11);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement12);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement13);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement14);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement15);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement16);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement17);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     *
+     * @param nsid pass a valid NSID already registered in the system
+     * @param ClassID the CLASSID will be removed from their list of takin classes for t2
+     * @return VOID
+     */
+    public void removeClass_t2(String nsid, int ClassID){
+        System.out.println("fuck this bitch I'm out");
+        try {
+            String classReplacement1 = "UPDATE Taking_T2 SET T1 =NULL WHERE (NSID = ? AND T1= ?)" ;
+            String classReplacement2 = "UPDATE Taking_T2 SET T2 =NULL WHERE (NSID = ? AND T2= ?)" ;
+            String classReplacement3 = "UPDATE Taking_T2 SET T3 =NULL WHERE (NSID = ? AND T3= ?)" ;
+            String classReplacement4 = "UPDATE Taking_T2 SET T4 =NULL WHERE (NSID = ? AND T4= ?)" ;
+            String classReplacement5 = "UPDATE Taking_T2 SET T5 =NULL WHERE (NSID = ? AND T5= ?)" ;
+            String classReplacement6 = "UPDATE Taking_T2 SET T6 =NULL WHERE (NSID = ? AND T6= ?)" ;
+            String classReplacement7 = "UPDATE Taking_T2 SET T7 =NULL WHERE (NSID = ? AND T7= ?)" ;
+            String classReplacement8 = "UPDATE Taking_T2 SET T8 =NULL WHERE (NSID = ? AND T8= ?)" ;
+            String classReplacement9 = "UPDATE Taking_T2 SET T9 =NULL WHERE (NSID = ? AND T9= ?)" ;
+            String classReplacement10 = "UPDATE Taking_T2 SET T10 =NULL WHERE (NSID = ? AND T10= ?)" ;
+            String classReplacement11 = "UPDATE Taking_T2 SET T11 =NULL WHERE (NSID = ? AND T11= ?)" ;
+            String classReplacement12 = "UPDATE Taking_T2 SET T12 =NULL WHERE (NSID = ? AND T12= ?)" ;
+            String classReplacement13 = "UPDATE Taking_T2 SET T13 =NULL WHERE (NSID = ? AND T13= ?)" ;
+            String classReplacement14 = "UPDATE Taking_T2 SET T14 =NULL WHERE (NSID = ? AND T14= ?)" ;
+            String classReplacement15 = "UPDATE Taking_T2 SET T15 =NULL WHERE (NSID = ? AND T15= ?)" ;
+            String classReplacement16 = "UPDATE Taking_T2 SET T16 =NULL WHERE (NSID = ? AND T16= ?)" ;
+            String classReplacement17 = "UPDATE Taking_T2 SET T17 =NULL WHERE (NSID = ? AND T17= ?)" ;
+
+            PreparedStatement testReplace = this.connection.prepareStatement(classReplacement1);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement2);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement3);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement4);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement5);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement6);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement7);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement8);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement9);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement10);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement11);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement12);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement13);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement14);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement15);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement16);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+            testReplace = this.connection.prepareStatement(classReplacement17);
+            testReplace.setString(1, nsid);
+            testReplace.setInt(2, ClassID);
+            testReplace.executeUpdate();
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public LinkedList<Course> goodToDrop(Course dropper){
+
+        LinkedList<Course> T1affectedClasses = new LinkedList<>();
+        LinkedList<Course> T2affectedClasses = new LinkedList<>();
+        if(T1_Schedule.contains(dropper.name)){
+            // loop over every course in term one and check their corec list for dropper.name
+            // if there is a hit we need to add it to a list T1 affected.
+            // at the end we need to do the same check on every item in the list to make sure no other item in the list
+            // once we get we get to then of all classes in the schedule we need to check the prereq
+
+            // FOR TERM 1 CLASSES ONLY
+            // Check if any of the classes in the list are prereqs for classes in term 2 add the class to the term2 affected list
+            // once all check are completed
+            // check the term 2 classes to see if any of their corecs are in the T2affected list if so add it to the list
+
+            // once done issue the warning to the user and return the concatted lists (T1 + T2) affected courses
+
+            //
+            for (int i =0; ;){
+                return T1affectedClasses;
+            }
+
+        }
+        if(T2_Schedule.contains(dropper.name)){
+            //repeat same as above for loop above
+           return T1affectedClasses;
+        }
+        else {
+            return T1affectedClasses;
+        }
+    }
 }
