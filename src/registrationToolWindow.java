@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.LinkedList;
 /*
  * Created by JFormDesigner on Thu Oct 12 16:56:24 CST 2017
  */
@@ -202,7 +204,14 @@ public class registrationToolWindow extends JFrame {
 
     private void btnRefreshDropMouseClicked(MouseEvent e) {
         // TODO add your code here
+        ArrayList<Course> droppable = BDSM.getDroppableCourses(nsid);
         listInitialDrop.setListData(BDSM.getDroppableCourses(nsid).toArray());
+
+        //TODO REMOVE AFTER TESTING
+        for( Course c : droppable ) {
+            System.out.println("Dropping: " + c);
+            System.out.println(BDSM.goodToDrop(c, new Course()));
+        }
     }
 
     private void btnInitialAddDropMouseClicked(MouseEvent e) {

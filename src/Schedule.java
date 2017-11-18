@@ -16,6 +16,23 @@ public class Schedule {
         return classList;
     }
 
+
+    /**
+     * Gets a class from the schedule with the given course name.
+     * @param courseName of course that we are looking for.
+     * @return course object if found, else returns null.
+     */
+    public Course getCourseFromSchedule( String courseName){
+
+        for( Course c : classList ){
+            if( c.name.equals(courseName) ){
+                return c;
+            }
+        }
+
+        return null;
+    }
+
     /**
      * Determines if a course is in the schedule or not based on the class name
      * @param name string of course name. IE, GE 101

@@ -305,6 +305,16 @@ public class Driver {
                 if( resultSetOfCourseInfo.getString("ClassCoreq3") != null){
                     c.addCoereq( resultSetOfCourseInfo.getString("ClassCoreq3") );
                 }
+                if( resultSetOfCourseInfo.getString("ClassPrereq1") != null ){
+                    c.addPrereq( resultSetOfCourseInfo.getString("ClassPrereq1"));
+                }
+                if( resultSetOfCourseInfo.getString("ClassPrereq2") != null ){
+                    c.addPrereq( resultSetOfCourseInfo.getString("ClassPrereq2"));
+                }
+                if( resultSetOfCourseInfo.getString("ClassPrereq3") != null ){
+                    c.addPrereq( resultSetOfCourseInfo.getString("ClassPrereq3"));
+                }
+
                 cInfo = c.toString();
                 viewClassList.add(c);
 
@@ -1388,35 +1398,71 @@ public class Driver {
         }
     }
 
-    public LinkedList<Course> goodToDrop(Course dropper){
+    // TODO: ADD COMMENTS
+    public LinkedList<Course> goodToDrop(Course dropper, Course prevDropper) {
 
         LinkedList<Course> T1affectedClasses = new LinkedList<>();
         LinkedList<Course> T2affectedClasses = new LinkedList<>();
-        if(T1_Schedule.contains(dropper.name)){
+        LinkedList<Course> totalAffectedCourses = new LinkedList<>();
+        if (T1_Schedule_DB.contains(dropper.name)) {
             // loop over every course in term one and check their corec list for dropper.name
             // if there is a hit we need to add it to a list T1 affected.
             // at the end we need to do the same check on every item in the list to make sure no other item in the list
             // once we get we get to then of all classes in the schedule we need to check the prereq
-
             // FOR TERM 1 CLASSES ONLY
             // Check if any of the classes in the list are prereqs for classes in term 2 add the class to the term2 affected list
             // once all check are completed
             // check the term 2 classes to see if any of their corecs are in the T2affected list if so add it to the list
-
             // once done issue the warning to the user and return the concatted lists (T1 + T2) affected courses
+            for (Course courseInT1 : T1_Schedule_DB.getCoursesInSchedule()) {
+                for (String coreq : courseInT1.coreq) {
+                    if (coreq.equals(dropper.name)) {
+                        T1affectedClasses.add(courseInT1);
+                    }
+                }
+            }
 
-            //
-            for (int i =0; ;){
-                return T1affectedClasses;
+            for (Course courseInT2 : T2_Schedule_DB.getCoursesInSchedule()) {
+                for (String prereq : courseInT2.getPrereq()) {
+                    if (prereq.equals(dropper.name)) {
+                            T2affectedClasses.add(courseInT2);
+                    }
+                }
             }
 
         }
-        if(T2_Schedule.contains(dropper.name)){
+        if (T2_Schedule.contains(dropper.name)) {
             //repeat same as above for loop above
-           return T1affectedClasses;
+            for (Course courseInT2 : T2_Schedule_DB.getCoursesInSchedule()) {
+                for (String coreq : courseInT2.coreq) {
+                    if (coreq.equals(dropper.name)) {
+                        T2affectedClasses.add(courseInT2);
+                    }
+                }
+            }
         }
-        else {
-            return T1affectedClasses;
+
+
+        for( Course affectedCourse : T1affectedClasses ) {
+
+
+            if( !affectedCourse.getName().equals(prevDropper.getName()) ) {
+                totalAffectedCourses.add(affectedCourse);
+                totalAffectedCourses.addAll(goodToDrop(affectedCourse, dropper));
+            }
+
         }
+        for( Course affectedCourse : T2affectedClasses ){
+
+
+            if( !affectedCourse.getName().equals(prevDropper.getName()) ) {
+                totalAffectedCourses.add(affectedCourse);
+                totalAffectedCourses.addAll(goodToDrop(affectedCourse, dropper));
+            }
+
+        }
+
+        return totalAffectedCourses;
+
     }
 }

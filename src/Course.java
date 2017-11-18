@@ -22,7 +22,7 @@ public class Course {
     protected Integer sizeLimit;
     protected Integer numStudentsEnrolled;
     protected LinkedList<Student> enrolledStudents;
-    protected LinkedList<Course> prereq;
+    protected LinkedList<String> prereq;
     //private TimeSchedule scheduledTime;
 
     /**
@@ -180,7 +180,7 @@ public class Course {
      * get a list of prerequisites for the course
      * @return list of prerequisites
      */
-    public LinkedList<Course> getPrereq() {
+    public LinkedList<String> getPrereq() {
         return prereq;
     }
 
@@ -189,7 +189,7 @@ public class Course {
      * @param prereqCourse
      * @return true on success, false otherwise
      */
-    public boolean addPrereq(Course prereqCourse){
+    public boolean addPrereq(String prereqCourse){
         return prereq.add(prereqCourse);
     }
 
