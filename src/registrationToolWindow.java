@@ -287,13 +287,14 @@ public class registrationToolWindow extends JFrame {
         if( !listInitialDrop.isSelectionEmpty() ) {
             courseToDrop = (Course) listInitialDrop.getSelectedValue();
             infectedClass = BDSM.goodToDrop(courseToDrop, new Course());
+            infectedClass.add(courseToDrop);
             message = "The Following Course(s) will be affected: ";
             for (int i =0; i < infectedClass.size(); i++){
                 message += infectedClass.get(i).name + ", ";
             }
             JOptionPane.showMessageDialog(this, message,"Affected Courses",JOptionPane.INFORMATION_MESSAGE);
+            listRegisterDrop.setListData(infectedClass.toArray());
         }
-
     }
 
     private void listInitialDropMouseClicked(MouseEvent e) {

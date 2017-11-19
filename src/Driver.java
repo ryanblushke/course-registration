@@ -1469,9 +1469,11 @@ public class Driver {
 
         }
         // with this statement it adds the the first find twice and the name of dropper only once
+        /*
         if (totalAffectedCourses.contains(dropper) == false){
             totalAffectedCourses.add(dropper);
         }
+        */
         System.out.println(totalAffectedCourses);
         return totalAffectedCourses;
 
