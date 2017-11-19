@@ -1,3 +1,4 @@
+import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,21 +16,7 @@ public class loginPage extends JFrame {
         initComponents();
     }
 
-    private void txtNSIDActionPerformed(ActionEvent e) {
-        if (! txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length == 0){
-            JOptionPane.showMessageDialog(this,"You didn't enter an initial  Password","Missing Input",0);
-        }
-        //TODO Proper verification of Logins
-        else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0){
-
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"You didn't enter an initial  NSID","Missing Input",0);
-        }
-    }
-
-
-    private void passFieldPasswordActionPerformed(ActionEvent e) {
+    private void verifyLogin(){
         if (! txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length == 0){
             JOptionPane.showMessageDialog(this,"You didn't enter an initial  Password","Missing Input",0);
         }
@@ -51,6 +38,19 @@ public class loginPage extends JFrame {
         }
     }
 
+    private void txtNSIDActionPerformed(ActionEvent e) {
+      verifyLogin();
+    }
+
+
+    private void passFieldPasswordActionPerformed(ActionEvent e) {
+        verifyLogin();
+    }
+
+    private void btnContinueMouseClicked(MouseEvent e) {
+       verifyLogin();
+    }
+
 
 
 
@@ -61,7 +61,6 @@ public class loginPage extends JFrame {
         lblPass = new JLabel();
         txtNSID = new JTextField();
         passFieldPassword = new JPasswordField();
-        btnBack = new JButton();
         btnContinue = new JButton();
         lblCourseWelcome = new JLabel();
 
@@ -84,13 +83,15 @@ public class loginPage extends JFrame {
         //---- passFieldPassword ----
         passFieldPassword.addActionListener(e -> passFieldPasswordActionPerformed(e));
 
-        //---- btnBack ----
-        btnBack.setText("Back");
-        btnBack.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-
         //---- btnContinue ----
         btnContinue.setText("Enter");
         btnContinue.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+        btnContinue.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnContinueMouseClicked(e);
+            }
+        });
 
         //---- lblCourseWelcome ----
         lblCourseWelcome.setText("Big Dynamic Software Machine");
@@ -103,9 +104,7 @@ public class loginPage extends JFrame {
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addGroup(contentPaneLayout.createParallelGroup()
@@ -138,9 +137,7 @@ public class loginPage extends JFrame {
                         .addComponent(lblPass)
                         .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGap(59, 59, 59)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
         );
         pack();
@@ -157,7 +154,6 @@ public class loginPage extends JFrame {
     private JLabel lblPass;
     private JTextField txtNSID;
     private JPasswordField passFieldPassword;
-    private JButton btnBack;
     private JButton btnContinue;
     private JLabel lblCourseWelcome;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

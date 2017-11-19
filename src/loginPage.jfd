@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq {par l {seq {space :::p, comp btnBack:::p:96:p, space ::180:x, comp btnContinue:::p:96:p}, seq {par l {seq l {space :p:76:p, comp lblCourseWelcome:::p::p}, seq l {space :p:58:p, par l {comp lblNSID:::p:111:p, comp lblPass:::p:95:p}, space :p:50:p, par l {comp txtNSID:::p:100:p, comp passFieldPassword:::p:100:p}}}, space :0:59:x}}, space :::p}}"
-			"$verticalGroup": "par l {seq l {space :::p, comp lblCourseWelcome:::p::p, space ::156:x, par b {comp lblNSID::b:p::p, comp txtNSID::b:p::p}, space :p:33:p, par b {comp lblPass::b:p::p, comp passFieldPassword::b:p::p}, space :p:59:p, par b {comp btnContinue::b:p:37:p, comp btnBack::b:p:37:p}, space :::p}}"
+			"$horizontalGroup": "par l {seq {par l {seq l {space :::x, comp btnContinue:::p:96:p}, seq {par l {seq l {space :p:76:p, comp lblCourseWelcome:::p::p}, seq l {space :p:58:p, par l {comp lblNSID:::p:111:p, comp lblPass:::p:95:p}, space :p:50:p, par l {comp txtNSID:::p:100:p, comp passFieldPassword:::p:100:p}}}, space :0:59:x}}, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :::p, comp lblCourseWelcome:::p::p, space ::156:x, par b {comp lblNSID::b:p::p, comp txtNSID::b:p::p}, space :p:33:p, par b {comp lblPass::b:p::p, comp passFieldPassword::b:p::p}, space :p:59:p, comp btnContinue:::p:37:p, space :::p}}"
 		} ) {
 			name: "this"
 			"title": "Login Page"
@@ -29,14 +29,10 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "passFieldPasswordActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "btnBack"
-				"text": "Back"
-				"font": new java.awt.Font( "Century Gothic", 0, 12 )
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "btnContinue"
 				"text": "Enter"
 				"font": new java.awt.Font( "Century Gothic", 0, 12 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnContinueMouseClicked", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "lblCourseWelcome"
