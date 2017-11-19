@@ -234,7 +234,7 @@ public class Driver {
     }
 
     /**
-     * Adds a course based on where it's at in the viewLIST to it's corresponding schedule.
+     * Adds a course based on where it's at in the vJLIST to it's corresponding schedule.
      * DOESN'T COMMIT THE SCHEDULE TO DATABASE UNTIL REGISTER BUTTON IS PRESSED.
      * @param indexOfCourseInClassView index of where the course is at within viewClassList
      * @return null if class adds successfully, error message otherwise
@@ -266,9 +266,9 @@ public class Driver {
     }
 
     /**
-     * Gets a specified course from the database and returns the course in start-finish Room Day format
+     * Gets a specified course from the database and returns the course in toString format
      * within an array. ALSO POPULATES A COURSE CLASS WITH ALL THE CLASSES SPECIFIED INFORMATION AND ADDS IT TO
-     * viewClassList
+     * viewClassList JList.
      * @param course the class to search for.
      * @return an array of Strings containing class time information.
      */
@@ -857,7 +857,8 @@ public class Driver {
 
 
     /**
-     * Adds a course to the database for the currently logged in user
+     * Adds a course into the database of a logged in users. The class is added to its corresponding Term within the
+     * database. IE Taking_T1 ot Taking_T2.
      * @param c is the course to be added.
      * @param nsid current person logged in.
      * @return returns null on complete, else return error message.
