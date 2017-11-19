@@ -86,8 +86,21 @@ public class Schedule {
 
         String scheduleConflict = null;
 
+        // THis means it's a lab. Check to make sure they are scheduled in the class first
+        if( c.getName().contains(" L ")) {
+            boolean error = true;
+            String nameOfCourseForLab = c.getName().replace(" L ", " ");
+            for (Course cInSchedule : classList) {
+                if( cInSchedule.getName().equals(nameOfCourseForLab) ){
+                    error = false;
+                }
+            }
 
-        if( classList.contains(c) ) { // IF IT DOES CONTAIN CLASS ALREADY.
+            if( error ) scheduleConflict = "Error: Register in class before lab or register for lab in proper term.";
+        }
+
+
+        if( classList.contains(c) && (scheduleConflict == null) ) { // IF IT DOES CONTAIN CLASS ALREADY.
             scheduleConflict = "Error: Already registering/registered for this class.";
         }
 
