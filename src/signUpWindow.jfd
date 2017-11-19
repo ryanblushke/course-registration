@@ -4,11 +4,12 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :32:32:p, par l:::p {comp lblEmail::l::104:x, comp lblPass1::t::104:x, comp lblPass2::t::104:x}, space :p:27:p, par l:::p {comp txtNSID::::175:x, comp passFieldInitial::l::175:x, comp passFieldConfirm::l::175:x}, space ::256:x}}"
-			"$verticalGroup": "par l {seq l {space :p:76:p, par l {comp lblEmail:::p::p, comp txtNSID:::p::p}, space :p:29:p, par b {comp lblPass1::b:p::p, comp passFieldInitial::b:p::p}, space :::p, par l {comp lblPass2:::p::p, comp passFieldConfirm:::p::p}, space ::176:x}}"
+			"$horizontalGroup": "par l {seq l {space :p:32:p, par l:::p {comp lblEmail::l::104:x, comp lblPass1::t::104:x, comp lblPass2::t::104:x}, space :p:27:p, par l:::p {comp txtNSID::::175:x, comp passFieldInitial::l::175:x, comp passFieldConfirm::l::175:x}, space ::41:x}, seq {space :p:285:p, comp btnEnter::::88:x, space :::p}}"
+			"$verticalGroup": "par l {seq l {space :p:76:p, par l {comp lblEmail:::p::p, comp txtNSID:::p::p}, space :p:29:p, par b {comp lblPass1::b:p::p, comp passFieldInitial::b:p::p}, space :::p, par l {comp lblPass2:::p::p, comp passFieldConfirm:::p::p}, space ::131:x, comp btnEnter:::p:39:p, space :::p}}"
 		} ) {
 			name: "this"
 			"title": "Sign Up"
+			"font": new java.awt.Font( "Century Gothic", 0, 12 )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "lblEmail"
 				"text": "NSID:"
@@ -16,26 +17,36 @@ new FormModel {
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "lblPass1"
 				"text": "Password:"
+				"font": new java.awt.Font( "Century Gothic", 0, 12 )
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "lblPass2"
 				"text": "Confirm Password:"
+				"font": new java.awt.Font( "Century Gothic", 0, 12 )
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "txtNSID"
+				"font": new java.awt.Font( "Century Gothic", 0, 12 )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "txtNSIDActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
 				name: "passFieldInitial"
+				"font": new java.awt.Font( "Century Gothic", 0, 12 )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "passFieldInitialActionPerformed", true ) )
 			} )
 			add( new FormComponent( "javax.swing.JPasswordField" ) {
 				name: "passFieldConfirm"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "passFieldConfirmActionPerformed", true ) )
 			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "btnEnter"
+				"text": "Enter"
+				"font": new java.awt.Font( "Century Gothic", 0, 12 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnEnterMouseClicked", true ) )
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 5, 0 )
-			"size": new java.awt.Dimension( 610, 400 )
+			"size": new java.awt.Dimension( 395, 400 )
 		} )
 	}
 }

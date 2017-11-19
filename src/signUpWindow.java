@@ -1,3 +1,4 @@
+import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +17,7 @@ public class signUpWindow extends JFrame {
         initComponents();
     }
 
-    private void txtNSIDActionPerformed(ActionEvent e) {
+    private void verifyLogin(){
         if (!txtNSID.getText().isEmpty() && passFieldInitial.getPassword().length == 0 || !txtNSID.getText().isEmpty() && passFieldConfirm.getPassword().length == 0) {
             JOptionPane.showMessageDialog(this, "You are missing a password field", "Missing Input", 0);
         }
@@ -28,34 +29,18 @@ public class signUpWindow extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "You didn't enter an initial  NSID", "Missing Input", 0);
         }
+    }
+
+    private void txtNSIDActionPerformed(ActionEvent e) {
+        verifyLogin();
     }
 
     private void passFieldInitialActionPerformed(ActionEvent e) {
-        if (!txtNSID.getText().isEmpty() && passFieldInitial.getPassword().length == 0 || !txtNSID.getText().isEmpty() && passFieldConfirm.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "You are missing a password field", "Missing Input", 0);
-        }
-        //TODO Proper verification of Logins
-        else if (!txtNSID.getText().isEmpty() && Arrays.equals(passFieldInitial.getPassword(), passFieldConfirm.getPassword())) {
-            this.verifyRegistration();
-        } else if (!txtNSID.getText().isEmpty() && !Arrays.equals(passFieldInitial.getPassword(), passFieldConfirm.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Passwords didn't match", "Missing Input", 0);
-        } else {
-            JOptionPane.showMessageDialog(this, "You didn't enter an initial  NSID", "Missing Input", 0);
-        }
+        verifyLogin();
     }
 
     private void passFieldConfirmActionPerformed(ActionEvent e) {
-        if (!txtNSID.getText().isEmpty() && passFieldInitial.getPassword().length == 0 || !txtNSID.getText().isEmpty() && passFieldConfirm.getPassword().length == 0) {
-            JOptionPane.showMessageDialog(this, "You are missing a password field", "Missing Input", 0);
-        }
-        //TODO Proper verification of Logins
-        else if (!txtNSID.getText().isEmpty() && Arrays.equals(passFieldInitial.getPassword(), passFieldConfirm.getPassword())) {
-            this.verifyRegistration();
-        } else if (!txtNSID.getText().isEmpty() && !Arrays.equals(passFieldInitial.getPassword(), passFieldConfirm.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Passwords didn't match", "Missing Input", 0);
-        } else {
-            JOptionPane.showMessageDialog(this, "You didn't enter an initial  NSID", "Missing Input", 0);
-        }
+        verifyLogin();
     }
 
     public void verifyRegistration () {
@@ -71,6 +56,10 @@ public class signUpWindow extends JFrame {
         registrationDriver.closeConnection();
     }
 
+    private void btnEnterMouseClicked(MouseEvent e) {
+        // TODO add your code here
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - John Smith
@@ -80,9 +69,11 @@ public class signUpWindow extends JFrame {
         txtNSID = new JTextField();
         passFieldInitial = new JPasswordField();
         passFieldConfirm = new JPasswordField();
+        btnEnter = new JButton();
 
         //======== this ========
         setTitle("Sign Up");
+        setFont(new Font("Century Gothic", Font.PLAIN, 12));
         Container contentPane = getContentPane();
 
         //---- lblEmail ----
@@ -90,18 +81,32 @@ public class signUpWindow extends JFrame {
 
         //---- lblPass1 ----
         lblPass1.setText("Password:");
+        lblPass1.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 
         //---- lblPass2 ----
         lblPass2.setText("Confirm Password:");
+        lblPass2.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 
         //---- txtNSID ----
+        txtNSID.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         txtNSID.addActionListener(e -> txtNSIDActionPerformed(e));
 
         //---- passFieldInitial ----
+        passFieldInitial.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         passFieldInitial.addActionListener(e -> passFieldInitialActionPerformed(e));
 
         //---- passFieldConfirm ----
         passFieldConfirm.addActionListener(e -> passFieldConfirmActionPerformed(e));
+
+        //---- btnEnter ----
+        btnEnter.setText("Enter");
+        btnEnter.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+        btnEnter.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                btnEnterMouseClicked(e);
+            }
+        });
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -118,7 +123,11 @@ public class signUpWindow extends JFrame {
                         .addComponent(txtNSID, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                         .addComponent(passFieldInitial, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                         .addComponent(passFieldConfirm, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
-                    .addContainerGap(256, Short.MAX_VALUE))
+                    .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(285, 285, 285)
+                    .addComponent(btnEnter, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
@@ -135,7 +144,9 @@ public class signUpWindow extends JFrame {
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addComponent(lblPass2)
                         .addComponent(passFieldConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(176, Short.MAX_VALUE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                    .addComponent(btnEnter, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -150,5 +161,6 @@ public class signUpWindow extends JFrame {
     private JTextField txtNSID;
     private JPasswordField passFieldInitial;
     private JPasswordField passFieldConfirm;
+    private JButton btnEnter;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

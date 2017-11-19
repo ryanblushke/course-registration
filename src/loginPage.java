@@ -78,6 +78,7 @@ public class loginPage extends JFrame {
         lblPass.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 
         //---- txtNSID ----
+        txtNSID.setFont(new Font("Century Gothic", Font.PLAIN, 12));
         txtNSID.addActionListener(e -> txtNSIDActionPerformed(e));
 
         //---- passFieldPassword ----
