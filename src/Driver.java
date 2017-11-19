@@ -25,9 +25,9 @@ public class Driver {
     private Connection connection;
     private LinkedList<Course> viewClassList;
     public Schedule T1_Schedule;
-    private Schedule T1_Schedule_DB;
+    public Schedule T1_Schedule_DB;
     public Schedule T2_Schedule;
-    private Schedule T2_Schedule_DB;
+    public Schedule T2_Schedule_DB;
 
     /**
      * Default constructor method
