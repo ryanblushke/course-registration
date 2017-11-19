@@ -89,6 +89,7 @@ public class registrationToolWindow extends JFrame {
             }
         }
         tableTermOneSchedule.setModel(t1Model);
+        tableTermOneSchedule.setEnabled(false);
 
         // TABLE TERM 2
         DefaultTableModel t2Model = new DefaultTableModel(columnNames, 0);
@@ -115,6 +116,7 @@ public class registrationToolWindow extends JFrame {
             }
         }
         tableTermTwoSchedule.setModel(t2Model);
+        tableTermTwoSchedule.setEnabled(false);
     }
 
 
@@ -252,7 +254,7 @@ public class registrationToolWindow extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Lane Larochelle
+        // Generated using JFormDesigner Evaluation license - John Smith
         tbdPaneRegistration = new JTabbedPane();
         pnlWelcome = new JPanel();
         lblWelcome = new JLabel();
@@ -271,13 +273,11 @@ public class registrationToolWindow extends JFrame {
         tableTermOneSchedule = new JTable();
         scrollPaneForTermTwoSchedule = new JScrollPane();
         tableTermTwoSchedule = new JTable();
-        label2 = new JLabel();
-        label3 = new JLabel();
+        lblTerm1Schedule = new JLabel();
+        lblTerm2Schedule = new JLabel();
         pnlDropClass = new JPanel();
         scrlInitialDrop = new JScrollPane();
         listInitialDrop = new JList();
-        scrlViewDrop = new JScrollPane();
-        listViewAdd2 = new JList();
         btnRefreshDrop = new JButton();
         btnInitialDrop = new JButton();
         btnInitialRemove2 = new JButton();
@@ -335,6 +335,7 @@ public class registrationToolWindow extends JFrame {
                     });
                     scrlPaneInitialAdd.setViewportView(listInitialAdd);
                 }
+
                 //======== scrlPaneViewAdd ========
                 {
 
@@ -394,11 +395,11 @@ public class registrationToolWindow extends JFrame {
                     scrollPaneForTermTwoSchedule.setViewportView(tableTermTwoSchedule);
                 }
 
-                //---- label2 ----
-                label2.setText("Term 1 Schedule");
+                //---- lblTerm1Schedule ----
+                lblTerm1Schedule.setText("Term 1 Schedule");
 
-                //---- label3 ----
-                label3.setText("Term 2 Schedule");
+                //---- lblTerm2Schedule ----
+                lblTerm2Schedule.setText("Term 2 Schedule");
 
                 GroupLayout pnlAddClassLayout = new GroupLayout(pnlAddClass);
                 pnlAddClass.setLayout(pnlAddClassLayout);
@@ -410,12 +411,12 @@ public class registrationToolWindow extends JFrame {
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGroup(pnlAddClassLayout.createParallelGroup()
                                         .addComponent(scrollPaneForTermOneSchedule, GroupLayout.PREFERRED_SIZE, 420, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(label2))
+                                        .addComponent(lblTerm1Schedule))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(pnlAddClassLayout.createParallelGroup()
                                         .addComponent(scrollPaneForTermTwoSchedule, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                                         .addGroup(pnlAddClassLayout.createSequentialGroup()
-                                            .addComponent(label3)
+                                            .addComponent(lblTerm2Schedule)
                                             .addGap(0, 0, Short.MAX_VALUE))))
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
@@ -455,8 +456,8 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addGroup(pnlAddClassLayout.createSequentialGroup()
                                     .addGroup(pnlAddClassLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(label2)
-                                        .addComponent(label3))
+                                        .addComponent(lblTerm1Schedule)
+                                        .addComponent(lblTerm2Schedule))
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(scrollPaneForTermOneSchedule, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
                                 .addComponent(scrollPaneForTermTwoSchedule, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE))
@@ -480,14 +481,6 @@ public class registrationToolWindow extends JFrame {
                         }
                     });
                     scrlInitialDrop.setViewportView(listInitialDrop);
-                }
-
-                //======== scrlViewDrop ========
-                {
-
-                    //---- listViewAdd2 ----
-                    listViewAdd2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    scrlViewDrop.setViewportView(listViewAdd2);
                 }
 
                 //---- btnRefreshDrop ----
@@ -520,17 +513,10 @@ public class registrationToolWindow extends JFrame {
                 //======== scrollPane1 ========
                 {
                     scrollPane1.setViewportView(listRegisterDrop);
-
                 }
 
                 //---- btnConfirmDrop ----
                 btnConfirmDrop.setText("Confirm Drop Class");
-                btnConfirmDrop.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        btnConfirmDropClicked(e);
-                    }
-                });
 
                 GroupLayout pnlDropClassLayout = new GroupLayout(pnlDropClass);
                 pnlDropClass.setLayout(pnlDropClassLayout);
@@ -541,9 +527,7 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlDropClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                 .addGroup(pnlDropClassLayout.createSequentialGroup()
                                     .addComponent(scrlInitialDrop, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(scrlViewDrop, GroupLayout.PREFERRED_SIZE, 331, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGap(355, 355, 355)
                                     .addGroup(pnlDropClassLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addComponent(btnInitialDrop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnInitialRemove2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -553,7 +537,7 @@ public class registrationToolWindow extends JFrame {
                                     .addComponent(btnRefreshDrop, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnConfirmDrop, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)))
-                            .addContainerGap(8, Short.MAX_VALUE))
+                            .addContainerGap(16, Short.MAX_VALUE))
                 );
                 pnlDropClassLayout.setVerticalGroup(
                     pnlDropClassLayout.createParallelGroup()
@@ -563,7 +547,6 @@ public class registrationToolWindow extends JFrame {
                                     .addContainerGap()
                                     .addGroup(pnlDropClassLayout.createParallelGroup()
                                         .addComponent(scrlInitialDrop, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(scrlViewDrop, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(pnlDropClassLayout.createSequentialGroup()
                                     .addGap(38, 38, 38)
@@ -574,7 +557,7 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlDropClassLayout.createParallelGroup()
                                 .addComponent(btnRefreshDrop)
                                 .addComponent(btnConfirmDrop))
-                            .addContainerGap(314, Short.MAX_VALUE))
+                            .addContainerGap(324, Short.MAX_VALUE))
                 );
             }
             tbdPaneRegistration.addTab("Drop Class", pnlDropClass);
@@ -670,7 +653,7 @@ public class registrationToolWindow extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Lane Larochelle
+    // Generated using JFormDesigner Evaluation license - John Smith
     private JTabbedPane tbdPaneRegistration;
     private JPanel pnlWelcome;
     private JLabel lblWelcome;
@@ -689,13 +672,11 @@ public class registrationToolWindow extends JFrame {
     private JTable tableTermOneSchedule;
     private JScrollPane scrollPaneForTermTwoSchedule;
     private JTable tableTermTwoSchedule;
-    private JLabel label2;
-    private JLabel label3;
+    private JLabel lblTerm1Schedule;
+    private JLabel lblTerm2Schedule;
     private JPanel pnlDropClass;
     private JScrollPane scrlInitialDrop;
     private JList listInitialDrop;
-    private JScrollPane scrlViewDrop;
-    private JList listViewAdd2;
     private JButton btnRefreshDrop;
     private JButton btnInitialDrop;
     private JButton btnInitialRemove2;
