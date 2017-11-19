@@ -73,7 +73,7 @@ public class signUpWindow extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+        // Generated using JFormDesigner Evaluation license - John Smith
         lblEmail = new JLabel();
         lblPass1 = new JLabel();
         lblPass2 = new JLabel();
@@ -82,6 +82,7 @@ public class signUpWindow extends JFrame {
         passFieldConfirm = new JPasswordField();
 
         //======== this ========
+        setTitle("Sign Up");
         Container contentPane = getContentPane();
 
         //---- lblEmail ----
@@ -105,36 +106,36 @@ public class signUpWindow extends JFrame {
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
-                contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                        .addComponent(lblPass1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                        .addComponent(lblPass2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                                .addGap(27, 27, 27)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtNSID, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                        .addComponent(passFieldInitial, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                                        .addComponent(passFieldConfirm, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
-                                .addContainerGap(270, Short.MAX_VALUE))
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(32, 32, 32)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                        .addComponent(lblPass1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                        .addComponent(lblPass2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                    .addGap(27, 27, 27)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtNSID, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addComponent(passFieldInitial, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addComponent(passFieldConfirm, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                    .addContainerGap(256, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
-                contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(lblEmail)
-                                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblPass1)
-                                        .addComponent(passFieldInitial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(lblPass2)
-                                        .addComponent(passFieldConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(183, Short.MAX_VALUE))
+            contentPaneLayout.createParallelGroup()
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addGap(76, 76, 76)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(lblEmail)
+                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(29, 29, 29)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblPass1)
+                        .addComponent(passFieldInitial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(contentPaneLayout.createParallelGroup()
+                        .addComponent(lblPass2)
+                        .addComponent(passFieldConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(176, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -142,7 +143,7 @@ public class signUpWindow extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+    // Generated using JFormDesigner Evaluation license - John Smith
     private JLabel lblEmail;
     private JLabel lblPass1;
     private JLabel lblPass2;

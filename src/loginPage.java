@@ -56,20 +56,27 @@ public class loginPage extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Kevin Baker
+        // Generated using JFormDesigner Evaluation license - John Smith
         lblNSID = new JLabel();
         lblPass = new JLabel();
         txtNSID = new JTextField();
         passFieldPassword = new JPasswordField();
+        btnBack = new JButton();
+        btnContinue = new JButton();
+        lblCourseWelcome = new JLabel();
 
         //======== this ========
+        setTitle("Login Page");
+        setBackground(new Color(204, 204, 204));
         Container contentPane = getContentPane();
 
         //---- lblNSID ----
         lblNSID.setText("Enter your NSID:");
+        lblNSID.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 
         //---- lblPass ----
         lblPass.setText("Password:");
+        lblPass.setFont(new Font("Century Gothic", Font.PLAIN, 12));
 
         //---- txtNSID ----
         txtNSID.addActionListener(e -> txtNSIDActionPerformed(e));
@@ -77,36 +84,64 @@ public class loginPage extends JFrame {
         //---- passFieldPassword ----
         passFieldPassword.addActionListener(e -> passFieldPasswordActionPerformed(e));
 
+        //---- btnBack ----
+        btnBack.setText("Back");
+        btnBack.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+
+        //---- btnContinue ----
+        btnContinue.setText("Enter");
+        btnContinue.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+
+        //---- lblCourseWelcome ----
+        lblCourseWelcome.setText("Big Dynamic Software Machine");
+        lblCourseWelcome.setFont(new Font("Rockwell Extra Bold", Font.PLAIN, 12));
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(73, 73, 73)
                     .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-                            .addGap(43, 43, 43))
-                        .addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
-                            .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-                            .addGap(27, 27, 27)))
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(82, Short.MAX_VALUE))
+                            .addContainerGap()
+                            .addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                            .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(contentPaneLayout.createSequentialGroup()
+                            .addGroup(contentPaneLayout.createParallelGroup()
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(76, 76, 76)
+                                    .addComponent(lblCourseWelcome))
+                                .addGroup(contentPaneLayout.createSequentialGroup()
+                                    .addGap(58, 58, 58)
+                                    .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+                                    .addGap(50, 50, 50)
+                                    .addGroup(contentPaneLayout.createParallelGroup()
+                                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))))
+                            .addGap(0, 59, Short.MAX_VALUE)))
+                    .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(83, 83, 83)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblNSID))
-                    .addGap(18, 18, 18)
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                    .addContainerGap()
+                    .addComponent(lblCourseWelcome)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblNSID)
+                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(33, 33, 33)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(lblPass)
                         .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(43, Short.MAX_VALUE))
+                    .addGap(59, 59, 59)
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -117,10 +152,13 @@ public class loginPage extends JFrame {
 
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Kevin Baker
+    // Generated using JFormDesigner Evaluation license - John Smith
     private JLabel lblNSID;
     private JLabel lblPass;
     private JTextField txtNSID;
     private JPasswordField passFieldPassword;
+    private JButton btnBack;
+    private JButton btnContinue;
+    private JLabel lblCourseWelcome;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
