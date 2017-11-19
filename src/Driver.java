@@ -1282,7 +1282,7 @@ public class Driver {
     /**
      *
      * @param nsid pass a valid NSID already registered in the system
-     * @param ClassID the CLASSID will be removed from their list of takin classes for t2
+     * @param ClassID the CLASSID will be removed from their list of taking classes for t2
      * @return VOID
      */
     public void removeClass_t2(String nsid, int ClassID){
@@ -1398,7 +1398,12 @@ public class Driver {
         }
     }
 
-    // TODO: ADD COMMENTS
+    /**
+     * Determines which courses the student is enrolled in must be dropped if dropping a specified course
+     * @param dropper the course being dropped
+     * @param prevDropper the previous course in the recursive chain
+     * @return LinkedList of Courses that must be dropped
+     */
     public LinkedList<Course> goodToDrop(Course dropper, Course prevDropper) {
 
         LinkedList<Course> T1affectedClasses = new LinkedList<>();
@@ -1445,7 +1450,7 @@ public class Driver {
 
         for( Course affectedCourse : T1affectedClasses ) {
 
-
+            // check used to make sure two classes with each other listed as coreqs do not create an infinite loop
             if( !affectedCourse.getName().equals(prevDropper.getName()) ) {
                 totalAffectedCourses.add(affectedCourse);
                 totalAffectedCourses.addAll(goodToDrop(affectedCourse, dropper));
@@ -1454,7 +1459,7 @@ public class Driver {
         }
         for( Course affectedCourse : T2affectedClasses ){
 
-
+            // check used to make sure two classes with each other listed as coreqs do not create an infinite loop
             if( !affectedCourse.getName().equals(prevDropper.getName()) ) {
                 totalAffectedCourses.add(affectedCourse);
                 totalAffectedCourses.addAll(goodToDrop(affectedCourse, dropper));
