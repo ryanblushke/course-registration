@@ -57,7 +57,7 @@ public class signUpWindow extends JFrame {
     }
 
     private void btnEnterMouseClicked(MouseEvent e) {
-        // TODO add your code here
+        verifyLogin();
     }
 
     private void initComponents() {
