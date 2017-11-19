@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.LinkedList;
 /*
  * Created by JFormDesigner on Thu Oct 12 16:56:24 CST 2017
  */
@@ -278,12 +279,19 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void btnInitialAddDropMouseClicked(MouseEvent e) {
-        String courseToDrop;
-        String[] courseInfo;
+        Course courseToDrop;
+        String message;
+        LinkedList<Course> infectedClass = new LinkedList<>();
+
 
         if( !listInitialDrop.isSelectionEmpty() ) {
-            courseToDrop = (String) listInitialDrop.getSelectedValue();
-            courseInfo = BDSM.getCourseInformation(courseToDrop);
+            courseToDrop = (Course) listInitialDrop.getSelectedValue();
+            infectedClass = BDSM.goodToDrop(courseToDrop, new Course());
+            message = "The Following Course(s) will be affected: ";
+            for (int i =0; i < infectedClass.size(); i++){
+                message += infectedClass.get(i).name + ", ";
+            }
+            JOptionPane.showMessageDialog(this, message,"Affected Courses",JOptionPane.INFORMATION_MESSAGE);
         }
 
     }

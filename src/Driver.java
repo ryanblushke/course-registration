@@ -1410,6 +1410,7 @@ public class Driver {
         LinkedList<Course> T1affectedClasses = new LinkedList<>();
         LinkedList<Course> T2affectedClasses = new LinkedList<>();
         LinkedList<Course> totalAffectedCourses = new LinkedList<>();
+        System.out.println(dropper.name);
         if (T1_Schedule_DB.contains(dropper.name)) {
             // loop over every course in term one and check their corec list for dropper.name
             // if there is a hit we need to add it to a list T1 affected.
@@ -1422,7 +1423,7 @@ public class Driver {
             // once done issue the warning to the user and return the concatted lists (T1 + T2) affected courses
             for (Course courseInT1 : T1_Schedule_DB.getCoursesInSchedule()) {
                 for (String coreq : courseInT1.coreq) {
-                    if (coreq.equals(dropper.name)) {
+                    if (coreq.equals(dropper.name) && T1affectedClasses.contains(courseInT1) == false) {
                         T1affectedClasses.add(courseInT1);
                     }
                 }
@@ -1430,7 +1431,7 @@ public class Driver {
 
             for (Course courseInT2 : T2_Schedule_DB.getCoursesInSchedule()) {
                 for (String prereq : courseInT2.getPrereq()) {
-                    if (prereq.equals(dropper.name)) {
+                    if (prereq.equals(dropper.name) && T2affectedClasses.contains(courseInT2) == false) {
                             T2affectedClasses.add(courseInT2);
                     }
                 }
@@ -1441,7 +1442,7 @@ public class Driver {
             //repeat same as above for loop above
             for (Course courseInT2 : T2_Schedule_DB.getCoursesInSchedule()) {
                 for (String coreq : courseInT2.coreq) {
-                    if (coreq.equals(dropper.name)) {
+                    if (coreq.equals(dropper.name) && T2affectedClasses.contains(courseInT2) == false) {
                         T2affectedClasses.add(courseInT2);
                     }
                 }
@@ -1452,7 +1453,7 @@ public class Driver {
         for( Course affectedCourse : T1affectedClasses ) {
 
             // check used to make sure two classes with each other listed as coreqs do not create an infinite loop
-            if( !affectedCourse.getName().equals(prevDropper.getName()) ) {
+            if( !affectedCourse.getName().equals(prevDropper.getName()) && totalAffectedCourses.contains(affectedCourse) ==false ) {
                 totalAffectedCourses.add(affectedCourse);
                 totalAffectedCourses.addAll(goodToDrop(affectedCourse, dropper));
             }
@@ -1461,13 +1462,17 @@ public class Driver {
         for( Course affectedCourse : T2affectedClasses ){
 
             // check used to make sure two classes with each other listed as coreqs do not create an infinite loop
-            if( !affectedCourse.getName().equals(prevDropper.getName()) ) {
+            if( !affectedCourse.getName().equals(prevDropper.getName()) && totalAffectedCourses.contains(affectedCourse) ==false ) {
                 totalAffectedCourses.add(affectedCourse);
                 totalAffectedCourses.addAll(goodToDrop(affectedCourse, dropper));
             }
 
         }
-
+        // with this statement it adds the the first find twice and the name of dropper only once
+        if (totalAffectedCourses.contains(dropper) == false){
+            totalAffectedCourses.add(dropper);
+        }
+        System.out.println(totalAffectedCourses);
         return totalAffectedCourses;
 
     }

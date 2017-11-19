@@ -1,11 +1,11 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 			"$horizontalGroup": "par l {seq l {space :::p, comp tbdPaneRegistration:::::x, space :::p}}"
-			"$verticalGroup": "par l {comp tbdPaneRegistration::t::568:x}"
+			"$verticalGroup": "par l {comp tbdPaneRegistration::t:::x}"
 		} ) {
 			name: "this"
 			"title": "Course Registation Tool"
@@ -21,8 +21,8 @@ new FormModel {
 					"title": "Welcome"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l {comp lblTerm1Schedule:::p::p, comp scrollPaneForTermOneSchedule:::p:420:p}, space u:::p, par l {comp scrollPaneForTermTwoSchedule::::0:x, seq {comp lblTerm2Schedule:::p::p, space :0:0:x}}}, seq {par l:::p {comp btnRefreshAdd:::::x, comp scrlPaneInitialAdd:::p:169:p}, space s:::p, comp scrlPaneViewAdd:::p:331:p, space :::p, par l {comp btnInitialAdd:::p:85:p, comp btnInitialRemove:::::x}, space u:::x, par l {comp btnRegister:::p:231:p, comp scrlPaneConfirmAdd:::p:231:p}}}, space :p:10:p}}"
-					"$verticalGroup": "par l {seq {space :::p, par l {par l:l::p {comp scrlPaneInitialAdd::l:::x, comp scrlPaneViewAdd::t:p:179:p, comp scrlPaneConfirmAdd::t:::x}, seq l {space :p:32:p, comp btnInitialAdd:::p:41:p, space :p:45:p, comp btnInitialRemove:::p:40:p}}, space :::p, par l {comp btnRefreshAdd:::p::p, comp btnRegister:::p::p}, space ::20:x, par b {comp lblTerm1Schedule::b:p::p, comp lblTerm2Schedule::b:p::p}, space :::p, par t:::p {comp scrollPaneForTermTwoSchedule::::280:x, comp scrollPaneForTermOneSchedule::::280:x}, space :::p}}"
+					"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l {comp scrollPaneForTermOneSchedule:::p:420:p, comp lblTerm1Schedule::l:p::p}, space u:::p, par l {comp scrollPaneForTermTwoSchedule::::0:x, seq {comp lblTerm2Schedule:::p::p, space :0:0:x}}}, seq {par l:::p {comp btnRefreshAdd:::::x, comp scrlPaneInitialAdd:::p:169:p}, space s:::p, comp scrlPaneViewAdd:::p:331:p, space :::p, par l {comp btnInitialAdd:::p:85:p, comp btnInitialRemove:::::x}, space u:::x, par l {comp btnRegister:::p:231:p, comp scrlPaneConfirmAdd:::p:231:p}}}, space :p:10:p}}"
+					"$verticalGroup": "par l {seq {space :::p, par l {par l:l::p {comp scrlPaneInitialAdd::l:::x, comp scrlPaneViewAdd::t:p:179:p, comp scrlPaneConfirmAdd::t:::x}, seq l {space :p:32:p, comp btnInitialAdd:::p:41:p, space :p:45:p, comp btnInitialRemove:::p:40:p}}, space :::p, par l {comp btnRefreshAdd:::p::p, comp btnRegister:::p::p}, space :::x, par t {seq {par b {comp lblTerm1Schedule::b:p::p, comp lblTerm2Schedule::b:p::p}, space :::p, comp scrollPaneForTermOneSchedule:::p:280:p}, comp scrollPaneForTermTwoSchedule:::p:280:p}, space :::p}}"
 				} ) {
 					name: "pnlAddClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -90,8 +90,8 @@ new FormModel {
 					"title": "Add Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :::p, par l {seq {comp btnRefreshDrop:::p:169:p, space :p:445:p, comp btnConfirmDrop:::p:231:p}, seq l {comp scrlInitialDrop:::p:506:p, space s:::p, par l:::p {comp btnInitialDrop:::::x, comp btnInitialRemove2:::::x}, space u:::p, comp scrollPane1:::p:231:p}, seq l {par l {comp scrollPaneTableTermOneSchedule2::l:p:418:p, comp lblTerm1Schedule2::l:p::p}, space u:::p, par l {seq {comp lblTerm2Schedule2:::p::p, space :::x}, comp scrollPanelTableTermTwoSchedule2::::0:x}}}, space ::17:x}}"
-					"$verticalGroup": "par l {seq l {par l {seq {space :::p, par l {comp scrollPane1:::p:179:p, comp scrlInitialDrop:::p:179:p}}, seq l {space :p:38:p, comp btnInitialDrop:::p:41:p, space :p:46:p, comp btnInitialRemove2:::p:40:p}}, space :::p, par l {comp btnRefreshDrop:::p::p, comp btnConfirmDrop:::p::p}, space ::20:x, par b {comp lblTerm1Schedule2::b:p::p, comp lblTerm2Schedule2::b:p::p}, space :::p, par l:::p {comp scrollPanelTableTermTwoSchedule2::::280:x, comp scrollPaneTableTermOneSchedule2::::280:x}, space :::p}}"
+					"$horizontalGroup": "par l {seq {space :::p, par l:::p {seq {comp scrlInitialDrop:::p:169:p, space :p:355:p, par l:::p {comp btnInitialDrop:::::x, comp btnInitialRemove2:::::x}, space u:::p, comp scrollPane1:::p:231:p}, seq {comp btnRefreshDrop:::p:169:p, space :::x, comp btnConfirmDrop:::p:231:p}}, space ::16:x}}"
+					"$verticalGroup": "par l {seq l {par l {seq {space :::p, par l {comp scrlInitialDrop:::p:179:p, comp scrollPane1::l:p:179:p}}, seq l {space :p:38:p, comp btnInitialDrop:::p:41:p, space :p:46:p, comp btnInitialRemove2:::p:40:p}}, space :::p, par l {comp btnRefreshDrop:::p::p, comp btnConfirmDrop:::p::p}, space ::324:x}}"
 				} ) {
 					name: "pnlDropClass"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -126,26 +126,6 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "btnConfirmDrop"
 						"text": "Confirm Drop Class"
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "lblTerm1Schedule2"
-						"text": "Term 1 Schedule"
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "lblTerm2Schedule2"
-						"text": "Term 2 Schedule"
-					} )
-					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPaneTableTermOneSchedule2"
-						add( new FormComponent( "javax.swing.JTable" ) {
-							name: "tableTermOneSchedule2"
-						} )
-					} )
-					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPanelTableTermTwoSchedule2"
-						add( new FormComponent( "javax.swing.JTable" ) {
-							name: "tableTermTwoSchedule2"
-						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Drop Class"
