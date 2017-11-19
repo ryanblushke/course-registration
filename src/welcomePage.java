@@ -29,7 +29,7 @@ public class welcomePage extends JFrame {
 
     protected void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+        // Generated using JFormDesigner Evaluation license - John Smith
         welcomePage = new JFrame();
         txtWelcome = new JTextField();
         txtLogin = new JTextField();
@@ -40,7 +40,6 @@ public class welcomePage extends JFrame {
         //======== welcomePage ========
         {
             Container welcomePageContentPane = welcomePage.getContentPane();
-            welcomePageContentPane.setLayout(new BoxLayout(welcomePageContentPane, BoxLayout.Y_AXIS));
 
             //---- txtWelcome ----
             txtWelcome.setText("Welcome To the Course Registration Tool");
@@ -48,8 +47,6 @@ public class welcomePage extends JFrame {
             txtWelcome.setEditable(false);
             txtWelcome.setEnabled(false);
             txtWelcome.setBackground(Color.white);
-            txtWelcome.setHorizontalAlignment(JTextField.CENTER);
-            welcomePageContentPane.add(txtWelcome);
 
             //---- txtLogin ----
             txtLogin.setText("Already a Member? Login");
@@ -57,20 +54,16 @@ public class welcomePage extends JFrame {
             txtLogin.setEditable(false);
             txtLogin.setBackground(Color.white);
             txtLogin.setEnabled(false);
-            txtLogin.setHorizontalAlignment(JTextField.CENTER);
-            welcomePageContentPane.add(txtLogin);
 
             //---- btnLogin ----
             btnLogin.setText("Login");
             btnLogin.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-            btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
             btnLogin.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     btnLoginMouseClicked(e);
                 }
             });
-            welcomePageContentPane.add(btnLogin);
 
             //---- txtSignup ----
             txtSignup.setText("Sign Up Today!");
@@ -78,30 +71,57 @@ public class welcomePage extends JFrame {
             txtSignup.setEditable(false);
             txtSignup.setBackground(Color.white);
             txtSignup.setEnabled(false);
-            txtSignup.setHorizontalAlignment(JTextField.CENTER);
-            welcomePageContentPane.add(txtSignup);
 
             //---- btnSignUp ----
             btnSignUp.setText("Sign Up");
             btnSignUp.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-            btnSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);
             btnSignUp.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     btnSignUpMouseClicked(e);
                 }
             });
-            welcomePageContentPane.add(btnSignUp);
+
+            GroupLayout welcomePageContentPaneLayout = new GroupLayout(welcomePageContentPane);
+            welcomePageContentPane.setLayout(welcomePageContentPaneLayout);
+            welcomePageContentPaneLayout.setHorizontalGroup(
+                welcomePageContentPaneLayout.createParallelGroup()
+                    .addGroup(welcomePageContentPaneLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(btnLogin)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                        .addComponent(btnSignUp)
+                        .addGap(57, 57, 57))
+                    .addGroup(welcomePageContentPaneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtLogin, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                        .addComponent(txtSignup, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))
+                    .addComponent(txtWelcome, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            );
+            welcomePageContentPaneLayout.setVerticalGroup(
+                welcomePageContentPaneLayout.createParallelGroup()
+                    .addGroup(welcomePageContentPaneLayout.createSequentialGroup()
+                        .addComponent(txtWelcome, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 284, Short.MAX_VALUE)
+                        .addGroup(welcomePageContentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtSignup)
+                            .addComponent(txtLogin))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(welcomePageContentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLogin)
+                            .addComponent(btnSignUp))
+                        .addContainerGap())
+            );
             welcomePage.pack();
             welcomePage.setLocationRelativeTo(null);
-            welcomePage.setSize(600,600);
-            welcomePage.setVisible(true);
         }
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Dexter Gordon-Dirks
+    // Generated using JFormDesigner Evaluation license - John Smith
     private JFrame welcomePage;
     private JTextField txtWelcome;
     private JTextField txtLogin;

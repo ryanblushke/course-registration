@@ -1,10 +1,11 @@
-JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_112-release" encoding: "UTF-8"
+JFDML JFormDesigner: "6.0.2.0.116" Java: "1.8.0_152-release" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
-		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class javax.swing.BoxLayout ) {
-			"axis": 1
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :p:57:p, comp btnLogin:::p::p, space ::208:x, comp btnSignUp:::p::p, space :p:57:p}, seq l {space :::p, comp txtLogin:::p:201:p, space ::119:x, comp txtSignup:::p:122:p, space :p:41:p}, comp txtWelcome::l::0:x}"
+			"$verticalGroup": "par l {seq l {comp txtWelcome:::p:50:p, space ::284:x, par l:::p {comp txtSignup:::::x, comp txtLogin:::::x}, space u:::p, par b {comp btnLogin::b:p::p, comp btnSignUp::b:p::p}, space :::p}}"
 		} ) {
 			name: "welcomePage"
 			"$locationPolicy": 1
