@@ -252,6 +252,7 @@ public class registrationToolWindow extends JFrame {
         if( (error = BDSM.addRegisterListToDatabase(nsid)) == null ){
             listRegisterAdd.setListData( new String[0] );
             listInitialAdd.setListData( BDSM.populateCourseList(nsid) );
+            updateTables();
             JOptionPane.showMessageDialog(this, "Registration Successful.","Registration Tool",JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, error,"Error: Registering",0);
@@ -273,6 +274,7 @@ public class registrationToolWindow extends JFrame {
         // TODO add your code here
         ArrayList<Course> droppable = BDSM.getDroppableCourses(nsid);
         listInitialDrop.setListData(BDSM.getDroppableCourses(nsid).toArray());
+        updateTables();
     }
 
     private void btnInitialAddDropMouseClicked(MouseEvent e) {
