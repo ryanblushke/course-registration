@@ -136,7 +136,7 @@ public class Schedule {
                     scheduleConflict = "Error: " + classFromList.getName() + " already scheduled at that time.";
                 }
                 // Scheduled during other class
-                else if( (classFromList.getStartTime() < c.getStartTime()) && (classFromList.getEndTime() > c.getEndTime()) && (scheduleConflict == null) ){
+                else if( (classFromList.getStartTime() >= c.getStartTime()) && (classFromList.getStartTime() <= c.getEndTime()) && (scheduleConflict == null) ) {
                     scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();
                 }
                 // Scheduled right when a class ends
