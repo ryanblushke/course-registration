@@ -1167,7 +1167,7 @@ public class Driver {
      * @return VOID nothing happens if it isn't in there taking courses
      */
     public void removeClass_t1(String nsid, int ClassID){
-        System.out.println("fuck this bitch I'm out");
+        //System.out.println("fuck this bitch I'm out");
         try {
             String classReplacement1 = "UPDATE Taking_T1 SET T1 =NULL WHERE (NSID = ? AND T1= ?)" ;
             String classReplacement2 = "UPDATE Taking_T1 SET T2 =NULL WHERE (NSID = ? AND T2= ?)" ;

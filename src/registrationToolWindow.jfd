@@ -115,7 +115,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "btnInitialRemove2"
 						"text": "Remove"
-						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnInitialRemoveMouseClicked", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnInitialRemove2MouseClicked", true ) )
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
@@ -126,6 +126,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "btnConfirmDrop"
 						"text": "Confirm Drop Class"
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "btnConfirmDropClicked", true ) )
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPaneTermOneSchedule2"
@@ -195,4 +196,3 @@ new FormModel {
 		} )
 	}
 }
-

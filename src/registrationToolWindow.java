@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -18,6 +16,7 @@ public class registrationToolWindow extends JFrame {
 
     private String nsid, password;
     protected Driver BDSM;
+    protected LinkedList<Course> ChoppingBlock= new LinkedList<>();
 
     public registrationToolWindow(String nsid, String password) {
         this.nsid = nsid;
@@ -240,7 +239,7 @@ public class registrationToolWindow extends JFrame {
         }
     }
 
-    private void btnInitialRemoveMouseClicked(MouseEvent e) {
+    private void btnInitialRemove2MouseClicked(MouseEvent e) {
         String course = (String) listRegisterAdd.getSelectedValue();
         BDSM.removeFromSchedule(course);
         String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
@@ -295,6 +294,7 @@ public class registrationToolWindow extends JFrame {
             }
             JOptionPane.showMessageDialog(this, message,"Affected Courses",JOptionPane.INFORMATION_MESSAGE);
             listRegisterDrop.setListData(infectedClass.toArray());
+            ChoppingBlock = infectedClass;
         }
     }
 
@@ -309,8 +309,22 @@ public class registrationToolWindow extends JFrame {
 //            listViewAdd2.setListData(courseInfo);
 //        }
     }
-    private void btnConfirmDropClicked(MouseEvent e){
 
+
+    private void btnConfirmDropClicked(MouseEvent e){
+        if (ChoppingBlock.isEmpty() == false){
+            for (int i = 0; i < ChoppingBlock.size(); i++){
+                System.out.println(ChoppingBlock.get(i).classID);
+                BDSM.removeClass_t1(nsid, ChoppingBlock.get(i).classID);
+                BDSM.removeClass_t2(nsid, ChoppingBlock.get(i).classID);
+            }
+            ArrayList<Course> droppable = BDSM.getDroppableCourses(nsid);
+            listInitialDrop.setListData(BDSM.getDroppableCourses(nsid).toArray());
+            ChoppingBlock.clear();
+            listRegisterDrop.setListData(ChoppingBlock.toArray());
+            BDSM.updateSchedulesFromDB(nsid);
+            updateTables();
+        }
     }
 
     private void btnRefreshDegProgMouseClicked(MouseEvent e) {
@@ -322,6 +336,12 @@ public class registrationToolWindow extends JFrame {
         degreeProgressBar.setStringPainted(true);
     }
 
+    private void btnInitialRemoveMouseClicked(MouseEvent e) {
+        if (ChoppingBlock.isEmpty() == false){
+            ChoppingBlock.clear();
+            listRegisterDrop.setListData(ChoppingBlock.toArray());
+        }
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -582,7 +602,7 @@ public class registrationToolWindow extends JFrame {
                 btnInitialRemove2.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        btnInitialRemoveMouseClicked(e);
+                        btnInitialRemove2MouseClicked(e);
                     }
                 });
 
@@ -593,6 +613,12 @@ public class registrationToolWindow extends JFrame {
 
                 //---- btnConfirmDrop ----
                 btnConfirmDrop.setText("Confirm Drop Class");
+                btnConfirmDrop.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        btnConfirmDropClicked(e);
+                    }
+                });
 
                 //======== scrollPaneTermOneSchedule2 ========
                 {
