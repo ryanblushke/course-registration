@@ -113,6 +113,8 @@ public class Driver {
 
         T1_Schedule_DB = new Schedule();
         T2_Schedule_DB = new Schedule();
+        T1_Schedule = new Schedule();
+        T2_Schedule = new Schedule();
         // ADDS COURSES TO THERE CORRESPONDING SCHEDULES
         for( String ID : T1 ){
             Course c = getCourseGivenIDNumber(Integer.valueOf(ID));
@@ -1287,7 +1289,7 @@ public class Driver {
      * @return VOID
      */
     public void removeClass_t2(String nsid, int ClassID){
-        System.out.println("fuck this bitch I'm out");
+        //System.out.println("fuck this bitch I'm out");
         try {
             String classReplacement1 = "UPDATE Taking_T2 SET T1 =NULL WHERE (NSID = ? AND T1= ?)" ;
             String classReplacement2 = "UPDATE Taking_T2 SET T2 =NULL WHERE (NSID = ? AND T2= ?)" ;
