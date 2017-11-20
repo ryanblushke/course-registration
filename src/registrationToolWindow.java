@@ -272,9 +272,10 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void btnRefreshDropMouseClicked(MouseEvent e) {
-        // TODO add your code here
-        ArrayList<Course> droppable = BDSM.getDroppableCourses(nsid);
-        listInitialDrop.setListData(BDSM.getDroppableCourses(nsid).toArray());
+        LinkedList<Course> enrolledCourses = BDSM.T1_Schedule_DB.getCoursesInSchedule();
+        enrolledCourses.addAll(BDSM.T2_Schedule_DB.getCoursesInSchedule());
+
+        listInitialDrop.setListData(enrolledCourses.toArray());
         updateTables();
     }
 
