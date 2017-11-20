@@ -1412,7 +1412,7 @@ public class Driver {
         LinkedList<Course> T1affectedClasses = new LinkedList<>();
         LinkedList<Course> T2affectedClasses = new LinkedList<>();
         LinkedList<Course> totalAffectedCourses = new LinkedList<>();
-        System.out.println(dropper.name);
+        //System.out.println(dropper.name);
         if (T1_Schedule_DB.contains(dropper.name)) {
             // loop over every course in term one and check their corec list for dropper.name
             // if there is a hit we need to add it to a list T1 affected.
@@ -1476,7 +1476,7 @@ public class Driver {
             totalAffectedCourses.add(dropper);
         }
         */
-        System.out.println(totalAffectedCourses);
+        //System.out.println(totalAffectedCourses);
         return totalAffectedCourses;
 
     }
