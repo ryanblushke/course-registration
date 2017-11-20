@@ -240,11 +240,10 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void btnInitialRemove2MouseClicked(MouseEvent e) {
-        String course = (String) listRegisterAdd.getSelectedValue();
-        BDSM.removeFromSchedule(course);
-        String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
-        listRegisterAdd.setListData( updatedRegisterList );
-        updateTables();
+        if (ChoppingBlock.isEmpty() == false){
+            ChoppingBlock.clear();
+            listRegisterDrop.setListData(ChoppingBlock.toArray());
+        }
     }
 
     private void btnRegisterMouseClicked(MouseEvent e) {
@@ -337,11 +336,13 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void btnInitialRemoveMouseClicked(MouseEvent e) {
-        if (ChoppingBlock.isEmpty() == false){
-            ChoppingBlock.clear();
-            listRegisterDrop.setListData(ChoppingBlock.toArray());
-        }
+        String course = (String) listRegisterAdd.getSelectedValue();
+        BDSM.removeFromSchedule(course);
+        String[] updatedRegisterList = BDSM.getScheduleAsStringArray();
+        listRegisterAdd.setListData( updatedRegisterList );
+        updateTables();
     }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
