@@ -168,6 +168,15 @@ public class Driver {
                 if( courseWithIDResult.getString("ClassCoreq3") != null) {
                     c.addCoereq( courseWithIDResult.getString("ClassCoreq3") );
                 }
+                if( courseWithIDResult.getString("ClassPrereq1") != null ) {
+                    c.addPrereq( courseWithIDResult.getString("ClassPrereq1"));
+                }
+                if( courseWithIDResult.getString("ClassPrereq2") != null ) {
+                    c.addPrereq( courseWithIDResult.getString("ClassPrereq2"));
+                }
+                if( courseWithIDResult.getString("ClassPrereq3") != null ) {
+                    c.addPrereq( courseWithIDResult.getString("ClassPrereq3"));
+                }
 
             }
         } catch (Exception e) {

@@ -350,7 +350,7 @@ public class registrationToolWindow extends JFrame {
     private void btnInitialAddDropMouseClicked(MouseEvent e) {
         Course courseToDrop;
         String message;
-        LinkedList<Course> infectedClass = new LinkedList<>();
+        LinkedList<Course> infectedClass;
 
 
         if( !listInitialDrop.isSelectionEmpty() ) {
