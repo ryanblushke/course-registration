@@ -6,10 +6,12 @@ import java.awt.event.MouseEvent;
  * Created by JFormDesigner on Mon Oct 02 20:05:53 CST 2017
  */
 
-
-
 /**
- * @author unknown
+ * Author: Dexter Gordon-Dirks
+ * NSID: dsg841
+ * Course: CMPT 370
+ * Class Functionality: welcomePage class contains the JFrame and UI elements for the welcome page window. A user can
+ * choose to log in or sign up from this window by clicking on the corresponding JButton.
  */
 public class welcomePage extends JFrame {
     public welcomePage() {
@@ -113,8 +115,8 @@ public class welcomePage extends JFrame {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               welcomePage welcome = new welcomePage();
-               welcome.setVisible(false);
+                welcomePage welcome = new welcomePage();
+                welcome.setVisible(false);
 
             }
         });

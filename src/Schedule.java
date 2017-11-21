@@ -2,17 +2,21 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * Created by kevin on 2017-10-31.
+ * Author: Kevin Baker
+ * NSID: kpb637
+ * Course: CMPT 370
+ * Class Functionality: Schedule class contains a local version of the currently enrolled Courses for a specified
+ * user. It provides a quicker, more efficient way to work with the Courses during use of the registration system.
  */
 public class Schedule {
 
     private LinkedList<Course> classList;
 
-    public Schedule(){
+    public Schedule() {
         classList = new LinkedList<>();
     }
 
-    public LinkedList<Course> getCoursesInSchedule(){
+    public LinkedList<Course> getCoursesInSchedule() {
         return classList;
     }
 
@@ -22,10 +26,10 @@ public class Schedule {
      * @param courseName of course that we are looking for.
      * @return course object if found, else returns null.
      */
-    public Course getCourseFromSchedule( String courseName){
+    public Course getCourseFromSchedule( String courseName) {
 
-        for( Course c : classList ){
-            if( c.name.equals(courseName) ){
+        for( Course c : classList ) {
+            if( c.name.equals(courseName) ) {
                 return c;
             }
         }
@@ -38,12 +42,12 @@ public class Schedule {
      * @param name string of course name. IE, GE 101
      * @return return true if c is in the list, false otherwise.
      */
-    public boolean contains(String name){
+    public boolean contains(String name) {
         boolean isInList = false;
 
         Iterator<Course> I = classList.iterator();
-        while( I.hasNext() ){
-            if( I.next().getName().equals(name) ){
+        while( I.hasNext() ) {
+            if( I.next().getName().equals(name) ) {
                 isInList = true;
             }
         }
@@ -55,7 +59,7 @@ public class Schedule {
      * @param c course to be removed
      * @return true if successful, false otherwise.
      */
-    public boolean removeCourse(Course c){
+    public boolean removeCourse(Course c) {
 
         return this.classList.remove(c);
     }
@@ -65,11 +69,11 @@ public class Schedule {
      * @param c course to add to schedule
      * @return true if course was added, false if there are schedule conflicts
      */
-    public String addCourse(Course c){
+    public String addCourse(Course c) {
 
         String returnMessage = null;
 
-        if( (returnMessage = this.checkForScheduleConflict(c)) == null ){
+        if( (returnMessage = this.checkForScheduleConflict(c)) == null ) {
             this.classList.add(c);
         }
 
@@ -82,7 +86,7 @@ public class Schedule {
      * @param c course to check with classList
      * @return true if there is a conflict, false if there isn't
      */
-    public String checkForScheduleConflict(Course c){
+    public String checkForScheduleConflict(Course c) {
 
         String scheduleConflict = null;
 
@@ -91,7 +95,7 @@ public class Schedule {
             boolean error = true;
             String nameOfCourseForLab = c.getName().replace(" L ", " ");
             for (Course cInSchedule : classList) {
-                if( cInSchedule.getName().equals(nameOfCourseForLab) ){
+                if( cInSchedule.getName().equals(nameOfCourseForLab) ) {
                     error = false;
                 }
             }
@@ -106,12 +110,12 @@ public class Schedule {
 
         Iterator<Course> I = classList.iterator();
 
-        while( I.hasNext() ){
+        while( I.hasNext() ) {
 
             Course classFromList = I.next();
 
             // IF TRYING TO ADD THE SAME CLASS BUT AT DIFFERENT TIMES
-            if( classFromList.getName().equals(c.getName()) && (scheduleConflict == null) ){
+            if( classFromList.getName().equals(c.getName()) && (scheduleConflict == null) ) {
                 scheduleConflict = "Error: Already registering/registered for this class.";
             }
 
@@ -119,17 +123,16 @@ public class Schedule {
             // on the same day.
             //------------------------------------------------------------------------------------
             String moreDays, lessDays;
-            if( classFromList.getDays().length() > c.getDays().length() ){
+            if( classFromList.getDays().length() > c.getDays().length() ) {
                 moreDays = classFromList.getDays();
                 lessDays = c.getDays();
-            }
-            else{
+            } else {
                 moreDays = c.getDays();
                 lessDays = classFromList.getDays();
             }
 
 
-            if( moreDays.contains(lessDays) ){
+            if( moreDays.contains(lessDays) ) {
 
                 // Scheduled at the same time
                 if( classFromList.getStartTime() == c.getStartTime() && (scheduleConflict == null) ) {
@@ -140,10 +143,9 @@ public class Schedule {
                     scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();
                 }
                 // Scheduled right when a class ends
-                else if( classFromList.getEndTime() == c.getStartTime() && (scheduleConflict == null) ){
+                else if( classFromList.getEndTime() == c.getStartTime() && (scheduleConflict == null) ) {
                     scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();
-                }
-                else{}
+                } else {}
             }
             //------------------------------------------------------------------------------------
 

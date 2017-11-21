@@ -1,9 +1,11 @@
 import java.util.LinkedList;
 
 /**
- * Created by kevin on 2017-09-28.
- * NSIDs: kpb637
- * Student#s: 11173877
+ * Author: Kevin Baker
+ * NSID: kpb637
+ * Course: CMPT 370
+ * Class Functionality: Course class contains all the required information for a specific instance of a Course in the
+ * database. It can store the information in a local format that is easy to examine during operations.
  */
 public class Course {
 
@@ -46,7 +48,7 @@ public class Course {
     /**
      * Uninitialized constructor
      */
-    public Course(){
+    public Course() {
         this.numStudentsEnrolled = 0;
         this.setSizeLimit(100);
         enrolledStudents = new LinkedList<>();
@@ -189,7 +191,7 @@ public class Course {
      * @param prereqCourse
      * @return true on success, false otherwise
      */
-    public boolean addPrereq(String prereqCourse){
+    public boolean addPrereq(String prereqCourse) {
         return prereq.add(prereqCourse);
     }
 
@@ -198,8 +200,8 @@ public class Course {
      * @param prereqCourse
      * @return true on success, false otherwise
      */
-    public boolean removePrereq(Course prereqCourse){
-        if(prereq.contains(prereqCourse)){
+    public boolean removePrereq(Course prereqCourse) {
+        if(prereq.contains(prereqCourse)) {
             prereq.remove(prereqCourse);
             return true;
         } else {
@@ -211,7 +213,7 @@ public class Course {
      * Tells you a course has a coreq or not.
      * @return true if course has coreqs, false otherwise.
      */
-    public boolean hasCoreqs(){
+    public boolean hasCoreqs() {
         return !this.coreq.isEmpty();
     }
 
@@ -228,7 +230,7 @@ public class Course {
      * @param coreqCourse class to add to corequisites
      * @return true if successful, false otherwise
      */
-    public boolean addCoereq(String coreqCourse){
+    public boolean addCoereq(String coreqCourse) {
         return coreq.add(coreqCourse);
     }
 
@@ -237,8 +239,8 @@ public class Course {
      * @param coreqCourse course to remove
      * @return true if successful, false otherwise
      */
-    public boolean removeCoereq(Course coreqCourse){
-        if(coreq.contains(coreqCourse)){
+    public boolean removeCoereq(Course coreqCourse) {
+        if(coreq.contains(coreqCourse)) {
             coreq.remove(coreqCourse);
             return true;
         } else {
@@ -251,10 +253,10 @@ public class Course {
      * @param student student to add to course
      * @return true on success, false otherwise
      */
-    public boolean addStudent(Student student){
+    public boolean addStudent(Student student) {
 
         // Class isn't full and the student isn't already enrolled.
-        if( (this.enrolledStudents.size() < this.sizeLimit) && (!enrolledStudents.contains(student)) ){
+        if( (this.enrolledStudents.size() < this.sizeLimit) && (!enrolledStudents.contains(student)) ) {
             enrolledStudents.add(student);
             student.addCourse(this);
             return true;
@@ -268,7 +270,7 @@ public class Course {
      * @param student student to add to course
      * @return true on success, false otherwise
      */
-    public boolean removeStudent(Student student){
+    public boolean removeStudent(Student student) {
         if( (this.enrolledStudents.size() != 0) && (enrolledStudents.contains(student)) ) {
             enrolledStudents.remove(student);
             student.removeCourse(this);
@@ -290,11 +292,11 @@ public class Course {
     public static void main(String[] args) {
 
         Student pleb = new Student("Andy Cheung",
-                "8008 DilliLane Street West",
-                "3066308008",
-                "abc123",
-                "11122234",
-                "Computer Engineering");
+                                   "8008 DilliLane Street West",
+                                   "3066308008",
+                                   "abc123",
+                                   "11122234",
+                                   "Computer Engineering");
 
         //String mike = new Professor("Mike Hawk", "123 Fake Street", "3066309999", "mbk123", "Mathmatics", "THORV 331");
 

@@ -7,9 +7,12 @@ import java.util.Arrays;
  * Created by JFormDesigner on Tue Oct 03 12:13:49 CST 2017
  */
 
-
 /**
- * @author Dexter Gordon-Dirks
+ * Author: Dexter Gordon-Dirks
+ * NSID: dsg841
+ * Course: CMPT 370
+ * Class Functionality: signUpWindow class contains the JFrame and UI elements for the sign up window. A user can
+ * create an account in the database and use their credentials to log into the system from the log in window.
  */
 public class signUpWindow extends JFrame {
 
@@ -17,7 +20,7 @@ public class signUpWindow extends JFrame {
         initComponents();
     }
 
-    private void verifyLogin(){
+    private void verifyLogin() {
         if (!txtNSID.getText().isEmpty() && passFieldInitial.getPassword().length == 0 || !txtNSID.getText().isEmpty() && passFieldConfirm.getPassword().length == 0) {
             JOptionPane.showMessageDialog(this, "You are missing a password field", "Missing Input", 0);
         }
@@ -112,41 +115,41 @@ public class signUpWindow extends JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                        .addComponent(lblPass1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                        .addComponent(lblPass2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-                    .addGap(27, 27, 27)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtNSID, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                        .addComponent(passFieldInitial, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                        .addComponent(passFieldConfirm, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
-                    .addContainerGap(41, Short.MAX_VALUE))
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(285, 285, 285)
-                    .addComponent(btnEnter, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                    .addContainerGap())
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                      .addGap(32, 32, 32)
+                      .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblEmail, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                .addComponent(lblPass1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                .addComponent(lblPass2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                      .addGap(27, 27, 27)
+                      .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtNSID, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(passFieldInitial, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(passFieldConfirm, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                      .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                      .addGap(285, 285, 285)
+                      .addComponent(btnEnter, GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                      .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGap(76, 76, 76)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(lblEmail)
-                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(29, 29, 29)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblPass1)
-                        .addComponent(passFieldInitial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(lblPass2)
-                        .addComponent(passFieldConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                    .addComponent(btnEnter, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                      .addGap(76, 76, 76)
+                      .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(lblEmail)
+                                .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                      .addGap(29, 29, 29)
+                      .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblPass1)
+                                .addComponent(passFieldInitial, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                      .addGroup(contentPaneLayout.createParallelGroup()
+                                .addComponent(lblPass2)
+                                .addComponent(passFieldConfirm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                      .addComponent(btnEnter, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+                      .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());

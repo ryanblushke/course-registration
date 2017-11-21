@@ -6,40 +6,40 @@ import java.awt.event.ActionEvent;
  * Created by JFormDesigner on Mon Oct 02 20:23:40 CST 2017
  */
 
-
-
 /**
- * @author Dexter Gordon-Dirks
+ * Author: Dexter Gordon-Dirks
+ * NSID: dsg841
+ * Course: CMPT 370
+ * Class Functionality: loginPage class contains the JFrame for the login page window when a user tries to log into
+ * the system.
  */
 public class loginPage extends JFrame {
     public loginPage() {
         initComponents();
     }
 
-    private void verifyLogin(){
-        if (! txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length == 0){
+    private void verifyLogin() {
+        if (! txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length == 0) {
             JOptionPane.showMessageDialog(this,"You didn't enter an initial  Password","Missing Input",0);
         }
         //TODO Proper verification of Logins
-        else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0){
+        else if (!txtNSID.getText().isEmpty() && passFieldPassword.getPassword().length > 0) {
             Driver mySQL = new Driver();
             mySQL.connectToDatabase();
-            if( mySQL.authenticateUser(txtNSID.getText(), String.valueOf(passFieldPassword.getPassword())) ){
+            if( mySQL.authenticateUser(txtNSID.getText(), String.valueOf(passFieldPassword.getPassword())) ) {
                 new registrationToolWindow(txtNSID.getText(), String.valueOf(passFieldPassword.getPassword())).setVisible(true);
                 this.setVisible(false);
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this,"Wrong username or password.","Invalid Credentials",0);
             }
             mySQL.closeConnection();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this,"You didn't enter an initial  NSID","Missing Input",0);
         }
     }
 
     private void txtNSIDActionPerformed(ActionEvent e) {
-      verifyLogin();
+        verifyLogin();
     }
 
 
@@ -48,7 +48,7 @@ public class loginPage extends JFrame {
     }
 
     private void btnContinueMouseClicked(MouseEvent e) {
-       verifyLogin();
+        verifyLogin();
     }
 
 
@@ -102,44 +102,44 @@ public class loginPage extends JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGroup(contentPaneLayout.createParallelGroup()
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                      .addGroup(contentPaneLayout.createParallelGroup()
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addGap(76, 76, 76)
-                                    .addComponent(lblCourseWelcome))
+                                          .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                          .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(contentPaneLayout.createSequentialGroup()
-                                    .addGap(58, 58, 58)
-                                    .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
-                                    .addGap(50, 50, 50)
-                                    .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))))
-                            .addGap(0, 59, Short.MAX_VALUE)))
-                    .addContainerGap())
+                                          .addGroup(contentPaneLayout.createParallelGroup()
+                                                  .addGroup(contentPaneLayout.createSequentialGroup()
+                                                          .addGap(76, 76, 76)
+                                                          .addComponent(lblCourseWelcome))
+                                                  .addGroup(contentPaneLayout.createSequentialGroup()
+                                                          .addGap(58, 58, 58)
+                                                          .addGroup(contentPaneLayout.createParallelGroup()
+                                                                  .addComponent(lblNSID, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+                                                                  .addComponent(lblPass, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+                                                          .addGap(50, 50, 50)
+                                                          .addGroup(contentPaneLayout.createParallelGroup()
+                                                                  .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                                                  .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))))
+                                          .addGap(0, 59, Short.MAX_VALUE)))
+                      .addContainerGap())
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lblCourseWelcome)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblNSID)
-                        .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(33, 33, 33)
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblPass)
-                        .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(59, 59, 59)
-                    .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                      .addContainerGap()
+                      .addComponent(lblCourseWelcome)
+                      .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
+                      .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblNSID)
+                                .addComponent(txtNSID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                      .addGap(33, 33, 33)
+                      .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblPass)
+                                .addComponent(passFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                      .addGap(59, 59, 59)
+                      .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                      .addContainerGap())
         );
         pack();
         setLocationRelativeTo(getOwner());
