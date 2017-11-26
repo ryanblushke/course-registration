@@ -951,9 +951,10 @@ public class Driver {
      * @param nsid the current user logged in.
      * @return a string array of course names that haven't been completed.
      */
-    public String[] populateIncomplete(String nsid) {
+    public String[] populateIncomplete(String nsid){
         List<String> incomplete = new ArrayList<>();
         List<String> completed = new ArrayList<>();
+        List<String> completedSpecial = new ArrayList<>();
 
         try {
             String getDegreeReqSQL = "SELECT ClassName FROM DegreeReq";
@@ -967,23 +968,48 @@ public class Driver {
             ResultSet resultSetOfClassesTaken = myStatForCoursesTaken.executeQuery();
 
             while( resultSetOfDegreeRequirementCourses.next() ) {
-                incomplete.add( resultSetOfDegreeRequirementCourses.getString("ClassName") );
-            }
+                // ---------------------------------------------------------------------------------------------------------
+                String getUserInfo = "SELECT * FROM Users WHERE NSID = ?";
+                PreparedStatement myStatUserInfo = this.connection.prepareStatement(getUserInfo);
+                myStatUserInfo.setString(1, nsid);
+                ResultSet resultSetOfUserInfo = myStatUserInfo.executeQuery();
 
-            if( resultSetOfClassesTaken.next() ) {
-                int index = 2;
-                while ((index < MAXCOMPLETEDCOURSES) && (resultSetOfClassesTaken.getString(index) != null) ) {
-                    completed.add(resultSetOfClassesTaken.getString(index));
-                    index++;
+                if (resultSetOfUserInfo.next()) {
+                    if (resultSetOfUserInfo.getInt("ScienceElective") == 1) completedSpecial.add("ScienceElective");
+                    if (resultSetOfUserInfo.getInt("JuniorHumanities") == 1) completedSpecial.add("JuniorHumanities");
+                    if (resultSetOfUserInfo.getInt("SeniorHumanities") == 1) completedSpecial.add("SeniorHumanities");
+                    if (resultSetOfUserInfo.getInt("Complementary") == 1) completedSpecial.add("Complementary");
+                    if (resultSetOfUserInfo.getInt("StreamElec") == 1) completedSpecial.add("StreamElec");
+                    if (resultSetOfUserInfo.getInt("StreamElec1") == 1) completedSpecial.add("StreamElec1");
+                    if (resultSetOfUserInfo.getInt("StreamElec2") == 1) completedSpecial.add("StreamElec2");
+                    if (resultSetOfUserInfo.getInt("StreamElec3") == 1) completedSpecial.add("StreamElec3");
+                    if (resultSetOfUserInfo.getInt("StreamElec4") == 1) completedSpecial.add("StreamElec4");
+                }
+                // ---------------------------------------------------------------------------------------------------------
+
+                while (resultSetOfDegreeRequirementCourses.next()) {
+                    incomplete.add(resultSetOfDegreeRequirementCourses.getString("ClassName"));
+                }
+
+                if (resultSetOfClassesTaken.next()) {
+                    int index = 2;
+                    while ((index < MAXCOMPLETEDCOURSES) && (resultSetOfClassesTaken.getString(index) != null)) {
+                        completed.add(resultSetOfClassesTaken.getString(index));
+                        index++;
+                    }
+                }
+
+                // Remove completed classes from incomplete.
+                for (String name : completed) {
+                    if (incomplete.contains(name)) incomplete.remove(name);
+                }
+
+                for (String name : completedSpecial) {
+                    incomplete.remove(name);
                 }
             }
 
-            // Remove completed classes from incomplete.
-            for( String name : completed ) {
-                if( incomplete.contains(name) ) incomplete.remove(name);
-            }
-
-        } catch ( Exception e ) {
+        } catch ( Exception e ){
             e.printStackTrace();
         }
 
