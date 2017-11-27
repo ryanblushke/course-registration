@@ -4,13 +4,30 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :::p, comp tbdPaneRegistration::::889:x, space :::p}}"
-			"$verticalGroup": "par l {comp tbdPaneRegistration::t::583:x}"
+			"$horizontalGroup": "par l {seq {space :::p, comp tbdPaneRegistration:::::x, space :p:27:p}}"
+			"$verticalGroup": "par l {comp tbdPaneRegistration::t:::x}"
 		} ) {
 			name: "this"
 			"title": "Course Registation Tool"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tbdPaneRegistration"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+					name: "pnlWelcome"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "lblWelcome"
+						"text": "Welcome To The Course Registration Tool"
+					} )
+					add( new FormComponent( "com.jformdesigner.designer.wrapper.VSpacer" ) {
+						name: "vSpacer1"
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "simYearBtn"
+						"text": "Simulate End Of School Year"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "simYearBtnClicked", true ) )
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Welcome"
+				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
 					"$horizontalGroup": "par l {seq l {space :::p, par l {seq {par l {comp lblTerm1Schedule:::p::p, comp scrollPaneForTermOneSchedule:::p:420:p}, space u:::p, par l {comp scrollPaneForTermTwoSchedule::::0:x, seq {comp lblTerm2Schedule:::p::p, space :0:0:x}}}, seq {par l:::p {comp btnRefreshAdd:::::x, comp scrlPaneInitialAdd:::p:169:p}, space s:::p, comp scrlPaneViewAdd:::p:331:p, space :::p, par l {comp btnInitialAdd:::p:85:p, comp btnInitialRemove:::::x}, space u:::x, par l {comp btnRegister:::p:231:p, comp scrlPaneConfirmAdd:::p:231:p}}}, space :p:10:p}}"
 					"$verticalGroup": "par l {seq {space :::p, par l {par l:l::p {comp scrlPaneInitialAdd::l:::x, comp scrlPaneViewAdd::t:p:179:p, comp scrlPaneConfirmAdd::t:::x}, seq l {space :p:32:p, comp btnInitialAdd:::p:41:p, space :p:45:p, comp btnInitialRemove:::p:40:p}}, space :::p, par l {comp btnRefreshAdd:::p::p, comp btnRegister:::p::p}, space :::x, par b {comp lblTerm1Schedule::b:p::p, comp lblTerm2Schedule::b:p::p}, space :::p, par t:::p {comp scrollPaneForTermTwoSchedule::::280:x, comp scrollPaneForTermOneSchedule::::280:x}, space :::p}}"
@@ -179,23 +196,6 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Degree Progress"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
-					name: "pnlWelcome"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "lblWelcome"
-						"text": "Welcome To The Course Registration Tool"
-					} )
-					add( new FormComponent( "com.jformdesigner.designer.wrapper.VSpacer" ) {
-						name: "vSpacer1"
-					} )
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "simYearBtn"
-						"text": "Simulate End Of School Year"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "simYearBtnClicked", true ) )
-					} )
-				}, new FormLayoutConstraints( null ) {
-					"title": "Welcome"
 				} )
 			} )
 		}, new FormLayoutConstraints( null ) {

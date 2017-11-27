@@ -345,7 +345,10 @@ public class registrationToolWindow extends JFrame {
     }
 
     private void simYearBtnClicked(ActionEvent e) {
+        BDSM.simYear(nsid);
 
+        BDSM.updateSchedulesFromDB(nsid);
+        updateTables();
     }
 
 
@@ -353,6 +356,10 @@ public class registrationToolWindow extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Lane Larochelle
         tbdPaneRegistration = new JTabbedPane();
+        pnlWelcome = new JPanel();
+        lblWelcome = new JLabel();
+        vSpacer1 = new JPanel(null);
+        simYearBtn = new JButton();
         pnlAddClass = new JPanel();
         scrlPaneInitialAdd = new JScrollPane();
         listInitialAdd = new JList();
@@ -394,10 +401,6 @@ public class registrationToolWindow extends JFrame {
         label_incomplete = new JLabel();
         label1 = new JLabel();
         degreeProgressBar = new JProgressBar();
-        pnlWelcome = new JPanel();
-        lblWelcome = new JLabel();
-        vSpacer1 = new JPanel(null);
-        simYearBtn = new JButton();
 
         //======== this ========
         setTitle("Course Registation Tool");
@@ -406,16 +409,32 @@ public class registrationToolWindow extends JFrame {
         //======== tbdPaneRegistration ========
         {
 
-            //======== pnlAddClass ========
+            //======== pnlWelcome ========
             {
 
                 // JFormDesigner evaluation mark
-                pnlAddClass.setBorder(new javax.swing.border.CompoundBorder(
+                pnlWelcome.setBorder(new javax.swing.border.CompoundBorder(
                     new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
                         "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
                         javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), pnlAddClass.getBorder())); pnlAddClass.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                        java.awt.Color.red), pnlWelcome.getBorder())); pnlWelcome.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
+                pnlWelcome.setLayout(new FlowLayout());
+
+                //---- lblWelcome ----
+                lblWelcome.setText("Welcome To The Course Registration Tool");
+                pnlWelcome.add(lblWelcome);
+                pnlWelcome.add(vSpacer1);
+
+                //---- simYearBtn ----
+                simYearBtn.setText("Simulate End Of School Year");
+                simYearBtn.addActionListener(e -> simYearBtnClicked(e));
+                pnlWelcome.add(simYearBtn);
+            }
+            tbdPaneRegistration.addTab("Welcome", pnlWelcome);
+
+            //======== pnlAddClass ========
+            {
 
                 //======== scrlPaneInitialAdd ========
                 {
@@ -764,22 +783,6 @@ public class registrationToolWindow extends JFrame {
                 );
             }
             tbdPaneRegistration.addTab("Degree Progress", pnlDegProg);
-
-            //======== pnlWelcome ========
-            {
-                pnlWelcome.setLayout(new FlowLayout());
-
-                //---- lblWelcome ----
-                lblWelcome.setText("Welcome To The Course Registration Tool");
-                pnlWelcome.add(lblWelcome);
-                pnlWelcome.add(vSpacer1);
-
-                //---- simYearBtn ----
-                simYearBtn.setText("Simulate End Of School Year");
-                simYearBtn.addActionListener(e -> simYearBtnClicked(e));
-                pnlWelcome.add(simYearBtn);
-            }
-            tbdPaneRegistration.addTab("Welcome", pnlWelcome);
         }
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -788,12 +791,12 @@ public class registrationToolWindow extends JFrame {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(tbdPaneRegistration, GroupLayout.DEFAULT_SIZE, 889, Short.MAX_VALUE)
-                    .addContainerGap())
+                    .addComponent(tbdPaneRegistration)
+                    .addGap(27, 27, 27))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
-                .addComponent(tbdPaneRegistration, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+                .addComponent(tbdPaneRegistration, GroupLayout.Alignment.TRAILING)
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -803,6 +806,10 @@ public class registrationToolWindow extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Lane Larochelle
     private JTabbedPane tbdPaneRegistration;
+    private JPanel pnlWelcome;
+    private JLabel lblWelcome;
+    private JPanel vSpacer1;
+    private JButton simYearBtn;
     private JPanel pnlAddClass;
     private JScrollPane scrlPaneInitialAdd;
     private JList listInitialAdd;
@@ -844,9 +851,5 @@ public class registrationToolWindow extends JFrame {
     private JLabel label_incomplete;
     private JLabel label1;
     private JProgressBar degreeProgressBar;
-    private JPanel pnlWelcome;
-    private JLabel lblWelcome;
-    private JPanel vSpacer1;
-    private JButton simYearBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

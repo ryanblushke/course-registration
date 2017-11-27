@@ -1504,4 +1504,91 @@ public class Driver {
         return totalAffectedCourses;
 
     }
+
+    /**
+     * simYear() takes all the courses all students are taking and moves them to the completed table //
+     * to expand this later we will need a grades table which records each course and students corresponding grade and sorts to
+     * completed or failed depending on what that course considers a failing grade
+     */
+    public void simYear(String nsid){
+
+        LinkedList<String>  addToCompleted = new LinkedList<>();
+
+        try {
+            String getCompleted = ("SELECT * FROM Completed WHERE NSID = ?");
+            String TakingT1 = ("SELECT * FROM Taking_T1 WHERE NSID = ?");
+            String TakingT2 = ("SELECT * FROM Taking_T2 WHERE NSID = ?");
+
+            PreparedStatement PrepStateCompleted = this.connection.prepareStatement(getCompleted, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            PrepStateCompleted.setString(1, nsid);
+            ResultSet CompletedResult = PrepStateCompleted.executeQuery();
+
+            PreparedStatement PrepStateTakingT1= this.connection.prepareStatement(TakingT1, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            PrepStateTakingT1.setString(1, nsid);
+            ResultSet TakingT1Result = PrepStateTakingT1.executeQuery();
+
+            PreparedStatement PrepStateTakingT2 = this.connection.prepareStatement(TakingT2, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            PrepStateTakingT2.setString(1, nsid);
+            ResultSet TakingT2Result = PrepStateTakingT2.executeQuery();
+
+            if (TakingT1Result.next()){
+                for (int i = 2; i <= 18; i++){
+                    String getClassName = ("SELECT ClassName FROM Classes WHERE ClassID = ?");
+                    PreparedStatement PrepStateClassName = this.connection.prepareStatement(getClassName);
+                    PrepStateClassName.setInt(1, TakingT1Result.getInt(i));
+                    ResultSet ClassNameResult = PrepStateClassName.executeQuery();
+
+                    if (ClassNameResult.next()) {
+                        addToCompleted.add(ClassNameResult.getString("ClassName"));
+                        TakingT1Result.updateNull(i);
+                    }
+                }
+            }
+
+            TakingT1Result.updateRow();
+            TakingT1Result.close();
+
+
+            if (TakingT2Result.next()){
+                for (int i = 2; i <= 18; i++){
+                    String getClassName1 = ("SELECT ClassName FROM Classes WHERE ClassID = ?");
+                    PreparedStatement PrepStateClassName1 = this.connection.prepareStatement(getClassName1);
+                    PrepStateClassName1.setInt(1, TakingT2Result.getInt(i));
+                    ResultSet ClassNameResult1 = PrepStateClassName1.executeQuery();
+
+                    if (ClassNameResult1.next()) {
+                        addToCompleted.add(ClassNameResult1.getString("ClassName"));
+                        TakingT2Result.updateNull(i);
+                    }
+                }
+            }
+
+            TakingT2Result.updateRow();
+            TakingT2Result.close();
+
+            if(!addToCompleted.isEmpty()){
+                if (CompletedResult.next()) {
+                    for (int i =2; i<= 51; i ++){
+
+                        if(addToCompleted.isEmpty()){
+                            break;
+                        }
+
+                        if (CompletedResult.getString(i) == null){
+                            CompletedResult.updateString(i,addToCompleted.pop());
+                        }
+                    }
+                    CompletedResult.updateRow();
+                    CompletedResult.close();
+                }
+            }
+        }
+        catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    }
 }
