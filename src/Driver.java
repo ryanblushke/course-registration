@@ -1638,6 +1638,96 @@ public class Driver {
             TakingT2Result.updateRow();
             TakingT2Result.close();
 
+            // -------------------------------------------------------------------- CHECK FOR SPECIAL CLASSES BEGIN
+            String ScienceElectiveSQL = "SELECT ClassName FROM ScienceElective WHERE ClassName = ?";
+            String JuniorHumanitiesSQL = "SELECT ClassName FROM JuniorHumanities WHERE ClassName = ?";
+            String SeniorHumanitiesSQL = "SELECT ClassName FROM SeniorHumanities WHERE ClassName = ?";
+            String ComplementarySQL = "SELECT ClassName FROM Complementary WHERE ClassName = ?";
+            String StreamElecSQL = "SELECT ClassName FROM StreamElec WHERE ClassName = ?";
+            String StreamElec1SQL = "SELECT ClassName FROM StreamElec1 WHERE ClassName = ?";
+            String StreamElec2SQL = "SELECT ClassName FROM StreamElec2 WHERE ClassName = ?";
+            String StreamElec3SQL = "SELECT ClassName FROM StreamElec3 WHERE ClassName = ?";
+            String StreamElec4SQL = "SELECT ClassName FROM StreamElec4 WHERE ClassName = ?";
+
+            String UserInfoSQL = "SELECT * FROM Users WhERE NSID = ?";
+            PreparedStatement PrepStateUserInfo = this.connection.prepareStatement(UserInfoSQL, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            PrepStateUserInfo.setString( 1, nsid );
+            ResultSet UserInfoResults = PrepStateUserInfo.executeQuery();
+
+            if( UserInfoResults.next() ) {
+
+                for (int i = 0; i < addToCompleted.size(); i++) {
+                    PreparedStatement PrepStateScienceElective = this.connection.prepareStatement(ScienceElectiveSQL);
+                    PrepStateScienceElective.setString(1, addToCompleted.get(i));
+                    ResultSet ScienceElectiveResult = PrepStateScienceElective.executeQuery();
+                    if (ScienceElectiveResult.next()) {
+                        UserInfoResults.updateBoolean("ScienceElective", true );
+                    }
+
+                    PreparedStatement PrepStateJuniorHumanities = this.connection.prepareStatement(JuniorHumanitiesSQL);
+                    PrepStateJuniorHumanities.setString(1, addToCompleted.get(i));
+                    ResultSet JuniorHumanitiesResult = PrepStateJuniorHumanities.executeQuery();
+                    if( JuniorHumanitiesResult.next() ){
+                        UserInfoResults.updateBoolean( "JuniorHumanities", true );
+                    }
+
+                    PreparedStatement PrepStateSeniorHumanities = this.connection.prepareStatement(SeniorHumanitiesSQL);
+                    PrepStateSeniorHumanities.setString(1, addToCompleted.get(i));
+                    ResultSet SeniorHumanitiesResult = PrepStateSeniorHumanities.executeQuery();
+                    if( SeniorHumanitiesResult.next() ){
+                        UserInfoResults.updateBoolean("SeniorHumanities", true );
+                    }
+
+                    PreparedStatement PrepStateComplementary = this.connection.prepareStatement(ComplementarySQL);
+                    PrepStateComplementary.setString(1, addToCompleted.get(i));
+                    ResultSet ComplementaryResult= PrepStateComplementary.executeQuery();
+                    if( ComplementaryResult.next() ){
+                        UserInfoResults.updateBoolean("Complementary", true);
+                    }
+
+                    PreparedStatement PrepStateStreamElec = this.connection.prepareStatement(StreamElecSQL);
+                    PrepStateStreamElec.setString(1, addToCompleted.get(i));
+                    ResultSet StreamElecResult = PrepStateStreamElec.executeQuery();
+                    if( StreamElecResult.next() ){
+                        UserInfoResults.updateBoolean("StreamElec", true);
+                    }
+
+                    PreparedStatement PrepStateStreamElec1 = this.connection.prepareStatement(StreamElec1SQL);
+                    PrepStateStreamElec1.setString(1, addToCompleted.get(i));
+                    ResultSet StreamElec1Result = PrepStateStreamElec1.executeQuery();
+                    if( StreamElec1Result.next() ){
+                        UserInfoResults.updateBoolean("StreamElec1", true);
+                    }
+
+                    PreparedStatement PrepStateStreamElec2 = this.connection.prepareStatement(StreamElec2SQL);
+                    PrepStateStreamElec2.setString(1, addToCompleted.get(i));
+                    ResultSet StreamElec2Result = PrepStateStreamElec2.executeQuery();
+                    if( StreamElec2Result.next() ){
+                        UserInfoResults.updateBoolean("StreamElec2", true);
+                    }
+
+                    PreparedStatement PrepStateStreamElec3 = this.connection.prepareStatement(StreamElec3SQL);
+                    PrepStateStreamElec3.setString(1, addToCompleted.get(i));
+                    ResultSet StreamElec3Result = PrepStateStreamElec3.executeQuery();
+                    if( StreamElec3Result.next() ){
+                        UserInfoResults.updateBoolean("StreamElec3", true);
+                    }
+
+                    PreparedStatement PrepStateStreamElec4 = this.connection.prepareStatement(StreamElec4SQL);
+                    PrepStateStreamElec4.setString(1, addToCompleted.get(i));
+                    ResultSet StreamElec4Result = PrepStateStreamElec4.executeQuery();
+                    if( StreamElec4Result.next() ){
+                        UserInfoResults.updateBoolean("StreamElec4", true);
+                    }
+                }
+
+                UserInfoResults.updateRow();
+                UserInfoResults.close();
+            }
+            // -------------------------------------------------------------------- CHECK FOR SPECIAL CLASSES END
+
+            // -------------------------------------------------------------------- ADD CLASSES TO COMPLETED BEGIN
             if(!addToCompleted.isEmpty()){
                 if (CompletedResult.next()) {
                     for (int i =2; i<= 51; i ++){
@@ -1654,13 +1744,14 @@ public class Driver {
                     CompletedResult.close();
                 }
             }
+            // -------------------------------------------------------------------- ADD CLASSES TO COMPLETED END
 
             // ------------------------------------------------------------------------ UPDATE CREDIT UNITS BEGIN
             String getUserSQL = "SELECT * FROM Users WHERE NSID = ?";
-            PreparedStatement PrepStateUserInfo = this.connection.prepareStatement(getUserSQL, ResultSet.TYPE_SCROLL_INSENSITIVE,
+            PreparedStatement PrepStateUserInfoAgain = this.connection.prepareStatement(getUserSQL, ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-            PrepStateUserInfo.setString(1, nsid);
-            ResultSet UserResult = PrepStateUserInfo.executeQuery();
+            PrepStateUserInfoAgain.setString(1, nsid);
+            ResultSet UserResult = PrepStateUserInfoAgain.executeQuery();
 
             if( UserResult.next() ){
                 int CU = UserResult.getInt("CreditUnits");
@@ -1673,6 +1764,9 @@ public class Driver {
                 UserResult.updateInt("EnrolledClass", 0);
                 UserResult.updateRow();
             }
+
+            PrepStateUserInfoAgain.close();
+            UserResult.close();
             // ------------------------------------------------------------------------ UPDATE CREDIT UNITS ENDS
         }
         catch (Exception e) {
