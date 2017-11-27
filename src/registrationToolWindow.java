@@ -354,7 +354,7 @@ public class registrationToolWindow extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - John Smith
+        // Generated using JFormDesigner Evaluation license - Lane Larochelle
         tbdPaneRegistration = new JTabbedPane();
         pnlWelcome = new JPanel();
         lblWelcome = new JLabel();
@@ -433,23 +433,21 @@ public class registrationToolWindow extends JFrame {
                         .addGroup(pnlWelcomeLayout.createSequentialGroup()
                             .addGroup(pnlWelcomeLayout.createParallelGroup()
                                 .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                                    .addGap(220, 220, 220)
+                                    .addGap(289, 289, 289)
                                     .addComponent(lblWelcome))
                                 .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                                    .addGap(239, 239, 239)
+                                    .addGap(327, 327, 327)
                                     .addComponent(simYearBtn)))
-                            .addGap(425, 425, 425))
+                            .addGap(356, 356, 356))
                 );
                 pnlWelcomeLayout.setVerticalGroup(
                     pnlWelcomeLayout.createParallelGroup()
                         .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                            .addGap(8, 8, 8)
+                            .addContainerGap()
                             .addComponent(lblWelcome)
-                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
                             .addComponent(simYearBtn)
-                            .addGap(121, 121, 121))
+                            .addGap(128, 128, 128))
                 );
             }
             tbdPaneRegistration.addTab("Welcome", pnlWelcome);
@@ -701,7 +699,7 @@ public class registrationToolWindow extends JFrame {
                                     .addGroup(pnlDropClassLayout.createParallelGroup()
                                         .addComponent(lblTerm2Schedule2)
                                         .addComponent(scrollPaneTermTwoSchedule2, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))))
-                            .addContainerGap(16, Short.MAX_VALUE))
+                            .addContainerGap(48, Short.MAX_VALUE))
                 );
                 pnlDropClassLayout.setVerticalGroup(
                     pnlDropClassLayout.createParallelGroup()
@@ -773,7 +771,7 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlDegProgLayout.createParallelGroup()
                                 .addComponent(scrlDegProgIncomplete, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label_incomplete, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                             .addGroup(pnlDegProgLayout.createParallelGroup()
                                 .addGroup(GroupLayout.Alignment.TRAILING, pnlDegProgLayout.createSequentialGroup()
                                     .addComponent(btnRefreshDegProg, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
@@ -784,7 +782,7 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlDegProgLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                 .addComponent(label1, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                                 .addComponent(scrlDegProgComplete, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
-                            .addContainerGap(173, Short.MAX_VALUE))
+                            .addContainerGap(191, Short.MAX_VALUE))
                 );
                 pnlDegProgLayout.setVerticalGroup(
                     pnlDegProgLayout.createParallelGroup()
@@ -825,7 +823,7 @@ public class registrationToolWindow extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - John Smith
+    // Generated using JFormDesigner Evaluation license - Lane Larochelle
     private JTabbedPane tbdPaneRegistration;
     private JPanel pnlWelcome;
     private JLabel lblWelcome;
