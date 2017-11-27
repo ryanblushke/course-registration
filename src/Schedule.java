@@ -142,6 +142,9 @@ public class Schedule {
                 else if( (classFromList.getStartTime() >= c.getStartTime()) && (classFromList.getStartTime() <= c.getEndTime()) && (scheduleConflict == null) ) {
                     scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();
                 }
+                else if( (c.getStartTime() >= classFromList.getStartTime()) && (c.getStartTime() <= classFromList.getEndTime()) && (scheduleConflict == null) ) {
+                    scheduleConflict = "Error: " + c.getName() + " overlaps with the time of " + classFromList.getName();
+                }
                 // Scheduled right when a class ends
                 else if( classFromList.getEndTime() == c.getStartTime() && (scheduleConflict == null) ) {
                     scheduleConflict = "Error: " + classFromList.getName() + " overlaps with the time of " + c.getName();

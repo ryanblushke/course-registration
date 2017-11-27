@@ -852,7 +852,8 @@ public class Driver {
             }
         }
 
-        updateSchedulesFromDB(nsid);
+        if( (error == null) ) updateSchedulesFromDB(nsid);
+
 
         return error;
     }
@@ -1215,6 +1216,39 @@ public class Driver {
             String classReplacement16 = "UPDATE Taking_T1 SET T16 =NULL WHERE (NSID = ? AND T16= ?)" ;
             String classReplacement17 = "UPDATE Taking_T1 SET T17 =NULL WHERE (NSID = ? AND T17= ?)" ;
 
+            // ------------------------------------------------------------------------ UPDATE CREDIT UNITS BEGIN
+            String checkIfClassIsInTermSQL = "SELECT * FROM Taking_T1 WHERE NSID = ?";
+            PreparedStatement PrepStateClassInTerm = this.connection.prepareStatement(checkIfClassIsInTermSQL);
+            PrepStateClassInTerm.setString(1, nsid);
+            ResultSet resultClassInTerm = PrepStateClassInTerm.executeQuery();
+
+            boolean containsCourse = false;
+            if( resultClassInTerm.next() ){
+                for( int i = 2; i <= 18; i++ ){
+                    if( resultClassInTerm.getInt(i) == ClassID ){ containsCourse = true; }
+                }
+            }
+
+            if( containsCourse ) {
+                String getUserSQL = "SELECT * FROM Users WHERE NSID = ?";
+                PreparedStatement PrepStateUserInfo = this.connection.prepareStatement(getUserSQL, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                PrepStateUserInfo.setString(1, nsid);
+                ResultSet UserResult = PrepStateUserInfo.executeQuery();
+
+                if (UserResult.next()) {
+                    int CU = UserResult.getInt("RegisteredCU_T1");
+                    Course c = getCourseGivenIDNumber(ClassID);
+                    CU = CU - c.getClassCU();
+                    UserResult.updateInt("RegisteredCU_T1", CU);
+                    UserResult.updateInt("EnrolledClass", UserResult.getInt("EnrolledClass") - 1);
+                    UserResult.updateRow();
+                }
+                PrepStateUserInfo.close();
+                UserResult.close();
+            }
+            // ------------------------------------------------------------------------ UPDATE CREDIT UNITS ENDS
+
             PreparedStatement testReplace = this.connection.prepareStatement(classReplacement1);
             testReplace.setString(1, nsid);
             testReplace.setInt(2, ClassID);
@@ -1334,6 +1368,39 @@ public class Driver {
             String classReplacement16 = "UPDATE Taking_T2 SET T16 =NULL WHERE (NSID = ? AND T16= ?)" ;
             String classReplacement17 = "UPDATE Taking_T2 SET T17 =NULL WHERE (NSID = ? AND T17= ?)" ;
 
+            // ------------------------------------------------------------------------ UPDATE CREDIT UNITS BEGIN
+            String checkIfClassIsInTermSQL = "SELECT * FROM Taking_T2 WHERE NSID = ?";
+            PreparedStatement PrepStateClassInTerm = this.connection.prepareStatement(checkIfClassIsInTermSQL);
+            PrepStateClassInTerm.setString(1, nsid);
+            ResultSet resultClassInTerm = PrepStateClassInTerm.executeQuery();
+
+            boolean containsCourse = false;
+            if( resultClassInTerm.next() ){
+                for( int i = 2; i <= 18; i++ ){
+                    if( resultClassInTerm.getInt(i) == ClassID ){ containsCourse = true; }
+                }
+            }
+
+            if( containsCourse ) {
+                String getUserSQL = "SELECT * FROM Users WHERE NSID = ?";
+                PreparedStatement PrepStateUserInfo = this.connection.prepareStatement(getUserSQL, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE);
+                PrepStateUserInfo.setString(1, nsid);
+                ResultSet UserResult = PrepStateUserInfo.executeQuery();
+
+                if (UserResult.next()) {
+                    int CU = UserResult.getInt("RegisteredCU_T2");
+                    Course c = getCourseGivenIDNumber(ClassID);
+                    CU = CU - c.getClassCU();
+                    UserResult.updateInt("RegisteredCU_T2", CU);
+                    UserResult.updateInt("EnrolledClass", UserResult.getInt("EnrolledClass") - 1);
+                    UserResult.updateRow();
+                }
+                PrepStateUserInfo.close();
+                UserResult.close();
+            }
+            // ------------------------------------------------------------------------ UPDATE CREDIT UNITS ENDS
+
             PreparedStatement testReplace = this.connection.prepareStatement(classReplacement1);
             testReplace.setString(1, nsid);
             testReplace.setInt(2, ClassID);
@@ -1418,7 +1485,6 @@ public class Driver {
             testReplace.setString(1, nsid);
             testReplace.setInt(2, ClassID);
             testReplace.executeUpdate();
-
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1513,6 +1579,7 @@ public class Driver {
     public void simYear(String nsid){
 
         LinkedList<String>  addToCompleted = new LinkedList<>();
+        LinkedList<Course> listOfCourses = new LinkedList<>();
 
         try {
             String getCompleted = ("SELECT * FROM Completed WHERE NSID = ?");
@@ -1536,12 +1603,13 @@ public class Driver {
 
             if (TakingT1Result.next()){
                 for (int i = 2; i <= 18; i++){
-                    String getClassName = ("SELECT ClassName FROM Classes WHERE ClassID = ?");
+                    String getClassName = ("SELECT * FROM Classes WHERE ClassID = ?");
                     PreparedStatement PrepStateClassName = this.connection.prepareStatement(getClassName);
                     PrepStateClassName.setInt(1, TakingT1Result.getInt(i));
                     ResultSet ClassNameResult = PrepStateClassName.executeQuery();
 
                     if (ClassNameResult.next()) {
+                        listOfCourses.add(getCourseGivenIDNumber(TakingT1Result.getInt(i)));
                         addToCompleted.add(ClassNameResult.getString("ClassName"));
                         TakingT1Result.updateNull(i);
                     }
@@ -1554,12 +1622,13 @@ public class Driver {
 
             if (TakingT2Result.next()){
                 for (int i = 2; i <= 18; i++){
-                    String getClassName1 = ("SELECT ClassName FROM Classes WHERE ClassID = ?");
+                    String getClassName1 = ("SELECT * FROM Classes WHERE ClassID = ?");
                     PreparedStatement PrepStateClassName1 = this.connection.prepareStatement(getClassName1);
                     PrepStateClassName1.setInt(1, TakingT2Result.getInt(i));
                     ResultSet ClassNameResult1 = PrepStateClassName1.executeQuery();
 
                     if (ClassNameResult1.next()) {
+                        listOfCourses.add(getCourseGivenIDNumber(TakingT2Result.getInt(i)));
                         addToCompleted.add(ClassNameResult1.getString("ClassName"));
                         TakingT2Result.updateNull(i);
                     }
@@ -1585,6 +1654,26 @@ public class Driver {
                     CompletedResult.close();
                 }
             }
+
+            // ------------------------------------------------------------------------ UPDATE CREDIT UNITS BEGIN
+            String getUserSQL = "SELECT * FROM Users WHERE NSID = ?";
+            PreparedStatement PrepStateUserInfo = this.connection.prepareStatement(getUserSQL, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            PrepStateUserInfo.setString(1, nsid);
+            ResultSet UserResult = PrepStateUserInfo.executeQuery();
+
+            if( UserResult.next() ){
+                int CU = UserResult.getInt("CreditUnits");
+                for( Course c : listOfCourses ){
+                    CU = CU + c.getClassCU();
+                }
+                UserResult.updateInt("CreditUnits", CU);
+                UserResult.updateInt("RegisteredCU_T1", 0);
+                UserResult.updateInt("RegisteredCU_T2", 0);
+                UserResult.updateInt("EnrolledClass", 0);
+                UserResult.updateRow();
+            }
+            // ------------------------------------------------------------------------ UPDATE CREDIT UNITS ENDS
         }
         catch (Exception e) {
         e.printStackTrace();
