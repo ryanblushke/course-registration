@@ -11,14 +11,14 @@ new FormModel {
 			"title": "Course Registation Tool"
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tbdPaneRegistration"
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq {par l {seq {space :220:220:p, comp lblWelcome:::p::p}, seq l {space :p:239:p, comp simYearBtn:::p::p}}, space :p:425:p}}"
+					"$verticalGroup": "par l {seq {space :8:8:p, comp lblWelcome:::p::p, space :513::x}, seq l {space :0:0:x, comp simYearBtn:::p::p, space :p:121:p}}"
+				} ) {
 					name: "pnlWelcome"
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "lblWelcome"
 						"text": "Welcome To The Course Registration Tool"
-					} )
-					add( new FormComponent( "com.jformdesigner.designer.wrapper.VSpacer" ) {
-						name: "vSpacer1"
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "simYearBtn"
@@ -98,7 +98,7 @@ new FormModel {
 					"title": "Add Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :::p, par l:::p {seq {comp scrlInitialDrop:::p:512:p, space u:::p, par l:::p {comp btnInitialDrop:::::x, comp btnInitialRemove2:::::x}, space u:::p, comp scrollPane1:::p:231:p}, seq {comp btnRefreshDrop:::p:169:p, space :::x, comp btnConfirmDrop:::p:231:p}, seq l {par l {comp scrollPaneTermOneSchedule2::l:p:420:p, comp lblTerm1Schedule2::l:p::p}, space s:::p, par l {comp lblTerm2Schedule2:::p::p, comp scrollPaneTermTwoSchedule2::::0:x}}}, space ::8:x}}"
+					"$horizontalGroup": "par l {seq {space :::p, par l:::p {seq {comp scrlInitialDrop:::p:512:p, space u:::p, par l:::p {comp btnInitialDrop:::::x, comp btnInitialRemove2:::::x}, space u:::p, comp scrollPane1:::p:231:p}, seq {comp btnRefreshDrop:::p:169:p, space :::x, comp btnConfirmDrop:::p:231:p}, seq l {par l {comp scrollPaneTermOneSchedule2::l:p:420:p, comp lblTerm1Schedule2::l:p::p}, space s:::p, par l {comp lblTerm2Schedule2:::p::p, comp scrollPaneTermTwoSchedule2::::0:x}}}, space ::16:x}}"
 					"$verticalGroup": "par l {seq l {par l {seq {space :::p, par l {comp scrollPane1:::p:179:p, comp scrlInitialDrop:::p:179:p}}, seq l {space :p:38:p, comp btnInitialDrop:::p:41:p, space :p:46:p, comp btnInitialRemove2:::p:40:p}}, space :::p, par l {comp btnRefreshDrop:::p::p, comp btnConfirmDrop:::p::p}, space :::x, par b {comp lblTerm1Schedule2::b:p::p, comp lblTerm2Schedule2::b:p::p}, space :::p, par l:::p {comp scrollPaneTermOneSchedule2::::280:x, comp scrollPaneTermTwoSchedule2::::280:x}, space :::p}}"
 				} ) {
 					name: "pnlDropClass"

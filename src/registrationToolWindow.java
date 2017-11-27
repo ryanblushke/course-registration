@@ -354,11 +354,10 @@ public class registrationToolWindow extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Lane Larochelle
+        // Generated using JFormDesigner Evaluation license - John Smith
         tbdPaneRegistration = new JTabbedPane();
         pnlWelcome = new JPanel();
         lblWelcome = new JLabel();
-        vSpacer1 = new JPanel(null);
         simYearBtn = new JButton();
         pnlAddClass = new JPanel();
         scrlPaneInitialAdd = new JScrollPane();
@@ -419,17 +418,39 @@ public class registrationToolWindow extends JFrame {
                         javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
                         java.awt.Color.red), pnlWelcome.getBorder())); pnlWelcome.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-                pnlWelcome.setLayout(new FlowLayout());
 
                 //---- lblWelcome ----
                 lblWelcome.setText("Welcome To The Course Registration Tool");
-                pnlWelcome.add(lblWelcome);
-                pnlWelcome.add(vSpacer1);
 
                 //---- simYearBtn ----
                 simYearBtn.setText("Simulate End Of School Year");
                 simYearBtn.addActionListener(e -> simYearBtnClicked(e));
-                pnlWelcome.add(simYearBtn);
+
+                GroupLayout pnlWelcomeLayout = new GroupLayout(pnlWelcome);
+                pnlWelcome.setLayout(pnlWelcomeLayout);
+                pnlWelcomeLayout.setHorizontalGroup(
+                    pnlWelcomeLayout.createParallelGroup()
+                        .addGroup(pnlWelcomeLayout.createSequentialGroup()
+                            .addGroup(pnlWelcomeLayout.createParallelGroup()
+                                .addGroup(pnlWelcomeLayout.createSequentialGroup()
+                                    .addGap(220, 220, 220)
+                                    .addComponent(lblWelcome))
+                                .addGroup(pnlWelcomeLayout.createSequentialGroup()
+                                    .addGap(239, 239, 239)
+                                    .addComponent(simYearBtn)))
+                            .addGap(425, 425, 425))
+                );
+                pnlWelcomeLayout.setVerticalGroup(
+                    pnlWelcomeLayout.createParallelGroup()
+                        .addGroup(pnlWelcomeLayout.createSequentialGroup()
+                            .addGap(8, 8, 8)
+                            .addComponent(lblWelcome)
+                            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlWelcomeLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(simYearBtn)
+                            .addGap(121, 121, 121))
+                );
             }
             tbdPaneRegistration.addTab("Welcome", pnlWelcome);
 
@@ -680,7 +701,7 @@ public class registrationToolWindow extends JFrame {
                                     .addGroup(pnlDropClassLayout.createParallelGroup()
                                         .addComponent(lblTerm2Schedule2)
                                         .addComponent(scrollPaneTermTwoSchedule2, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))))
-                            .addContainerGap(8, Short.MAX_VALUE))
+                            .addContainerGap(16, Short.MAX_VALUE))
                 );
                 pnlDropClassLayout.setVerticalGroup(
                     pnlDropClassLayout.createParallelGroup()
@@ -804,11 +825,10 @@ public class registrationToolWindow extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Lane Larochelle
+    // Generated using JFormDesigner Evaluation license - John Smith
     private JTabbedPane tbdPaneRegistration;
     private JPanel pnlWelcome;
     private JLabel lblWelcome;
-    private JPanel vSpacer1;
     private JButton simYearBtn;
     private JPanel pnlAddClass;
     private JScrollPane scrlPaneInitialAdd;
