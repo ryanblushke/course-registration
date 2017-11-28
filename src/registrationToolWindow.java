@@ -431,23 +431,21 @@ public class registrationToolWindow extends JFrame {
                 pnlWelcomeLayout.setHorizontalGroup(
                     pnlWelcomeLayout.createParallelGroup()
                         .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                            .addGroup(pnlWelcomeLayout.createParallelGroup()
-                                .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                                    .addGap(289, 289, 289)
-                                    .addComponent(lblWelcome))
-                                .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                                    .addGap(327, 327, 327)
-                                    .addComponent(simYearBtn)))
-                            .addGap(356, 356, 356))
+                            .addGap(316, 316, 316)
+                            .addComponent(lblWelcome)
+                            .addGap(329, 329, 329))
+                        .addGroup(GroupLayout.Alignment.TRAILING, pnlWelcomeLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(simYearBtn)
+                            .addGap(341, 341, 341))
                 );
                 pnlWelcomeLayout.setVerticalGroup(
                     pnlWelcomeLayout.createParallelGroup()
                         .addGroup(pnlWelcomeLayout.createSequentialGroup()
-                            .addContainerGap()
                             .addComponent(lblWelcome)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 355, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 362, Short.MAX_VALUE)
                             .addComponent(simYearBtn)
-                            .addGap(128, 128, 128))
+                            .addGap(127, 127, 127))
                 );
             }
             tbdPaneRegistration.addTab("Welcome", pnlWelcome);
@@ -771,7 +769,7 @@ public class registrationToolWindow extends JFrame {
                             .addGroup(pnlDegProgLayout.createParallelGroup()
                                 .addComponent(scrlDegProgIncomplete, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(label_incomplete, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                             .addGroup(pnlDegProgLayout.createParallelGroup()
                                 .addGroup(GroupLayout.Alignment.TRAILING, pnlDegProgLayout.createSequentialGroup()
                                     .addComponent(btnRefreshDegProg, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)

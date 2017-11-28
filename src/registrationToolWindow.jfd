@@ -12,8 +12,8 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tbdPaneRegistration"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {par l {seq {space :p:289:p, comp lblWelcome:::p::p}, seq l {space :p:327:p, comp simYearBtn:::p::p}}, space :p:356:p}}"
-					"$verticalGroup": "par l {seq l {space :::p, comp lblWelcome:::p::p, space ::355:x, comp simYearBtn:::p::p, space :p:128:p}}"
+					"$horizontalGroup": "par l {seq {space :p:316:p, comp lblWelcome:::p::p, space :p:329:p}, seq t {space :::p, comp simYearBtn:::p::p, space :p:341:p}}"
+					"$verticalGroup": "par l {seq l {comp lblWelcome:::p::p, space ::362:x, comp simYearBtn:::p::p, space :p:127:p}}"
 				} ) {
 					name: "pnlWelcome"
 					add( new FormComponent( "javax.swing.JLabel" ) {
@@ -160,7 +160,7 @@ new FormModel {
 					"title": "Drop Class"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq l {space :p:131:p, par l {comp scrlDegProgIncomplete:::p:168:p, comp label_incomplete:::::x}, space ::43:x, par l {seq t {comp btnRefreshDegProg:::p:188:p, space s:::p}, seq t {comp degreeProgressBar:::p::p, space :p:40:p}}, par l:::p {comp label1::::168:x, comp scrlDegProgComplete::::168:x}, space ::191:x}}"
+					"$horizontalGroup": "par l {seq l {space :p:131:p, par l {comp scrlDegProgIncomplete:::p:168:p, comp label_incomplete:::::x}, space ::44:x, par l {seq t {comp btnRefreshDegProg:::p:188:p, space s:::p}, seq t {comp degreeProgressBar:::p::p, space :p:40:p}}, par l:::p {comp label1::::168:x, comp scrlDegProgComplete::::168:x}, space ::191:x}}"
 					"$verticalGroup": "par l {seq t {space :::x, par t:::p {comp scrlDegProgIncomplete::::450:x, comp scrlDegProgComplete::::450:x, comp btnRefreshDegProg::t:p:40:p}, space :::p, par t {par b {comp label_incomplete::b:p::p, comp label1::b:p::p}, comp degreeProgressBar:::p::p}, space :p:55:p}}"
 				} ) {
 					name: "pnlDegProg"
