@@ -275,7 +275,7 @@ public class registrationToolWindow extends JFrame {
         enrolledCourses.addAll(BDSM.T2_Schedule_DB.getCoursesInSchedule());
 
         listInitialDrop.setListData(enrolledCourses.toArray());
-        updateTables();
+
     }
 
     private void btnInitialAddDropMouseClicked(MouseEvent e) {
